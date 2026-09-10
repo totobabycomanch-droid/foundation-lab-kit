@@ -5,6 +5,7 @@ import PurchaseOrderListView from '../views/store/PurchaseOrderListView.vue';
 
 const routes = [
   { path: '/', redirect: '/admin/company' },
+  { path: '/register', redirect: '/admin/company' },
   { path: '/admin/company', component: CompanyMasterView },
   { path: '/admin/supplier', component: SupplierRegistrationView },
   { path: '/store/purchase/order', component: PurchaseOrderListView },

@@ -99,44 +99,26 @@ def ignore_audit_storage(monkeypatch):
     monkeypatch.setattr(company, "insert_audit_log", lambda **_kwargs: None)
 
 
-@pytest.mark.asyncio
-async def test_public_registration_allows_only_new_franchise():
-    db = MemoryDb()
+def test_public_registration_route_is_not_exposed():
+    route_paths = {route.path for route in company.router.routes}
 
-    result = await company.register_franchise(
-        franchise_payload(corp_code="CLIENT-VALUE"),
-        request_with_bearer(),
-        db,
-    )
-
-    assert result["status"] == "success"
-    assert db.tables["companies"][0]["corp_code"] == "F001"
-    assert company.verify_password(
-        "branch-password", db.tables["companies"][0]["password"]
-    )
-    assert company.verify_password(
-        "branch-password", db.tables["employees"][0]["password"]
-    )
-    assert db.tables["employees"][0]["password"] != "branch-password"
+    assert "/api/v1/auth/register" not in route_paths
 
 
 @pytest.mark.asyncio
-async def test_public_registration_rejects_supplier():
+async def test_new_company_requires_password_on_server(monkeypatch):
+    async def verify_token(_token=None):
+        return {
+            "user_id": "hq-company-uuid",
+            "corp_id": "admin",
+            "corp_category": "10",
+            "role": "ADMIN",
+            "user_type": "company",
+        }
+
+    monkeypatch.setattr(company, "verify_token", verify_token)
     with pytest.raises(HTTPException) as exc_info:
-        await company.register_franchise(
-            franchise_payload(corp_category="30"),
-            request_with_bearer(),
-            DbMustNotBeUsed(),
-        )
-
-    assert exc_info.value.status_code == 403
-    assert exc_info.value.detail == "공개 가입은 가맹점만 가능합니다."
-
-
-@pytest.mark.asyncio
-async def test_new_company_requires_password_on_server():
-    with pytest.raises(HTTPException) as exc_info:
-        await company.register_franchise(
+        await company.register_company(
             franchise_payload(password=None),
             request_with_bearer(),
             DbMustNotBeUsed(),
@@ -176,6 +158,13 @@ async def test_partner_management_accepts_hq_company_bearer_token(monkeypatch):
     assert result["status"] == "success"
     assert received["token"] == "hq-token"
     assert audit_records[0]["user_id"] == "hq-company-uuid"
+    assert company.verify_password(
+        "branch-password", db.tables["companies"][0]["password"]
+    )
+    assert company.verify_password(
+        "branch-password", db.tables["employees"][0]["password"]
+    )
+    assert db.tables["employees"][0]["password"] != "branch-password"
 
 
 @pytest.mark.asyncio

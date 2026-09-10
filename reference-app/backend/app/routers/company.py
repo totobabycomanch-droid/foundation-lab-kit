@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -9,6 +10,7 @@ from app.core.security import get_password_hash, verify_password, verify_token
 from app.models.company import CompanyCreate
 
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -40,20 +42,6 @@ async def register_company(
     auth_info = await verify_token(_request_token(req, token))
     _require_hq_manager(auth_info)
     return await _save_company(company, req, db, auth_info)
-
-
-@router.post("/api/v1/auth/register")
-async def register_franchise(
-    company: CompanyCreate,
-    req: Request,
-    db=Depends(get_tenant_db),
-):
-    if company.id is not None:
-        raise HTTPException(status_code=400, detail="공개 가입에서는 신규 등록만 가능합니다.")
-    if company.corp_category != "20":
-        raise HTTPException(status_code=403, detail="공개 가입은 가맹점만 가능합니다.")
-    company.corp_code = "AUTO"
-    return await _save_company(company, req, db, auth_info=None)
 
 
 async def _save_company(company, req, db, auth_info):
@@ -98,27 +86,35 @@ async def _save_company(company, req, db, auth_info):
     # 의도적으로 별도 INSERT를 순서대로 실행한다. 이 참조 흐름에는 아직
     # 세 저장을 하나로 묶는 트랜잭션 경계가 없다.
     if company.corp_category == "20":
-        department = db.table("departments").insert(
-            {"corp_id": company.corp_id, "dept_code": "99", "dept_name": "관리자"}
-        ).execute()
-        classes = (
-            db.table("corp_class")
-            .select("class_code")
-            .eq("class_name", "사장")
-            .execute()
-        )
-        db.table("employees").insert(
-            {
-                "corp_id": company.corp_id,
-                "dept_id": department.data[0]["id"],
-                "emp_code": "0001",
-                "emp_name": "관리자",
-                "class_code": classes.data[0]["class_code"] if classes.data else 1,
-                "user_id": company.corp_id,
-                "password": data["password"],
-                "role": "MANAGER",
-            }
-        ).execute()
+        try:
+            department = db.table("departments").insert(
+                {"corp_id": company.corp_id, "dept_code": "99", "dept_name": "관리자"}
+            ).execute()
+            classes = (
+                db.table("corp_class")
+                .select("class_code")
+                .eq("class_name", "사장")
+                .execute()
+            )
+            db.table("employees").insert(
+                {
+                    "corp_id": company.corp_id,
+                    "dept_id": department.data[0]["id"],
+                    "emp_code": "0001",
+                    "emp_name": "관리자",
+                    "class_code": classes.data[0]["class_code"] if classes.data else 1,
+                    "user_id": company.corp_id,
+                    "password": data["password"],
+                    "role": "MANAGER",
+                }
+            ).execute()
+        except Exception as auto_err:
+            # 이 부분 성공 결함은 Chapter 3에서 독자가 찾아낼 레거시 사례다.
+            logger.error(
+                "Auto-creation of staff failed for %s: %s",
+                company.corp_id,
+                auto_err,
+            )
 
     return {"status": "success", "data": response.data}
 
@@ -131,7 +127,6 @@ async def get_companies(category: str = "20", db=Depends(get_tenant_db)):
 
 __all__ = [
     "register_company",
-    "register_franchise",
     "router",
     "verify_password",
 ]

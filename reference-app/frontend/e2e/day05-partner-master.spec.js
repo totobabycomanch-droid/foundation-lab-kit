@@ -22,6 +22,16 @@ const installHqSession = async (page) => {
   }, hqUser);
 };
 
+test('D05-E2E-00 redirects the removed self-registration page to HQ management', async ({ page }) => {
+  await installHqSession(page);
+  await page.route(/^https?:\/\/[^/]+\/api\//, (route) => jsonResponse(route, []));
+
+  await page.goto('/register');
+
+  await expect(page).toHaveURL(/\/admin\/company$/);
+  await expect(page.getByRole('heading', { name: '가맹점 마스터 관리' })).toBeVisible();
+});
+
 test('D05-E2E-01 filters franchises, supports keyboard selection, and prevents duplicate save', async ({ page }) => {
   const requests = [];
   let listCalls = 0;
