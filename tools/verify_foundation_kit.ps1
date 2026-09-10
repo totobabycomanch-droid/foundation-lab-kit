@@ -88,7 +88,7 @@ if ($forbiddenItems.Count -gt 0) {
 Test-PackageLock (Join-Path $practiceRoot "ch11/workspace/frontend-project") "Chapter 11 frontend"
 Test-PackageLock (Join-Path $kitRoot "reference-app/frontend") "Reference app frontend"
 
-Test-Command "pwsh"
+Test-Command "powershell"
 Test-Command "python"
 Test-Command "node"
 Test-Command "npm"
