@@ -16,3 +16,7 @@ node_modules/
 __pycache__/
 **/__pycache__/
 
+# Keep Chapter 3 review templates, but not each reader's generated AI reports.
+reference-app/review-workspace/ch03/ai-a-verdict.md
+reference-app/review-workspace/ch03/ai-b-verdict.md
+reference-app/review-workspace/ch03/comparison.md
