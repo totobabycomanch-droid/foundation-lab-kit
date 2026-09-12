@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("ch05", "ch07", "ch08", "ch09", "ch10", "ch11")]
+    [ValidateSet("ch04", "ch05", "ch07", "ch08", "ch09", "ch10", "ch11")]
     [string]$Chapter
 )
 
@@ -20,6 +20,7 @@ function Write-Check([bool]$Condition, [string]$Message) {
 }
 
 $required = @{
+    ch04 = @("AGENTS.md", "README.md", "inputs/requirements_brief.md", "inputs/unsafe_tenant_query.py", "inputs/debug_case.md")
     ch05 = @("AGENTS.md", "sql/README.md", "sql/00_initialize_lab.sql", "sql/99_reset_lab.sql")
     ch07 = @("AGENTS.md", "README.md", "requirements.txt")
     ch08 = @("project/database.py", "project/models.py", "project/_starter/database.py", "project/_starter/models.py")
@@ -43,4 +44,3 @@ if ($Chapter -in @("ch07", "ch08", "ch09", "ch10", "ch11")) {
 
 if ($script:failed) { exit 1 }
 Write-Host "$Chapter static verification passed." -ForegroundColor Green
-
