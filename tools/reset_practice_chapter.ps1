@@ -13,8 +13,8 @@ $chapterRoot = (Resolve-Path (Join-Path $kitRoot "practice-workspace/$Chapter"))
 $removeTargets = @{
     ch07 = @(
         "transaction_test.py", "race_simulation.py", "thread_race_test.py",
-        "idempotency_test.py", "statemachine_test.py", "mini_order_api.py",
-        "chaos_test.py", "order_api.py"
+        "idempotency_test.py", "statemachine_test.py", "mini_pos_api.py",
+        "mini_pos_api_test.py", "mini_pos_optional_lab.py", "mini_pos.db"
     )
     ch08 = @(
         "project/schemas.py", "project/main.py",

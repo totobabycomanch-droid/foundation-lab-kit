@@ -9,3 +9,7 @@ CREATE TABLE IF NOT EXISTS public.foundation_lab_marker (
 INSERT INTO public.foundation_lab_marker (lab_id)
 VALUES ('chapter05')
 ON CONFLICT (lab_id) DO NOTHING;
+
+SELECT lab_id
+FROM public.foundation_lab_marker
+WHERE lab_id = 'chapter05';
