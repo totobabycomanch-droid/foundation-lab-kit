@@ -13,7 +13,7 @@
 
 ## 선택 실습
 
-- `mini_pos_optional_lab.py`: 7.7의 마지막 재고 경합과 응답 유실 선택 실습
+- `mini_pos_optional_lab.py`: 7.9-1의 마지막 재고 경합과 응답 유실 준비 Lab
 - `thread_race_test.py`: 7.9-1의 DB 잠금과 실제 충돌 선택 도전
 
 선택 파일을 만들지 않아도 Chapter 7 Core를 완료할 수 있습니다. SQLite는 Python 표준
