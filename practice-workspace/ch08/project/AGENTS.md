@@ -48,6 +48,8 @@
 | 8.5 마무리 | `practice_db.py` | 키트 제공 도구. `prepare`는 없는 기초 행만 추가하고 `show`는 재고·예치금·주문 건수를 출력 |
 
 - 이름·입력·결과 형태와 위 위치를 유지하되 내부 알고리즘·SQL 매개변수 이름·테스트 보조 함수는 고정하지 않는다.
+- `parse_franchise_order_event(payload)`가 받는 요청 JSON의 키는 `franchise_id`(가맹점 번호),
+  `prod_code`(상품 코드), `qty`(수량)이다. 요청 객체의 같은 이름 필드에 검증한 값을 담는다.
 - 8.4 저장 방식은 Chapter 12의 PostgreSQL 함수(RPC)와 같은 책임을 갖도록 다음으로 고정한다.
   - 재고와 예치금은 계산된 최종값으로 덮어쓰지 않고, SQLAlchemy `text()` SQL의 조건부 UPDATE로
     변동량만 반영한다. 재고는 `stock_qty >= 요청 수량`, 예치금은 `deposit >= 주문 금액`을 WHERE에 둔다.
