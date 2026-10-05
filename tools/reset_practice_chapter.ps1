@@ -17,11 +17,11 @@ $removeTargets = @{
         "mini_pos_api_test.py", "mini_pos_optional_lab.py", "mini_pos.db"
     )
     ch08 = @(
-        "project/schemas.py", "project/main.py",
+        "project/main.py",
         "project/services/franchise_order.py",
         "project/repositories/franchise_order.py",
         "project/routers/franchise_order.py",
-        "project/tests/test_pure_logic.py", "project/tests/dry_run_persist.py",
+        "project/tests/test_change.py", "project/tests/test_persist.py",
         "project/chapter8.db"
     )
     ch09 = @(
@@ -97,5 +97,4 @@ foreach ($pair in $restoreTargets[$Chapter]) {
     Copy-Item -LiteralPath $source -Destination $destination -Force
     Write-Host "RESTORED $destination"
 }
-
 Write-Host "$Chapter practice files were reset." -ForegroundColor Green

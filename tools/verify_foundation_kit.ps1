@@ -30,8 +30,8 @@ function Test-PackageLock([string]$FrontendRoot, [string]$Label) {
     $packagePath = Join-Path $FrontendRoot "package.json"
     $lockPath = Join-Path $FrontendRoot "package-lock.json"
     if ((Test-Path -LiteralPath $packagePath) -and (Test-Path -LiteralPath $lockPath)) {
-        $package = Get-Content -LiteralPath $packagePath -Raw | ConvertFrom-Json
-        $lockText = Get-Content -LiteralPath $lockPath -Raw
+        $package = Get-Content -LiteralPath $packagePath -Raw -Encoding UTF8 | ConvertFrom-Json
+        $lockText = Get-Content -LiteralPath $lockPath -Raw -Encoding UTF8
         $lockName = [regex]::Match($lockText, '(?m)^\s*"name"\s*:\s*"([^"]+)"').Groups[1].Value
         Write-Check ($package.name -eq $lockName) "$Label package and lock identify the same project"
     }
