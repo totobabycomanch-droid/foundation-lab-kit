@@ -37,7 +37,7 @@ foreach ($relativePath in $required[$Chapter]) {
 if ($Chapter -eq "ch08") {
     $chapterRulesPath = Join-Path $chapterRoot "AGENTS.md"
     $projectRulesPath = Join-Path $chapterRoot "project/AGENTS.md"
-    $rulesVersion = "common-rules-version: chapter8-v2"
+    $rulesVersion = "common-rules-version: chapter8-v3"
     $requiredMarkers = @("approval-required", "secrets-protected", "evidence-scoped")
 
     if ((Test-Path -LiteralPath $chapterRulesPath) -and (Test-Path -LiteralPath $projectRulesPath)) {

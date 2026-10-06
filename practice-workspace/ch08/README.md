@@ -1,9 +1,9 @@
-# Chapter 8 — 요청 해석·업무 판단·저장·HTTP 연결로 나누어 만드는 발주 API
+# Chapter 8 — 요청 검증·업무 판단·저장·API 연결로 나누어 만드는 발주 API
 
 이 폴더는 8장의 발주 실습용 시작 키트입니다. 완성 코드는 포함하지 않습니다.
 합본 원고의 8.1~8.6 순서로 같은 `project/`를 이어서 사용합니다.
-8.2~8.3에서 요청 해석과 업무 판단을 만들고, 같은 폴더에서 8.4의 저장과
-8.5의 HTTP 연결을 이어갑니다.
+8.2~8.3에서 요청 검증과 업무 판단을 만들고, 같은 폴더에서 8.4의 저장과
+8.5의 API 연결을 이어갑니다.
 
 키트의 검증·초기화 도구는 Windows PowerShell용 `.ps1` 파일입니다. Python·pytest 코드는 다른
 운영체제에서도 실행할 수 있지만, 이 README의 키트 관리 명령은 Windows 환경을 기준으로 합니다.
@@ -66,17 +66,17 @@ python -c "import sys; print(sys.executable)"
 
 | 단계 | 만드는 것 | 확인할 것 |
 |---|---|---|
-| 8.2 요청 해석 | services/franchise_order.py, tests/test_change.py | 정상 요청 생성·잘못된 값 거부·공백 제거·값 변경 불가 (DB 없음) |
+| 8.2 요청 검증 | services/franchise_order.py, tests/test_change.py | 정상 요청 생성·잘못된 값 거부·공백 제거·값 변경 불가 (DB 없음) |
 | 8.3 업무 판단 | services/franchise_order.py에 판단 추가, tests/test_change.py에 판단 사례 추가 | 기존 요청 검증을 보존하고 정상 판단·재고 부족·예치금 부족·정확한 경계값 확인 (DB 없음) |
 | 8.4 저장 | repositories/franchise_order.py, tests/test_persist.py | 한 트랜잭션 저장과 실패 시 전체 취소 (인메모리 SQLite) |
-| 8.5 HTTP 연결 | routers/franchise_order.py, main.py | 조회·판단·저장 호출 순서, 오류의 HTTP 변환, 앱 등록 |
+| 8.5 API 연결 | routers/franchise_order.py, main.py | 조회·판단·저장 호출 순서, 오류의 HTTP 변환, 앱 등록 |
 | 8.5 마무리 | 키트의 practice_db.py | 로컬 SQLite 준비·조회와 발주 한 건 실제 처리(재고 95·예치금 45000·주문 1건) |
 | Core 완료 | 기존 결과 확인 | 판단·저장 테스트, 앱 등록, 실제 발주 결과 확인 |
 | 8.6 선택 | 원고의 선택 실습 | 오류 응답 확인과 심화 주제 |
 
 필수 경로에는 Docker나 DB 서버가 필요하지 않습니다. 로컬 SQLite 파일 DB(`project/chapter8.db`)만
 사용합니다. 위 파일은 원고의 해당 단계에서 생성하므로 시작 키트에서 찾을 수 없어도 정상입니다.
-요청 해석·업무 판단 완료 후 초기화하지 않습니다. Core는 앱 등록 뒤 로컬 SQLite에서 실제 발주를
+요청 검증·업무 판단 완료 후 초기화하지 않습니다. Core는 앱 등록 뒤 로컬 SQLite에서 실제 발주를
 실행합니다.
 
 실제 발주 전후의 DB 값은 `project/`에서 다음 두 명령으로 준비하고 확인합니다.
