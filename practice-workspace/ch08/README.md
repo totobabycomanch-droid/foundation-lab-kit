@@ -71,7 +71,7 @@ python -c "import sys; print(sys.executable)"
 | 8.4 저장 | repositories/franchise_order.py, tests/test_persist.py | 한 트랜잭션 저장과 실패 시 전체 취소 (인메모리 SQLite) |
 | 8.5 API 연결 | routers/franchise_order.py, main.py | 조회·판단·저장 호출 순서, 오류의 HTTP 변환, 앱 등록 |
 | 8.5 마무리 | 키트의 practice_db.py | 로컬 SQLite 준비·조회와 발주 한 건 실제 처리(재고 95·예치금 45000·주문 1건) |
-| Core 완료 | 기존 결과 확인 | 판단·저장 테스트, 앱 등록, 실제 발주 결과 확인 |
+| Core 완료 | `tools/verify_ch08_core.ps1` | 판단·저장 테스트, 앱 등록, 실제 발주 결과의 DB 값을 한 번에 확인 |
 | 8.6 선택 | 원고의 선택 실습 | 오류 응답 확인과 심화 주제 |
 
 필수 경로에는 Docker나 DB 서버가 필요하지 않습니다. 로컬 SQLite 파일 DB(`project/chapter8.db`)만
@@ -100,6 +100,9 @@ python practice_db.py show
 ./tools/verify_practice_chapter.ps1 -Chapter ch08
 ./tools/reset_practice_chapter.ps1 -Chapter ch08
 ```
+
+Core를 마친 뒤 같은 위치에서 `./tools/verify_ch08_core.ps1`을 실행하면 두 테스트 파일, 앱 등록과
+`chapter8.db` 값(재고 95·예치금 45000·주문 1건)을 읽기 전용으로 확인합니다.
 
 두 번째 명령은 초기화 대상 미리 보기입니다. 필요한 코드와 기록을 보관하고 원고의 초기화
 절차를 확인한 뒤에만 적용합니다. `_starter/`를 직접 수정하지 않습니다.

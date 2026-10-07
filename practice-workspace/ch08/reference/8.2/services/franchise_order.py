@@ -8,7 +8,7 @@ from typing import Any, Mapping
 
 
 class FranchiseOrderChangeError(ValueError):
-    """DB를 읽기 전후의 순수 단계에서 발견한 업무 규칙 위반."""
+    """요청 검증이나 업무 판단에서 발견한 규칙 위반. code로 종류를 구분합니다."""
 
     def __init__(self, code: str, message: str) -> None:
         super().__init__(message)
@@ -17,7 +17,7 @@ class FranchiseOrderChangeError(ValueError):
 
 @dataclass(frozen=True)
 class FranchiseOrderEvent:
-    """가맹점이 발주하려는 의도. 타입과 공백만 정리한 불변 값입니다."""
+    """가맹점이 발주하려는 요청. 타입과 공백만 정리한 불변 값입니다."""
 
     franchise_id: int
     prod_code: str
@@ -31,7 +31,7 @@ def _is_int(value: Any) -> bool:
 
 
 def parse_franchise_order_event(payload: Mapping[str, Any]) -> FranchiseOrderEvent:
-    """요청 본문을 DB 접근 없이 검증하고 Event로 만든다."""
+    """요청 본문을 DB 접근 없이 검증하고 요청 객체로 만든다."""
 
     if not isinstance(payload, Mapping):
         raise FranchiseOrderChangeError("invalid_payload", "발주 정보가 필요합니다.")

@@ -1,7 +1,8 @@
 # 파일 경로: project/tests/test_persist.py
 # 인메모리 SQLite에서 저장 계획의 원자성을 검사합니다 (파일 DB와 서버는 사용하지 않습니다)
 import pytest
-from sqlalchemy import create_engine, func, select
+from sqlalchemy import create_engine, func, select, text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
@@ -56,4 +57,20 @@ def test_deposit_shortage_rolls_back_stock_update(db):
     # 재고 차감은 먼저 성공하지만, 예치금 조건이 맞지 않으면 재고도 원래대로 돌아와야 합니다
     with pytest.raises(FranchiseOrderConflict):
         persist_franchise_order(plan(total_price=50001), db)
+    assert snapshot(db) == (100, 50000, 0)
+
+
+def test_order_insert_failure_rolls_back_both_deductions(db):
+    # 두 차감이 실행된 뒤 실제 DB의 주문 INSERT를 실패시킵니다.
+    with db.begin():
+        db.execute(text("""
+            CREATE TRIGGER reject_order_insert BEFORE INSERT ON orders
+            WHEN (SELECT stock_qty FROM current_stock WHERE prod_code = 'A001') = 95
+             AND (SELECT deposit FROM franchise WHERE id = 1) = 45000
+            BEGIN
+                SELECT RAISE(ABORT, 'forced order insert failure');
+            END
+        """))
+    with pytest.raises(IntegrityError, match="forced order insert failure"):
+        persist_franchise_order(plan(), db)
     assert snapshot(db) == (100, 50000, 0)

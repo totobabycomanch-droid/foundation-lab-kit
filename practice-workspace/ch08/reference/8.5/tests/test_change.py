@@ -28,7 +28,12 @@ def test_parse_accepts_valid_payload():
     ({"franchise_id": 1, "prod_code": "A001", "qty": True}, "invalid_qty"),
     ({"franchise_id": 1, "prod_code": "A001"}, "invalid_qty"),
     ({"franchise_id": 1, "prod_code": "  ", "qty": 5}, "invalid_prod_code"),
+    ({"franchise_id": 1, "prod_code": 1001, "qty": 5}, "invalid_prod_code"),
+    ({"franchise_id": 1, "qty": 5}, "invalid_prod_code"),
     ({"franchise_id": 0, "prod_code": "A001", "qty": 5}, "invalid_franchise_id"),
+    ({"franchise_id": "1", "prod_code": "A001", "qty": 5}, "invalid_franchise_id"),
+    ({"franchise_id": True, "prod_code": "A001", "qty": 5}, "invalid_franchise_id"),
+    ({"prod_code": "A001", "qty": 5}, "invalid_franchise_id"),
     (None, "invalid_payload"),
 ])
 def test_parse_rejects_invalid_payload(payload, code):

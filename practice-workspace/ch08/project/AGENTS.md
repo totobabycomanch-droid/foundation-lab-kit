@@ -13,8 +13,9 @@
 - `.env`, 비밀번호, API key, JWT와 실제 DB URL을 읽거나 출력하지 않는다.
 - 결과는 `Pass`, `Fail`, `Not Run`, `테스트 없음`으로 구분하고 코드 검토인지 명령 실행인지 밝힌다.
 - 실행하지 않은 테스트를 통과로 추정하지 않는다.
-- 검증 요청의 보고는 확인할 질문·판정·근거의 표로 한다. 근거는 명령을 실행했으면 `실행:`,
-  파일만 읽었으면 `코드 검토:`로 시작한다. `Fail`·`Not Run`·`테스트 없음` 항목은 표 아래에
+- 검증 요청의 보고는 확인할 질문·판정·근거의 표로 한다. 근거 출처는 AI가 직접 명령을 실행했으면
+  `AI 실행:`, 독자가 제공한 실행 결과를 확인했으면 `독자 제공 실행 결과:`, 파일만 읽었으면
+  `코드 검토:`로 시작한다. 독자 제공 결과를 AI가 직접 실행한 결과로 표시하지 않는다. `Fail`·`Not Run`·`테스트 없음` 항목은 표 아래에
   원인과 다음 확인 방법을 쓰고, 독자가 직접 확인할 최소 코드 한 곳을 지정한다.
 - Mock 결과를 실제 SQL 실행·DB 저장·롤백·HTTP 요청의 성공 근거로 사용하지 않는다.
 
@@ -42,7 +43,7 @@
 | 8.3 업무 판단 | `services/franchise_order.py` | `decide_franchise_order(event, *, stock_qty, unit_price, deposit)`가 `FranchiseOrderPlan`(`franchise_id`, `prod_code`, `qty`, `total_price`, `order_status`)을 반환, 부족 시 `FranchiseOrderChangeError`, 오류 코드→HTTP 상태 표 `CHANGE_ERROR_HTTP_STATUS` |
 | 8.3 | `tests/test_change.py` | 8.2 요청 검증 테스트를 보존하고 정상 판단 결과·재고 부족·예치금 부족·정확한 경계값 검사 추가 (DB 없음) |
 | 8.4 저장 | `repositories/franchise_order.py` | `persist_franchise_order(plan, db)`: 한 트랜잭션으로 저장하고 주문 번호를 반환, 저장 시점 조건 불일치는 `FranchiseOrderConflict`(`code` 속성) |
-| 8.4 | `tests/test_persist.py` | 인메모리 SQLite에서 정상 저장·재고 부족·예치금 부족 시 전체 취소 검사 |
+| 8.4 | `tests/test_persist.py` | 인메모리 SQLite에서 정상 저장·재고 부족·예치금 부족·주문 INSERT 실패 시 전체 취소 검사 |
 | 8.5 API 연결 | `routers/franchise_order.py` | 공개 `router`, `create_franchise_order(payload, db)`: 요청 검증 → 현재 값 조회 → 업무 판단 → 저장 순서로 호출하고 오류를 HTTP로 변환 |
 | 8.5 | `main.py` | FastAPI `app`에 위 router 등록 |
 | 8.5 마무리 | `practice_db.py` | 키트 제공 도구. `prepare`는 없는 기초 행만 추가하고 `show`는 재고·예치금·주문 건수를 출력 |
@@ -72,6 +73,10 @@ Chapter 12의 PostgreSQL 함수(RPC)와 같은 저장 책임을 갖도록 다음
 - 재고 부족은 정상 계획에서 수량만 101, 예치금 부족은 주문 금액만 50001로 바꾸어 저장 함수에 직접 전달한다.
   두 사례 모두 `FranchiseOrderConflict`가 발생하고 재고 100·예치금 50000·주문 0건이 유지되어야 한다.
   예치금 부족에서는 먼저 성공한 재고 차감도 취소되었는지 확인한다. 부족 사례는 업무 판단 함수를 거치지 않는다.
+- 정상 계획의 두 차감이 성공한 뒤 실제 DB의 주문 INSERT를 실패시키는 사례를 추가한다.
+  테스트 전용 트리거 등으로 인메모리 DB에서만 실패를 유도하며 모델·저장 함수를 변경하지 않는다.
+  Python 예외만 흉내 내거나 꺼져 있는 외래 키 검사에 의존하지 않는다.
+  실패 후 재고 100·예치금 50000·주문 0건인지 확인한다.
 
 ### 8.5 API 연결 규약
 

@@ -12,6 +12,13 @@ Chapter별 시작 파일은 다음처럼 확인합니다.
 ./tools/verify_practice_chapter.ps1 -Chapter ch08
 ```
 
+Chapter 8 Core를 마친 뒤에는 테스트 통과, 앱 등록과 `chapter8.db`의 값을 한 번에 확인합니다. 읽기 전용이며
+HTTP 요청은 보내지 않습니다.
+
+```powershell
+./tools/verify_ch08_core.ps1
+```
+
 초기화 도구는 기본적으로 대상만 보여 줍니다. 출력된 경로를 확인한 뒤에만 `-Apply`를 붙입니다.
 
 ```powershell
