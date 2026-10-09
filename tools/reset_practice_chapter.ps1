@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [ValidateSet("ch07", "ch08", "ch09", "ch10", "ch11")]
@@ -22,6 +22,7 @@ $removeTargets = @{
         "project/repositories/franchise_order.py",
         "project/routers/franchise_order.py",
         "project/tests/test_change.py", "project/tests/test_persist.py",
+        "project/tests/test_api.py",
         "project/chapter8.db"
     )
     ch09 = @(

@@ -37,7 +37,7 @@ foreach ($relativePath in $required[$Chapter]) {
 if ($Chapter -eq "ch08") {
     $chapterRulesPath = Join-Path $chapterRoot "AGENTS.md"
     $projectRulesPath = Join-Path $chapterRoot "project/AGENTS.md"
-    $rulesVersion = "common-rules-version: chapter8-v3"
+    $rulesVersion = "common-rules-version: chapter8-v4"
     $requiredMarkers = @("approval-required", "secrets-protected", "evidence-scoped")
 
     if ((Test-Path -LiteralPath $chapterRulesPath) -and (Test-Path -LiteralPath $projectRulesPath)) {
@@ -51,6 +51,8 @@ if ($Chapter -eq "ch08") {
         }
         Write-Check ($chapterRules.Contains("Mock") -and $projectRules.Contains("Mock")) "ch08 Mock evidence boundary"
         Write-Check ($chapterRules.Contains("테스트 없음") -and $projectRules.Contains("테스트 없음")) "ch08 test-missing verdict"
+        Write-Check ($chapterRules.Contains("마스터·상세·감사") -and $projectRules.Contains("마스터·상세·감사")) "ch08 atomic order contract"
+        Write-Check ($chapterRules.Contains("실습에 없는 모델") -and $projectRules.Contains("실습에 없는 모델")) "ch08 no additional model boundary"
     }
 }
 

@@ -8,8 +8,8 @@ AI가 만든 코드를 수정해도 같은 오류가 반복될 때 현재 단계
 |---|---|---|
 | 8.2 | [요청 검증](8.2/services/franchise_order.py), [요청 검증 테스트](8.2/tests/test_change.py) | `python -m pytest -q tests/test_change.py` |
 | 8.3 | [요청 검증·업무 판단](8.3/services/franchise_order.py), [누적 테스트](8.3/tests/test_change.py) | `python -m pytest -q tests/test_change.py` |
-| 8.4 | [저장](8.4/repositories/franchise_order.py), [저장 테스트](8.4/tests/test_persist.py) | 판단·저장 테스트 모두 실행 |
-| 8.5 | [API 연결](8.5/routers/franchise_order.py), [앱 등록](8.5/main.py) | OpenAPI 등록과 원고의 실제 발주 확인 |
+| 8.4 | [저장](8.4/repositories/franchise_order.py), [저장 테스트](8.4/tests/test_persist.py) | 판단·저장 테스트 모두 실행 (`test_persist.py`는 `-v`로 사례별 결과 확인) |
+| 8.5 | [API 연결](8.5/routers/franchise_order.py), [앱 등록](8.5/main.py) | `tests/test_api.py` 실행, OpenAPI 등록과 원고의 실제 발주 확인 |
 
 1. 수정하기 전 현재 단계의 대상 파일을 별도 폴더에 복사해 보관합니다.
 2. 오류가 난 파일과 같은 단계의 참고 파일을 비교하고, AI에게 차이와 최소 수정안을 요청합니다.

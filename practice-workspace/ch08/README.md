@@ -59,25 +59,26 @@ python -c "import sys; print(sys.executable)"
 2. AI의 보고를 결과물·파일 위치·보존 파일·검증 방법과 대조한 뒤 범위를 승인합니다.
    같은 세션에서 이미 승인한 범위는 이어서 진행하며 변경 범위가 달라지면 다시 확인합니다.
 3. 생성된 코드를 직접 열고 실행한 뒤 해당 단계의 검증 블록 하나를 전달합니다.
-4. AI 판정과 직접 실행한 결과를 비교합니다. 계산 테스트, 앱 등록과 실제 발주 결과를 확인하면
+4. AI 판정과 직접 실행한 결과를 비교합니다. 계산·원자 저장·API 테스트, 앱 등록과 실제 발주 결과를 확인하면
    Core가 끝납니다. 별도 기록 파일은 필수가 아닙니다.
 
 ## 실습 경로
 
 | 단계 | 만드는 것 | 확인할 것 |
 |---|---|---|
-| 8.2 요청 검증 | services/franchise_order.py, tests/test_change.py | 정상 요청 생성·잘못된 값 거부·공백 제거·값 변경 불가 (DB 없음) |
-| 8.3 업무 판단 | services/franchise_order.py에 판단 추가, tests/test_change.py에 판단 사례 추가 | 기존 요청 검증을 보존하고 정상 판단·재고 부족·예치금 부족·정확한 경계값 확인 (DB 없음) |
-| 8.4 저장 | repositories/franchise_order.py, tests/test_persist.py | 한 트랜잭션 저장과 실패 시 전체 취소 (인메모리 SQLite) |
-| 8.5 API 연결 | routers/franchise_order.py, main.py | 조회·판단·저장 호출 순서, 오류의 HTTP 변환, 앱 등록 |
-| 8.5 마무리 | 키트의 practice_db.py | 로컬 SQLite 준비·조회와 발주 한 건 실제 처리(재고 95·예치금 45000·주문 1건) |
-| Core 완료 | `tools/verify_ch08_core.ps1` | 판단·저장 테스트, 앱 등록, 실제 발주 결과의 DB 값을 한 번에 확인 |
+| 8.2 요청 검증 | services/franchise_order.py, tests/test_change.py | 최소 마스터·상세 생성, 잘못된 값·중복 거부, 서버 소유 값 폐기, 불변 객체(DB 없음) |
+| 8.3 업무 판단 | services/franchise_order.py에 판단 추가, tests/test_change.py에 판단 사례 추가 | 서버 상품 단가로 공급가액·VAT·합계 계산, 상품 없음·비활성·잘못된 단가 확인(DB 없음) |
+| 8.4 저장 | repositories/franchise_order.py, tests/test_persist.py | 마스터·상세·감사 1·1·1 저장과 상세·감사 실패 시 0·0·0 롤백(인메모리 SQLite) |
+| 8.5 API 연결 | routers/franchise_order.py, main.py, tests/test_api.py | 조회·판단·단일 저장 호출, 200·400·409·500 변환, 앱 등록 |
+| 8.5 마무리 | 키트의 practice_db.py | 상품 준비·조회와 발주 한 건 실제 처리(단가 1000 유지·마스터/상세/감사 1·1·1·합계 5500) |
+| Core 완료 | `tools/verify_ch08_core.ps1` | 세 테스트, 고정 계약, 앱 등록, 실제 발주 결과의 DB 값을 한 번에 확인 |
 | 8.6 선택 | 원고의 선택 실습 | 오류 응답 확인과 심화 주제 |
 
 필수 경로에는 Docker나 DB 서버가 필요하지 않습니다. 로컬 SQLite 파일 DB(`project/chapter8.db`)만
 사용합니다. 위 파일은 원고의 해당 단계에서 생성하므로 시작 키트에서 찾을 수 없어도 정상입니다.
 요청 검증·업무 판단 완료 후 초기화하지 않습니다. Core는 앱 등록 뒤 로컬 SQLite에서 실제 발주를
-실행합니다.
+실행합니다. 발주 마스터·상세·감사만 저장하고 상품 단가와 활성 상태는 그대로 유지합니다.
+이번 실습에 없는 모델·업무 규칙은 추가하지 않습니다.
 
 실제 발주 전후의 DB 값은 `project/`에서 다음 두 명령으로 준비하고 확인합니다.
 
@@ -89,7 +90,8 @@ python practice_db.py show
 ## 선택 DB·HTTP 실습
 
 8.4의 `tests/test_persist.py`는 인메모리 SQLite로 자체 DB를 만들고 정리합니다. 오류 응답 확인은 8.5 마무리에서 만든
-`chapter8.db`와 서버를 이어서 사용합니다. 기존 데이터가 있다면 정상 예시의 초기값을 가정하지 않습니다.
+`chapter8.db`와 서버를 이어서 사용합니다. 기존 발주 데이터가 있다면 1·1·1건이라는 정상 예시 결과를
+가정하지 않습니다.
 원격 PostgreSQL은 별도 연결·드라이버가 필요한 선택 경로이며 운영·공용 DB에서 실습하지 않습니다.
 
 ## 시작 파일 확인과 복습
@@ -101,8 +103,9 @@ python practice_db.py show
 ./tools/reset_practice_chapter.ps1 -Chapter ch08
 ```
 
-Core를 마친 뒤 같은 위치에서 `./tools/verify_ch08_core.ps1`을 실행하면 두 테스트 파일, 앱 등록과
-`chapter8.db` 값(재고 95·예치금 45000·주문 1건)을 읽기 전용으로 확인합니다.
+Core를 마친 뒤 같은 위치에서 `./tools/verify_ch08_core.ps1`을 실행하면 세 테스트 파일, 앱 등록과
+`chapter8.db` 값(상품 단가 1000·활성 유지, 마스터·상세·감사 1·1·1건, 합계 5500)을 읽기 전용으로
+확인합니다. 이 도구는 실제 HTTP 요청을 보내지 않으므로 HTTP 실행 결과는 별도로 확인합니다.
 
 두 번째 명령은 초기화 대상 미리 보기입니다. 필요한 코드와 기록을 보관하고 원고의 초기화
 절차를 확인한 뒤에만 적용합니다. `_starter/`를 직접 수정하지 않습니다.

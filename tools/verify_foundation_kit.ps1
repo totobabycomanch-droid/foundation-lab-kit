@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param()
 
 $ErrorActionPreference = "Stop"
@@ -48,6 +48,10 @@ $requiredPaths = @(
     "practice-workspace/ch07/requirements.txt",
     "practice-workspace/ch08/project/database.py",
     "practice-workspace/ch08/project/models.py",
+    "practice-workspace/ch08/project/practice_db.py",
+    "practice-workspace/ch08/project/_starter/database.py",
+    "practice-workspace/ch08/project/_starter/models.py",
+    "tools/verify_ch08_core.ps1",
     "practice-workspace/ch09/erp-mini/domain/__init__.py",
     "practice-workspace/ch10/erp-mini/db.py",
     "practice-workspace/ch10/erp-mini/schema.sql",
