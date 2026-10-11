@@ -1,7 +1,9 @@
 # 파일 경로: project/routers/franchise_order.py
 # HTTP 요청을 받아 요청 검증·상품 조회·업무 판단·저장을 연결합니다
 
-from fastapi import APIRouter, Depends, HTTPException
+from typing import Any
+
+from fastapi import APIRouter, Body, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -21,8 +23,10 @@ router = APIRouter()
 
 
 @router.post("/franchise/order")
-def create_franchise_order(payload: dict, db: Session = Depends(get_db)):
+def create_franchise_order(payload: Any = Body(default=None), db: Session = Depends(get_db)):
+    """원본 JSON을 검증하고 서버 상품 값으로 계산한 발주를 저장합니다."""
     try:
+        # 객체 여부도 기존 파서가 검사해 명세의 invalid_payload·400으로 구분합니다.
         order_event = parse_franchise_order_event(payload)
         product_codes = [item.prod_code for item in order_event.details]
 
