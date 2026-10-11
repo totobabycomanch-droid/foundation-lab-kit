@@ -1,11 +1,13 @@
+> 이전 네 단계 API 실습 전용 규칙입니다. 개편 Chapter 8은 ../understanding/에서 진행합니다.
+
 # Chapter 8 project 규칙
 
 <!-- common-rules-version: chapter8-v5 -->
 
 ## 작업 시작 전 (approval-required)
 
-- `../AGENTS.md`와 `../README.md`, 이 파일을 먼저 읽는다.
-- `../chapter8_order_spec.md`에서 현재 단계의 업무 조건·완료 기준과 앞 단계의 입력·반환 구조를 확인한다.
+- 이전 실습 안내인 `../legacy-api/README.md`와 이 파일을 먼저 읽는다.
+- `../legacy-api/chapter8_order_spec.md`에서 현재 단계의 업무 조건·완료 기준과 앞 단계의 입력·반환 구조를 확인한다.
 - 요구사항, 기존 파일, 변경 범위와 검증 방법을 먼저 보고하고 독자의 승인 뒤에만 변경한다.
 - 승인된 현재 단계의 파일만 최소 변경하고 이전 단계 결과와 시작 파일을 보존한다.
 
@@ -51,7 +53,7 @@
 
 ### 단계별 업무 명세
 
-세부 조건은 [chapter8_order_spec.md](../chapter8_order_spec.md)에서 아래 항목을 읽는다.
+세부 조건은 [chapter8_order_spec.md](../legacy-api/chapter8_order_spec.md)에서 아래 항목을 읽는다.
 이 파일은 공개 이름과 위치를 정하고, 업무 명세는 각 값의 의미와 동작·검증 조건을 정한다.
 
 | 현재 단계 | 명세에서 확인할 항목 |

@@ -1,0 +1,23 @@
+# 작은 발주 예제 작업 규칙
+
+<!-- common-rules-version: chapter8-v6 -->
+
+## 조사와 승인 (approval-required)
+
+- 이 폴더의 README.md와 ../ai_build_rules.md, ../chapter8_order_spec.md를 읽는다.
+- 현재 폴더의 절대 경로와 기존 파일을 확인하고 변경 범위를 짧게 보고한다.
+- 승인된 동일 범위는 이어서 진행한다. 이미 완성된 예제는 재작성 없이 검증한다.
+
+## 생성 위치와 범위 (secrets-protected)
+
+- 이 폴더의 order_example.py와 test_order_example.py만 생성하거나 수정한다.
+- 함수 이름은 자유롭게 정하되 입력 검증과 서버 기준 계산을 구분한다.
+- Python 표준 라이브러리만 사용한다. DB·API·서버·외부 패키지를 만들거나 설치하지 않는다.
+- reference/는 답안으로 읽거나 복사하지 않는다. 다른 실습 폴더와 .env·비밀 값은 읽거나 변경하지 않는다.
+
+## 완료 근거 (evidence-scoped)
+
+- python order_example.py로 세 사례의 실제 결과를 보여 준다.
+- python -m unittest -v test_order_example.py로 최신 테스트를 실행한다.
+- ../ai_review_rules.md에 따라 Pass·Fail·Not Run·테스트 없음과 파일·테스트 이름을 보고한다.
+- DB 조회·저장·롤백·HTTP가 검증됐다고 주장하지 않는다.

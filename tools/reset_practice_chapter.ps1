@@ -16,15 +16,7 @@ $removeTargets = @{
         "idempotency_test.py", "statemachine_test.py", "mini_pos_api.py",
         "mini_pos_api_test.py", "mini_pos_optional_lab.py", "mini_pos.db"
     )
-    ch08 = @(
-        "project/main.py",
-        "project/services/franchise_order.py",
-        "project/repositories/franchise_order.py",
-        "project/routers/franchise_order.py",
-        "project/tests/test_change.py", "project/tests/test_persist.py",
-        "project/tests/test_api.py",
-        "project/chapter8.db"
-    )
+    ch08 = @("understanding/order_example.py", "understanding/test_order_example.py")
     ch09 = @(
         "erp-mini/main.py", "erp-mini/domain/order.py", "erp-mini/domain/payment.py",
         "erp-mini/domain/inventory.py", "erp-mini/routers/orders.py",
@@ -39,10 +31,7 @@ $removeTargets = @{
 
 $restoreTargets = @{
     ch07 = @()
-    ch08 = @(
-        @("project/_starter/database.py", "project/database.py"),
-        @("project/_starter/models.py", "project/models.py")
-    )
+    ch08 = @()
     ch09 = @()
     ch10 = @(
         @("erp-mini/_starter/db.py", "erp-mini/db.py"),
