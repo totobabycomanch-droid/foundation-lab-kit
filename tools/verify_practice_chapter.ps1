@@ -23,7 +23,7 @@ $required = @{
     ch04 = @("AGENTS.md", "README.md", "inputs/requirements_brief.md", "inputs/unsafe_tenant_query.py", "inputs/debug_case.md")
     ch05 = @("AGENTS.md", "sql/README.md", "sql/00_initialize_lab.sql", "sql/99_reset_lab.sql")
     ch07 = @("AGENTS.md", "README.md", "requirements.txt")
-    ch08 = @("AGENTS.md", "README.md", "project/AGENTS.md", "project/database.py", "project/models.py", "project/practice_db.py", "project/_starter/database.py", "project/_starter/models.py")
+    ch08 = @("AGENTS.md", "README.md", "ai_build_rules.md", "ai_review_rules.md", "chapter8_order_spec.md", "project/AGENTS.md", "project/database.py", "project/models.py", "project/practice_db.py", "project/_starter/database.py", "project/_starter/models.py")
     ch09 = @("erp-mini/domain/__init__.py", "erp-mini/routers/__init__.py", "erp-mini/services/__init__.py", "erp-mini/tests/__init__.py")
     ch10 = @("erp-mini/db.py", "erp-mini/schema.sql", "erp-mini/server.py", "erp-mini/sql/00_initialize_lab.sql", "erp-mini/sql/99_reset_lab.sql")
     ch11 = @("workspace/erp-project/requirements.txt", "workspace/frontend-project/package.json", "workspace/_starter/App.vue", "workspace/sql/00_initialize_lab.sql", "workspace/sql/99_reset_lab.sql")
@@ -37,7 +37,7 @@ foreach ($relativePath in $required[$Chapter]) {
 if ($Chapter -eq "ch08") {
     $chapterRulesPath = Join-Path $chapterRoot "AGENTS.md"
     $projectRulesPath = Join-Path $chapterRoot "project/AGENTS.md"
-    $rulesVersion = "common-rules-version: chapter8-v4"
+    $rulesVersion = "common-rules-version: chapter8-v5"
     $requiredMarkers = @("approval-required", "secrets-protected", "evidence-scoped")
 
     if ((Test-Path -LiteralPath $chapterRulesPath) -and (Test-Path -LiteralPath $projectRulesPath)) {
@@ -53,6 +53,23 @@ if ($Chapter -eq "ch08") {
         Write-Check ($chapterRules.Contains("테스트 없음") -and $projectRules.Contains("테스트 없음")) "ch08 test-missing verdict"
         Write-Check ($chapterRules.Contains("마스터·상세·감사") -and $projectRules.Contains("마스터·상세·감사")) "ch08 atomic order contract"
         Write-Check ($chapterRules.Contains("실습에 없는 모델") -and $projectRules.Contains("실습에 없는 모델")) "ch08 no additional model boundary"
+        Write-Check ($chapterRules.Contains("chapter8_order_spec.md") -and $projectRules.Contains("chapter8_order_spec.md")) "ch08 AGENTS reference the order specification"
+    }
+
+    foreach ($rulesName in @("ai_build_rules.md", "ai_review_rules.md")) {
+        $rulesPath = Join-Path $chapterRoot $rulesName
+        if (Test-Path -LiteralPath $rulesPath) {
+            $rulesText = Get-Content -Raw -Encoding UTF8 -LiteralPath $rulesPath
+            Write-Check ($rulesText.Contains("chapter8_order_spec.md")) "ch08/$rulesName references the order specification"
+        }
+    }
+
+    $specPath = Join-Path $chapterRoot "chapter8_order_spec.md"
+    if (Test-Path -LiteralPath $specPath) {
+        $specText = Get-Content -Raw -Encoding UTF8 -LiteralPath $specPath
+        foreach ($section in @("## 8.2 요청 검증", "## 8.3 업무 판단", "## 8.4 저장", "## 8.5 API 연결", "## Core 최종 완료와 선택 범위")) {
+            Write-Check ($specText.Contains($section)) "ch08 specification section: $section"
+        }
     }
 }
 

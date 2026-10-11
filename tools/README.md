@@ -12,6 +12,9 @@ Chapter별 시작 파일은 다음처럼 확인합니다.
 ./tools/verify_practice_chapter.ps1 -Chapter ch08
 ```
 
+Chapter 8 검사는 공통 지침 두 파일·업무 명세, 지침의 명세 참조와 네 단계·Core 완료 항목도
+확인합니다. 이 정적 검사는 AI가 생성한 코드의 테스트나 업무 조건 충족을 대신하지 않습니다.
+
 Chapter 8 Core를 마친 뒤에는 요청·계산·원자 저장·API 테스트, 앱 등록과 `chapter8.db`의
 마스터·상세·감사 결과를 한 번에 확인합니다. 읽기 전용이며 HTTP 요청은 보내지 않습니다.
 

@@ -1,10 +1,11 @@
 # Chapter 8 project 규칙
 
-<!-- common-rules-version: chapter8-v4 -->
+<!-- common-rules-version: chapter8-v5 -->
 
 ## 작업 시작 전 (approval-required)
 
 - `../AGENTS.md`와 `../README.md`, 이 파일을 먼저 읽는다.
+- `../chapter8_order_spec.md`에서 현재 단계의 업무 조건·완료 기준과 앞 단계의 입력·반환 구조를 확인한다.
 - 요구사항, 기존 파일, 변경 범위와 검증 방법을 먼저 보고하고 독자의 승인 뒤에만 변경한다.
 - 승인된 현재 단계의 파일만 최소 변경하고 이전 단계 결과와 시작 파일을 보존한다.
 
@@ -37,49 +38,31 @@
 | 단계 | 파일 | 공개 규약과 역할 |
 |---|---|---|
 | 8.2 요청 검증 | `services/franchise_order.py` | `BranchOrderItemEvent`, `BranchOrderEvent`, `parse_franchise_order_event(payload)`, `FranchiseOrderChangeError(code, message)` |
-| 8.2 | `tests/test_change.py` | 최소 마스터·상세 정상화, 서버 소유 값 폐기, 잘못된 입력·중복 품목·불변 객체 검사(DB 없음) |
+| 8.2 | `tests/test_change.py` | 요청 검증 테스트(DB 없음) |
 | 8.3 업무 판단 | `services/franchise_order.py` | `ProductSnapshot`, `BranchOrderLinePlan`, `BranchOrderPlan`, `decide_franchise_order(event, *, products, actor_corp_id="branch01")`, `CHANGE_ERROR_HTTP_STATUS` |
-| 8.3 | `tests/test_change.py` | 8.2 테스트를 보존하고 서버 단가·공급가액·VAT·합계, 상품 없음·비활성·잘못된 단가 검사(DB 없음) |
+| 8.3 | `tests/test_change.py` | 8.2 테스트를 보존하고 업무 판단 테스트 추가(DB 없음) |
 | 8.4 저장 | `repositories/franchise_order.py` | `persist_franchise_order(plan, db)`: 마스터·상세·감사를 한 트랜잭션으로 저장하고 발주번호 반환 |
-| 8.4 | `tests/test_persist.py` | 정상 1·1·1 저장과 상세·감사 INSERT 실패의 0·0·0 롤백 검사(인메모리 SQLite) |
+| 8.4 | `tests/test_persist.py` | 정상 저장과 실패 시 롤백 테스트(인메모리 SQLite) |
 | 8.5 API 연결 | `routers/franchise_order.py` | 공개 `router`, `create_franchise_order(payload, db)`: 네 책임을 연결하고 400·409·500으로 변환 |
-| 8.5 | `main.py`, `tests/test_api.py` | FastAPI 앱 등록, 고정 성공 응답, 오류 상태와 안전한 메시지 검사 |
+| 8.5 | `main.py`, `tests/test_api.py` | FastAPI 앱 등록과 API 자동 테스트 |
 | 8.5 마무리 | `practice_db.py` | `prepare`는 `A001` 상품을 준비하고 `show`는 상품과 마스터·상세·감사 건수를 출력 |
 
 이름·입력·결과 형태와 위치를 유지하되 내부 보조 함수 이름은 고정하지 않는다.
 
-### 요청과 계산 규약
+### 단계별 업무 명세
 
-- 요청은 `master` 객체와 비어 있지 않은 `details` 배열로 구성한다.
-- `master`의 Core 필드는 `dept_code`, `emp_code`, 양의 정수 `delivery_code`, `1|2`인 `is_vat`이다.
-- 각 상세는 1~50자의 `prod_code`와 양의 정수 `qty`만 사용하며 같은 상품을 중복할 수 없다.
-- `corp_id`, `partner_id`, `order_status`, `unit_price`, `total_amount` 등 서버 소유 입력은 버린다.
-- 상품 없음·비활성은 `product_not_found` 400, 0 이하 서버 단가는 `invalid_unit_price` 409로 변환한다.
-- 단가 1,000원·수량 5·`is_vat="2"`의 공급가액은 5,000원, VAT는 500원, 합계는 5,500원이다.
-- VAT는 공급가액의 10%를 1원 단위로 반올림하며 0.5원은 올린다. 공급가액 1,005원이면 VAT는 101원이다.
-- 계획의 회사·거래처·상태는 `branch01`, `admin`, `"10"`이다. 발주번호는 저장 시 DB가 만든다.
+세부 조건은 [chapter8_order_spec.md](../chapter8_order_spec.md)에서 아래 항목을 읽는다.
+이 파일은 공개 이름과 위치를 정하고, 업무 명세는 각 값의 의미와 동작·검증 조건을 정한다.
 
-### 8.4 저장과 테스트 규약
+| 현재 단계 | 명세에서 확인할 항목 |
+|---|---|
+| 8.2 요청 검증 | 요청 JSON, 허용 값·기본값·오류 구분, 서버 소유 값 제외와 불변성 |
+| 8.3 업무 판단 | 요청 값·상품 스냅숏·계획 구조, 서버 단가·회사 사용, VAT 계산과 오류 매핑 |
+| 8.4 저장 | 실제 모델과 계획의 연결, 세션 조건, 원자적 저장과 실패·롤백 검사 |
+| 8.5 API 연결 | 상품 조회와 저장 연결, 응답·오류, 자동 테스트와 실제 HTTP·DB 확인 범위 |
 
-- 모델은 `Product`, `PurchaseOrder`, `PurchaseOrderDetail`, `AuditLog`를 사용한다.
-- 저장 함수는 `with db.begin():`에서 마스터 flush → 상세 전체 flush → 감사 flush 순서로 처리한다.
-- 상세와 감사 실패는 SQLAlchemy 테스트 이벤트로 각 INSERT 시점에 유도한다. 제품 코드에 실패 스위치를 넣지 않는다.
-- 정상 시작값은 상품 `A001`, 단가 1,000원, 활성 상태와 세 저장 테이블 0·0·0건이다.
-- 정상 저장은 마스터·상세·감사 1·1·1건과 합계 5,500원, 상품 단가·활성 상태 불변을 확인한다.
-- 여러 상세의 정상 저장에서 모든 상세 값·번호 연결과 감사 건수·총액이 계획과 일치해야 한다.
-- 상세 또는 감사 실패 뒤 새 세션으로 세 저장 테이블이 모두 0·0·0건인지 확인한다.
-- 뒤쪽 상세 실패 전에 앞선 INSERT의 실제 실행 완료 근거를 확인하고, 확인되지 않으면 보장 범위를 제한해 보고한다.
-- 테스트 이벤트는 실패해도 제거한다. 이벤트 구현 분석은 독자의 필수 완료 조건이 아니다.
-
-### 8.5 API 연결 규약
-
-- 상품 조회를 `with db.begin():` 안에서 끝내고 필요한 값을 `ProductSnapshot`으로 추출한 뒤 판단한다.
-- 저장은 `persist_franchise_order(plan, db)` 한 번으로 수행한다. 마스터·상세·감사를 여러 HTTP 요청으로 나누지 않는다.
-- 성공은 HTTP 200과 `status`, `purchase_order_no`, `order_status`, `detail_count`, `total_amount`를 반환한다.
-- 입력·중복·상품 없음은 400, 잘못된 서버 단가와 무결성 충돌은 409, 예상하지 못한 저장 오류는 500이다.
-- 500 응답에 SQL과 내부 예외 문자열을 노출하지 않는다.
-- 교육용 경로는 `POST /franchise/order`다. 실제 제품 경로, JWT, `Idempotency-Key`, 마감과 동시성 제어를
-  구현했거나 검증했다고 주장하지 않는다. 기존 발주 없음 404는 신규 등록 Core 범위가 아니다.
+앞 단계의 결과는 대화 기록이 아니라 실제 구현에서 확인한다. 명세·공개 규약·구현 사이에
+차이가 있으면 임의로 구조나 이름을 바꾸지 말고 충돌과 최소 변경안을 보고한다.
 
 ## 공통 보존과 실행
 
