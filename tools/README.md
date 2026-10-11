@@ -29,4 +29,23 @@ verify_ch08_legacy_api.ps1는 이전 API 실습의 보관 도구이며 새 Chapt
 ./tools/reset_practice_chapter.ps1 -Chapter ch08 -Apply
 ```
 
-Chapter 5·10·11의 SQL은 폐기 가능한 전용 실습 DB에서 해당 장의 초기화 절차를 따릅니다.
+Chapter 10·11의 SQL은 폐기 가능한 전용 실습 DB에서 해당 장의 초기화 절차를 따릅니다.
+
+## Chapter 5 SQL 예제
+
+정적 검사: `./tools/verify_practice_chapter.ps1 -Chapter ch05`
+ch05/의 지침과 참고 SQL 두 개를 확인합니다. 생성 SQL은 시작점에 없어도 정상입니다.
+이 도구는 DB에 접속하지 않으므로 실제 SQL 실행은 NOT RUN으로 표시합니다.
+AI가 만든 sql/ 파일 전체를 전용 Supabase SQL Editor에서 실행하고 실제 조회 결과를 확인합니다.
+새 예제는 임시 테이블을 사용합니다. 이전 초기화 SQL은 ch05/.archive/sql/에 보관하며 새 Core에서 실행하지 않습니다.
+
+## Chapter 7 개편 실습
+
+정적 검사: `./tools/verify_practice_chapter.ps1 -Chapter ch07`
+생성 후 테스트: `./tools/verify_ch07_core.ps1`
+두 도구 모두 키트 루트의 PowerShell 터미널에서 실행합니다.
+테스트 도구는 생성 대상 세 파일의 존재와 unittest 실행을 확인하며, 0개 테스트는 실패로 처리합니다.
+필수 DB 상태의 단언문은 AI 리뷰에서 따로 확인합니다. 도구 통과가 실제 동시 요청 검증은 아닙니다.
+초기화는 `./tools/reset_practice_chapter.ps1 -Chapter ch07`로 대상부터 확인합니다.
+`-Apply`는 understanding/의 생성 파일 세 개만 제거합니다. 이전 API 파일·DB·참고 자료는 보존합니다.
+메모리 DB 예제는 매 실행마다 새로 시작하므로 일반적인 재실행에 초기화는 필요하지 않습니다.

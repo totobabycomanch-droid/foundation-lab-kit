@@ -21,8 +21,8 @@ function Write-Check([bool]$Condition, [string]$Message) {
 
 $required = @{
     ch04 = @("AGENTS.md", "README.md", "inputs/requirements_brief.md", "inputs/unsafe_tenant_query.py", "inputs/debug_case.md")
-    ch05 = @("AGENTS.md", "sql/README.md", "sql/00_initialize_lab.sql", "sql/99_reset_lab.sql")
-    ch07 = @("AGENTS.md", "README.md", "requirements.txt")
+    ch05 = @("AGENTS.md", "README.md", "sql/README.md", "reference/README.md", "reference/01_current_and_history.sql", "reference/02_relationship_and_delete.sql")
+    ch07 = @("AGENTS.md", "README.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/reference/transaction_example.py", "understanding/reference/sale_example.py", "understanding/reference/test_examples.py")
     ch08 = @("AGENTS.md", "README.md", "ai_build_rules.md", "ai_review_rules.md", "chapter8_order_spec.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/reference/order_example.py", "understanding/reference/test_order_example.py")
     ch09 = @("erp-mini/domain/__init__.py", "erp-mini/routers/__init__.py", "erp-mini/services/__init__.py", "erp-mini/tests/__init__.py")
     ch10 = @("erp-mini/db.py", "erp-mini/schema.sql", "erp-mini/server.py", "erp-mini/sql/00_initialize_lab.sql", "erp-mini/sql/99_reset_lab.sql")

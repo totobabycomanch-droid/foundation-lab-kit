@@ -11,11 +11,7 @@ $kitRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $chapterRoot = (Resolve-Path (Join-Path $kitRoot "practice-workspace/$Chapter")).Path
 
 $removeTargets = @{
-    ch07 = @(
-        "transaction_test.py", "race_simulation.py", "thread_race_test.py",
-        "idempotency_test.py", "statemachine_test.py", "mini_pos_api.py",
-        "mini_pos_api_test.py", "mini_pos_optional_lab.py", "mini_pos.db"
-    )
+    ch07 = @("understanding/transaction_example.py", "understanding/sale_example.py", "understanding/test_examples.py")
     ch08 = @("understanding/order_example.py", "understanding/test_order_example.py")
     ch09 = @(
         "erp-mini/main.py", "erp-mini/domain/order.py", "erp-mini/domain/payment.py",

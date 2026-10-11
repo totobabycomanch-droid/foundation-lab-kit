@@ -37,3 +37,16 @@ FastAPI·Starlette·httpx2 의존성 조합을 고정하고 테스트 docstring�
 새 실습은 practice-workspace/ch08/understanding/에서 Python 기본 기능으로 세 사례를 확인합니다.
 이전 project/·reference/와 네 단계 지침은 보관 자료로 남겼으며 새 필수 과정에서 사용하지 않습니다.
 v1.3.12는 개편 Chapter 8용입니다. 위 v1.3.9~v1.3.11 안내는 이전 원고의 배포 이력입니다.
+
+## v1.3.13 Chapter 5·7 개편 실습
+
+Chapter 5는 두 임시 테이블 SQL 예제로 현재값·이력과 상품·거래 관계를 확인합니다.
+ch05/에서 AI에게 SQL 두 개를 요청한 뒤 전용 Supabase SQL Editor에서 전체 실행합니다.
+이전 초기화 SQL은 ch05/.archive/sql/로 옮겼으며 새 Core에서 사용하지 않습니다.
+
+Chapter 7은 ch07/understanding/에서 Python 기본 SQLite와 unittest로 부분 저장·롤백,
+재고 부족·순차 재시도·키 충돌을 확인합니다. 이전 API 안내는 legacy-api/에 보관했습니다.
+Chapter 8은 v1.3.12의 작은 이해 실습을 그대로 사용합니다.
+
+기존 실습 폴더를 덮어쓰지 말고 비어 있는 새 폴더에 압축을 풉니다.
+생성 SQL·Python 구현, 실제 DB·가상환경은 시작점에 제공하지 않습니다.

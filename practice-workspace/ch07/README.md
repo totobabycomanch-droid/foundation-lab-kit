@@ -1,20 +1,10 @@
-# Chapter 7 시작점
+# Chapter 7: 실패와 재시도 뒤 DB 상태 확인
 
-## Core 실습
+개편 Core는 understanding/에서 Python 표준 sqlite3·unittest만 사용합니다.
+외부 패키지 설치, HTTP 서버, 파일 DB, 반복 초기화는 필요하지 않습니다.
+VS Code에서 understanding/을 열고 그 폴더의 README.md를 확인하세요.
 
-첫 완주에서는 원고 순서대로 다음 파일을 이 폴더에 만듭니다.
-
-1. `transaction_test.py`
-2. `race_simulation.py`
-3. `idempotency_test.py`
-4. `statemachine_test.py`
-5. `mini_pos_api.py`
-6. `mini_pos_api_test.py`
-
-## 선택 실습
-
-- `mini_pos_optional_lab.py`: 7.9-1의 마지막 재고 경합과 응답 유실 준비 Lab
-- `thread_race_test.py`: 7.9-1의 DB 잠금과 실제 충돌 선택 도전
-
-선택 파일을 만들지 않아도 Chapter 7 Core를 완료할 수 있습니다. SQLite는 Python 표준
-라이브러리를 사용하고 FastAPI 실습에 필요한 패키지만 설치합니다.
+생성 파일은 understanding/transaction_example.py, understanding/sale_example.py,
+understanding/test_examples.py 세 개입니다. 기존 파일이 있으면 필요한 부분만 보완합니다.
+이전 API 실습 안내와 의존성은 legacy-api/에 보관했습니다.
+루트 requirements.txt는 이전 실습의 호환 자료이며 개편 Core에서는 설치하지 않습니다.
