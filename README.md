@@ -64,3 +64,11 @@ SQL 참고 코드와 다른 Chapter의 실습 내용은 v1.3.13과 같습니다.
 각 SQL을 실행한 뒤 본문의 SELECT로 직접 조회하며, 데이터는 COMMIT 후에도 남습니다.
 재실행은 해당 실습 테이블만 초기화합니다. 새 실행 규칙은 ch05/AGENTS.md와 sql/README.md를 따릅니다.
 다른 Chapter는 foundation-kit-v1.3.14 배포본과 동일합니다.
+
+## v1.3.16 Chapter 9 상태 규칙 실습
+
+이 버전은 v1.3.15를 기준으로 공통 보고 규칙과 Chapter 9 지침을 정리했습니다.
+AI는 practice-workspace/AGENTS.md의 공통 보고 규칙에 따라 실행 결과와 최신 파일의 근거를 보고합니다.
+Chapter 9는 9.4의 단일 주문 예제와 테스트에서 코드 생성·실행을 마칩니다.
+9.5 이후는 읽기 구간이며 Payment·Inventory·서버 코드를 추가하지 않습니다.
+다른 Chapter의 파일과 실행 코드는 v1.3.15와 같습니다.
