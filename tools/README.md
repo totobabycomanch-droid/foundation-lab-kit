@@ -1,5 +1,13 @@
 # Foundation Lab Kit 도구
 
+## Chapter 9 고정 검사
+
+생성 후 키트 루트에서 `./tools/verify_ch09_core.ps1`을 실행합니다.
+30개 상태·행동 조합과 신규 상태·직접 대입 거부·주문 간 독립성을 고정 기대값으로 검사합니다.
+생성 테스트와 main.py의 내용 검토는 원고의 AI 검증 단계에서 별도로 진행합니다.
+실패 시 ch09/reference/README.md의 비교 순서를 따릅니다. DB·HTTP 검증은 포함하지 않습니다.
+
+
 키트 전체와 Chapter별 시작 문서를 읽기 전용으로 확인합니다.
 VS Code의 PowerShell 터미널에서 키트 루트를 현재 위치로 사용합니다.
 
