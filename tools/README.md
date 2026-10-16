@@ -58,3 +58,9 @@ AI가 만든 sql/ 파일 전체를 전용 Supabase SQL Editor에서 실행하고
 초기화는 `./tools/reset_practice_chapter.ps1 -Chapter ch07`로 대상부터 확인합니다.
 `-Apply`는 understanding/의 생성 파일 세 개만 제거합니다. 이전 API 파일·DB·참고 자료는 보존합니다.
 메모리 DB 예제는 매 실행마다 새로 시작하므로 일반적인 재실행에 초기화는 필요하지 않습니다.
+
+## Chapter 8 직접 입력 모드
+
+생성 후 ch08/understanding/에서 python order_example.py --interactive로 직접 입력합니다.
+verify_ch08_core.ps1은 입력 대기 없이 생성 테스트와 고정 검사를 실행합니다.
+직접 입력 흐름은 생성 테스트에서 입력·재시도·종료를 검사하며 공개 함수의 고정 검사와 구분합니다.
