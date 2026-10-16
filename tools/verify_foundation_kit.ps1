@@ -63,6 +63,7 @@ $requiredPaths = @(
     "practice-workspace/ch08/chapter8_order_spec.md",
     "practice-workspace/ch08/understanding/AGENTS.md",
     "practice-workspace/ch08/understanding/README.md",
+    "practice-workspace/ch08/understanding/checks/test_order_rules.py",
     "practice-workspace/ch08/understanding/reference/order_example.py",
     "practice-workspace/ch08/understanding/reference/test_order_example.py",
     "tools/verify_ch08_core.ps1",

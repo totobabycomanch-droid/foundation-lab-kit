@@ -6,7 +6,10 @@ chapter8_order_spec.md에서 작은 실습의 입력·세 사례·확인 범위�
 기존 예제가 조건을 충족하면 재작성 없이 검증하세요.
 order_example.py와 test_order_example.py만 만들거나 최소 변경하세요.
 검증과 서버 단가 계산을 구분하고 함수·테스트에 입력과 기대 결과의 짧은 docstring을 작성하세요.
+chapter8_order_spec.md의 validate_item·calculate_amounts 공개 규격과 ValueError·반환 필드를 따르세요.
+checks/의 고정 검사는 읽되 수정하지 마세요. 공백 제거·수량 제한·VAT 구분·104/105/106원 경계값과 잘못된 서버 단가·VAT 구분도 테스트하세요.
 반환값에는 다음 단계로 전달할 값의 의미가 필요할 때만 짧은 주석을 붙이세요.
 Python 표준 라이브러리만 사용하고 DB·HTTP·외부 패키지·저장 계획 클래스를 추가하지 마세요.
 실제 테스트를 실행하고 ai_review_rules.md에 따라 명령·결과·대표 근거를 보고하세요.
+understanding/에서 ../../../tools/verify_ch08_core.ps1도 실행하고 직접 호출할 방법을 안내하세요.
 이전 API 실습·참고 답안·.env·다른 Chapter는 읽거나 변경하지 마세요.

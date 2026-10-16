@@ -4,8 +4,18 @@
 
 Day 16의 실제 발주 흐름을 이해하기 위한 한 품목의 Python 예제입니다.
 작업 위치는 understanding/이며 공개 실행 파일은 order_example.py, 테스트는 test_order_example.py입니다.
-내부 함수 이름은 고정하지 않습니다. 검증과 계산의 역할은 구분합니다.
+공개 함수는 아래 규격으로 맞추고 내부 함수 이름과 구현 방법은 자유롭게 정합니다.
 Python 표준 라이브러리만 사용합니다. DB·API·서버·외부 의존성을 추가하지 않습니다.
+
+## 직접 호출과 고정 검사의 공개 규격
+
+- validate_item(payload)는 품목 객체를 받아 prod_code·qty만 있는 dict를 반환합니다.
+- calculate_amounts(item, *, server_unit_price, is_vat)는 검증된 품목과 별도 서버 값을 받습니다.
+- 계산 결과는 unit_price·supply_amount·vat_amount·total_amount만 있는 dict입니다.
+- 잘못된 입력·서버 단가·VAT 구분은 ValueError로 거부합니다.
+- 모듈을 import할 때 대표 사례를 자동 실행하지 않습니다. 직접 호출과 스크립트 실행을 구분합니다.
+- understanding/checks/test_order_rules.py는 업무 규칙에서 정한 고정 검사입니다. 읽되 수정하지 않습니다.
+- reference/는 생성·검증의 답안으로 읽거나 복사하지 않습니다.
 
 ## 입력 검증
 
@@ -38,6 +48,11 @@ order_example.py를 한 번 실행하면 세 사례의 실제 결과를 표시�
 각 테스트 함수는 입력·기대 결과를 짧은 docstring으로 설명하고 실제 단언문으로 검사합니다.
 테스트 실행은 python -m unittest -v test_order_example.py입니다.
 테스트 수보다 세 동작에 대한 입력·단언문·실행 근거를 확인합니다.
+공백 제거, 논리값·문자열·0·음수·소수·null 수량 거부와 VAT "1"의 0원도 테스트합니다.
+수량 1·VAT "2"에서 서버 단가 104·105·106원의 VAT는 각각 10·11·11원이며 합계는 114·116·117원입니다.
+서버 단가의 양의 정수 조건과 VAT 구분 "1"·"2" 외 값의 거부도 테스트합니다.
+understanding/에서 ../../../tools/verify_ch08_core.ps1로 생성 테스트와 고정 검사를 함께 실행합니다.
+고정 검사는 생성 테스트의 기대값을 가져오지 않습니다. 코드의 계산 전 거부 순서와 대표 테스트의 단언문은 별도로 읽습니다.
 DB 저장·롤백·HTTP·동시성은 이 실습의 검증 범위가 아닙니다.
 
 ## 본문 읽기와 Day 16 연결

@@ -33,8 +33,24 @@ AI는 다음 명령으로 입력·단언문·실행 결과를 확인합니다.
 python -m unittest -v test_order_example.py
 ```
 
-기본 테스트는 세 사례지만 개수는 구현에 따라 달라질 수 있습니다.
-세 사례의 Pass와 실제 검사 근거를 확인합니다. DB·HTTP·동시성은 검증 범위 밖입니다.
+chapter8_order_spec.md의 공개 함수는 validate_item(payload)와
+calculate_amounts(item, *, server_unit_price, is_vat)입니다. 검증 결과는 prod_code·qty,
+계산 결과는 unit_price·supply_amount·vat_amount·total_amount 필드를 사용하며 잘못된 값은 ValueError로 거부합니다.
+내부 구현은 자유롭게 정합니다. 이전에 생성한 함수의 이름이나 반환 형식이 다르면 공개 규격에 맞춥니다.
+
+독자가 직접 입력을 바꿔 예상·관찰한 결과와 테스트의 실제 입력·단언문을 확인합니다.
+공백 제거·수량 제한·VAT 구분·104/105/106원 경계값과 서버 값 검증도 검사합니다.
+생성 테스트와 별도로 checks/test_order_rules.py가 고정된 업무 기대값으로 동작을 검사합니다.
+현재 understanding/ 위치에서 실행합니다.
+
+```powershell
+../../../tools/verify_ch08_core.ps1
+```
+
+이 명령은 생성 테스트와 고정 검사를 모두 실행합니다. PASS를 확인하고, NOT RUN이면 생성 파일·실행 위치를,
+FAIL이면 실패한 입력·기대값·실제 결과를 확인합니다. checks/는 수정하지 않습니다.
+생성 테스트 누락이나 수량 0 이후의 계산 호출 여부는 코드·단언문과 함께 별도로 확인합니다.
+DB·HTTP·동시성은 검증 범위 밖입니다.
 
 ## 막혔을 때
 

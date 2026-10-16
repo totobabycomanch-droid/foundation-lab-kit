@@ -18,7 +18,8 @@ VS Code의 PowerShell 터미널에서 키트 루트를 현재 위치로 사용�
 
 Chapter 8 정적 검사는 understanding/의 지침·명세·참고 파일을 확인합니다.
 생성된 코드의 동작을 대신 검증하지는 않습니다.
-작은 예제가 생성된 뒤 다음 도구로 테스트를 실행할 수 있습니다. 본문에서 별도 실행할 필수 과제는 아닙니다.
+작은 예제가 생성된 뒤 다음 필수 도구로 생성 테스트와 독립된 고정 검사를 실행합니다.
+고정 검사는 ch08/understanding/checks/에 있으며 수정하지 않습니다. 공개 함수 규격은 ch08/chapter8_order_spec.md를 따릅니다.
 
 ```powershell
 ./tools/verify_ch08_core.ps1

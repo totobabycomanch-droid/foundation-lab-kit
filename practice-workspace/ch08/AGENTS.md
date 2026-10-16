@@ -15,10 +15,12 @@
 - project/, reference/, legacy-api/는 이전 API 실습 자료이다. 새 구현을 위해 읽거나 복사·수정하지 않는다.
 - .env와 비밀 값, 다른 Chapter 파일은 읽거나 출력·변경하지 않는다.
 - understanding/reference/는 막혔을 때 독자가 볼 참고 자료이며 AI 생성 답안으로 사용하지 않는다.
+- understanding/checks/는 읽기 전용 고정 검사이다. 공개 함수 규격은 chapter8_order_spec.md를 따르며 검사와 업무 규칙의 기대값을 변경하지 않는다.
 
 ## 근거 확인 (evidence-scoped)
 
 - 정상 5500·조작 단가 제외·수량 0의 계산 전 거부를 실제 테스트로 확인한다.
+- 공백 제거·수량 제한·VAT 구분·104/105/106원 경계값도 확인한다. tools/verify_ch08_core.ps1은 understanding/에서 ../../../tools/verify_ch08_core.ps1로 실행한다.
 - Pass·Fail·Not Run·테스트 없음과 코드 검토·명령 실행을 구분한다.
 - 근거에는 파일 경로와 검색할 테스트 이름을 함께 보고한다.
 - 세부 보고 기준은 ai_review_rules.md를 따른다. DB 저장·롤백·HTTP를 검증했다고 보고하지 않는다.
