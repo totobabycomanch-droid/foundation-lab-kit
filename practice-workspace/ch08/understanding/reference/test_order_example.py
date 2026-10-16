@@ -97,89 +97,56 @@ class OrderExampleTests(unittest.TestCase):
                     calculate_amounts(item, server_unit_price=1000, is_vat=category)
 
 
-class InteractiveTests(unittest.TestCase):
-    def execute(self, entries, *arguments):
-        """실제 CLI에 입력을 전달하고 입력 대기는 제한 시간으로 확인합니다."""
-        result = subprocess.run(
-            [sys.executable, "-B", "order_example.py", *arguments],
-            input="\n".join(entries) + "\n", capture_output=True, text=True,
-            encoding="utf-8", timeout=5, cwd=Path(__file__).parent,
-            env=dict(os.environ, PYTHONIOENCODING="utf-8"),
+class PythonReplTests(unittest.TestCase):
+    def execute(self, arguments, commands=""):
+        """실제 Python 프로세스에서 입력 대기와 예외 뒤의 계속 실행을 확인합니다."""
+        return subprocess.run(
+            [sys.executable, "-B", *arguments], input=commands,
+            capture_output=True, text=True, encoding="utf-8", timeout=5,
+            cwd=Path(__file__).parent, env=dict(os.environ, PYTHONIOENCODING="utf-8"),
         )
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(result.stderr, "")
-        return result.stdout
 
-    def test_request_prices_use_server_price(self):
-        """요청 단가 100·10원 모두 서버 단가와 합계가 유지됩니다."""
+    def test_low_request_prices_are_excluded(self):
+        """요청 단가 100·10원은 제외하고 서버 단가로 5500원을 계산합니다."""
         for price in (100, 10):
             with self.subTest(price=price):
-                output = self.execute(["A001", "5", str(price), "n"], "--interactive")
-                self.assertIn(f"'unit_price': {price}}}", output)
-                self.assertIn("검증된 품목: {'prod_code': 'A001', 'qty': 5}", output)
-                self.assertIn("적용한 서버 단가: 1,000원", output)
-                self.assertIn("공급가액: 5,000원", output)
-                self.assertIn("VAT: 500원", output)
-                self.assertIn("합계: 5,500원", output)
-                self.assertIn("실습을 종료합니다.", output)
+                item = validate_item({"prod_code": "A001", "qty": 5, "unit_price": price})
+                self.assertEqual(item, {"prod_code": "A001", "qty": 5})
+                self.assertEqual(calculate_amounts(item, server_unit_price=1000, is_vat="2"), {
+                    "unit_price": 1000, "supply_amount": 5000,
+                    "vat_amount": 500, "total_amount": 5500,
+                })
 
-    def test_invalid_quantity_has_no_success_result(self):
-        """수량 -3·0은 실제 입력 경로에서 거부되고 계산 결과를 표시하지 않습니다."""
-        for qty in (-3, 0):
-            with self.subTest(qty=qty):
-                output = self.execute(["A001", str(qty), "100", "n"], "--interactive")
-                self.assertIn("계산 전 거부:", output)
-                self.assertNotIn("검증된 품목:", output)
-                self.assertNotIn("계산 결과:", output)
-                self.assertNotIn("합계:", output)
+    def test_repl_continues_after_invalid_quantity(self):
+        """대화형 환경은 수량 -3·0의 예외 뒤에도 수정한 입력을 처리합니다."""
+        commands = "\n".join([
+            "from order_example import validate_item, calculate_amounts",
+            'validate_item({"prod_code": "A001", "qty": -3})',
+            'validate_item({"prod_code": "A001", "qty": 0})',
+            'item = validate_item({"prod_code": "A001", "qty": 5, "unit_price": 100})',
+            'print(item)',
+            'print(calculate_amounts(item, server_unit_price=1000, is_vat="2"))',
+            'item = validate_item({"prod_code": "A001", "qty": 5, "unit_price": 10})',
+            'print(calculate_amounts(item, server_unit_price=1000, is_vat="2"))',
+            'exit()',
+        ]) + "\n"
+        result = self.execute(["-i", "-q"], commands)
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.stderr.count("ValueError:"), 2)
+        self.assertIn("{'prod_code': 'A001', 'qty': 5}", result.stdout)
+        self.assertEqual(result.stdout.count("'total_amount': 5500"), 2)
+        self.assertNotIn("'unit_price': 100}", result.stdout)
 
-    def test_conversion_errors_do_not_calculate(self):
-        """소수·문자 수량과 잘못된 단가는 입력 변환에서 거부합니다."""
-        for qty, price in (("1.5", "100"), ("abc", "100"), ('"5"', "100"), ("True", "100"), ("5", "abc")):
-            with self.subTest(qty=qty, price=price):
-                output = self.execute(["A001", qty, price, "n"], "--interactive")
-                self.assertIn("입력 오류:", output)
-                self.assertNotIn("계산 결과:", output)
-
-    def test_rejected_quantity_can_be_corrected(self):
-        """거부 뒤 새로 입력한 수량 5는 검증·계산에 성공합니다."""
-        output = self.execute(["A001", "-3", "100", "y", "A001", "5", "10", "n"], "--interactive")
-        self.assertLess(output.index("계산 전 거부:"), output.index("검증된 품목:"))
-        self.assertEqual(output.count("계산 결과:"), 1)
-        self.assertIn("합계: 5,500원", output)
-
-    def test_new_attempt_does_not_reuse_previous_result(self):
-        """성공 뒤 실패해도 이전 결과를 재표시하지 않고 새 수량으로 다시 계산합니다."""
-        output = self.execute([
-            "A001", "2", "100", "y", "A001", "0", "100", "y",
-            "A001", "6", "10", "n",
-        ], "--interactive")
-        self.assertEqual(output.count("계산 결과:"), 2)
-        self.assertIn("합계: 2,200원", output)
-        self.assertIn("합계: 6,600원", output)
-        middle = output.split("계산 전 거부:")[1].split("검증된 품목:")[0]
-        self.assertNotIn("합계:", middle)
-
-    def test_repeat_answer_is_checked(self):
-        """재입력 선택은 y/n을 확인하고 n이면 종료합니다."""
-        output = self.execute(["A001", "5", "100", "maybe", "n"], "--interactive")
-        self.assertIn("y 또는 n을 입력해 주세요.", output)
-        self.assertEqual(output.count("계산 결과:"), 1)
-
-    def test_default_run_does_not_request_input(self):
-        """기본 실행은 입력 없이 기존 세 사례를 출력합니다."""
-        output = self.execute([])
+    def test_script_runs_without_input(self):
+        """기본 스크립트는 입력 없이 세 사례를 실행합니다."""
+        result = self.execute(["order_example.py"])
+        self.assertEqual((result.returncode, result.stderr), (0, ""))
         for label in ("정상 요청:", "조작 단가 1원:", "수량 0 요청:"):
-            self.assertIn(label, output)
-        self.assertNotIn("다시 입력하시겠습니까?", output)
-        self.assertNotIn("입력을 종료합니다.", output)
+            self.assertIn(label, result.stdout)
 
     def test_import_has_no_input_or_output(self):
-        """import는 입력을 요구하거나 예제를 실행하지 않습니다."""
-        result = subprocess.run(
-            [sys.executable, "-B", "-c", "import order_example"], input="",
-            capture_output=True, text=True, timeout=5, cwd=Path(__file__).parent,
-        )
+        """import는 입력을 기다리거나 예제를 실행하지 않습니다."""
+        result = self.execute(["-c", "import order_example"])
         self.assertEqual((result.returncode, result.stdout, result.stderr), (0, "", ""))
 
 
