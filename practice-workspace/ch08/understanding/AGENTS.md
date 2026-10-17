@@ -4,7 +4,7 @@
 
 ## 조사와 승인 (approval-required)
 
-- 이 폴더의 README.md와 ../ai_build_rules.md, ../chapter8_order_spec.md를 읽는다.
+- 이 폴더의 README.md와 ../ai_build_rules.md, ../ai_review_rules.md, ../chapter8_order_spec.md를 읽는다.
 - 현재 폴더의 절대 경로와 기존 파일을 확인하고 변경 범위를 짧게 보고한다.
 - 승인된 동일 범위는 이어서 진행한다. 이미 완성된 예제는 재작성 없이 검증한다.
 
