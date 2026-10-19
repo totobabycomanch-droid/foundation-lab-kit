@@ -43,6 +43,56 @@ class SaleTests(unittest.TestCase):
             sell(self.db, "request-1", "A001", 3)
         self.assertEqual(read_state(self.db), before)
 
+    def test_same_key_different_product_is_conflict(self):
+        """상품만 바꿔 같은 키로 보내면 충돌로 거부하고 기존 판매·재고를 보존합니다."""
+        sell(self.db, "request-1", "A001", 2)
+        before = read_state(self.db)
+        with self.assertRaisesRegex(ValueError, "같은 키"):
+            sell(self.db, "request-1", "A002", 2)
+        self.assertEqual(read_state(self.db), before)
+
+    def test_invalid_quantities_preserve_database_state(self):
+        """각 새 DB에서 0·음수·논리값·문자열 수량을 거부하고 판매·재고를 보존합니다."""
+        for qty in (0, -1, True, "2"):
+            with self.subTest(qty=qty):
+                db = open_database()
+                try:
+                    before = read_state(db)
+                    self.assertEqual(before, {"stock": 5, "sales": []})
+                    with self.assertRaisesRegex(ValueError, "입력 오류"):
+                        sell(db, "invalid-request", "A001", qty)
+                    self.assertEqual(read_state(db), before)
+                finally:
+                    db.close()
+
+    def test_exact_stock_sale_leaves_zero_stock(self):
+        """재고 5개를 모두 판매하면 새 번호·판매 1건·재고 0이 남습니다."""
+        number = sell(self.db, "request-all", "A001", 5)
+        self.assertGreater(number, 0)
+        self.assertEqual(read_state(self.db), {"stock": 0, "sales": [(number, "request-all", "A001", 5)]})
+
+    def test_different_keys_create_separate_sales(self):
+        """서로 다른 키로 2개씩 판매하면 서로 다른 번호·판매 2건·재고 1이 남습니다."""
+        first = sell(self.db, "request-1", "A001", 2)
+        second = sell(self.db, "request-2", "A001", 2)
+        self.assertNotEqual(first, second)
+        self.assertEqual(read_state(self.db), {
+            "stock": 1,
+            "sales": [(first, "request-1", "A001", 2), (second, "request-2", "A001", 2)],
+        })
+
+    def test_database_rejects_duplicate_request_key(self):
+        """판매 함수를 거치지 않은 중복 키 INSERT도 DB 제약이 막고 기존 기록을 보존합니다."""
+        sell(self.db, "request-1", "A001", 2)
+        before = read_state(self.db)
+        with self.assertRaises(sqlite3.IntegrityError):
+            with self.db:
+                self.db.execute(
+                    "INSERT INTO sales(request_key, prod_code, qty) VALUES (?, ?, ?)",
+                    ("request-1", "A001", 1),
+                )
+        self.assertEqual(read_state(self.db), before)
+
     def test_insufficient_stock_changes_nothing(self):
         """재고 5에서 6개 요청은 판매를 남기거나 재고를 차감하지 않습니다."""
         with self.assertRaisesRegex(ValueError, "재고 부족"):

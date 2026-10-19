@@ -22,7 +22,7 @@ try {
     & $PythonExecutable -B (Join-Path $exampleRoot "checks/test_order_rules.py")
     if ($LASTEXITCODE -ne 0) { Write-Host "FAIL    Fixed order rules"; exit 1 }
     Write-Host "PASS    Fixed order rules. Review actual example calls and generated test evidence separately."
-    Write-Host "NOT RUN DB persistence, rollback, HTTP and concurrency are outside this chapter."
+    Write-Host "SCOPE   DB persistence, rollback, HTTP and concurrency are outside this chapter."
 }
 finally {
     Pop-Location

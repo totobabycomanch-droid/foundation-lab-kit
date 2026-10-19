@@ -27,11 +27,7 @@ python order_example.py
 
 정상 요청·단가 1원 조작 요청은 모두 5000·500·5500이어야 하며 수량 0은 거부돼야 합니다.
 서버 단가 1000은 제공된 값이며 DB 조회 결과가 아닙니다. 계산만 수행하고 저장하지 않습니다.
-AI는 다음 명령으로 입력·단언문·실행 결과를 확인합니다.
-
-```powershell
-python -m unittest -v test_order_example.py
-```
+생성 테스트와 고정 검사는 아래의 통합 명령으로 함께 실행합니다.
 
 chapter8_order_spec.md의 공개 함수는 validate_item(payload)와
 calculate_amounts(item, *, server_unit_price, is_vat)입니다. 검증 결과는 prod_code·qty,
@@ -47,8 +43,11 @@ calculate_amounts(item, *, server_unit_price, is_vat)입니다. 검증 결과는
 ../../../tools/verify_ch08_core.ps1
 ```
 
-이 명령은 생성 테스트와 고정 검사를 모두 실행합니다. PASS를 확인하고, NOT RUN이면 생성 파일·실행 위치를,
-FAIL이면 실패한 입력·기대값·실제 결과를 확인합니다. checks/는 수정하지 않습니다.
+이 명령은 생성 테스트와 고정 검사를 모두 실행합니다. 두 검사 모두 PASS인지 확인합니다.
+NOT RUN이면 출력에 표시된 경로의 생성 파일을, FAIL이면 실패한 입력·기대값·실제 결과나 실행 오류를 확인합니다.
+마지막 SCOPE는 DB 저장·롤백·HTTP·동시 요청이 실습 범위 밖이라는 안내입니다. 추가 검사를 요구하지 않습니다.
+checks/는 수정하지 않습니다.
+생성 테스트 실패만 따로 조사하려면 python -m unittest -v test_order_example.py를 사용합니다.
 생성 테스트 누락이나 수량 0 이후의 계산 호출 여부는 코드·단언문과 함께 별도로 확인합니다.
 DB·HTTP·동시성은 검증 범위 밖입니다.
 
@@ -66,7 +65,8 @@ reference/에는 검증한 참고 예제가 있습니다. 막혔을 때 독자�
 
 생성한 파일이 준비됐다면 understanding/의 PowerShell에서 python을 실행합니다.
 >>>에서 from order_example import validate_item, calculate_amounts를 입력한 뒤 공개 함수를 한 줄씩 호출합니다.
-수량 -3·0의 ValueError를 확인하고 수량 5로 고친 새 입력을 검증합니다.
-요청 단가 100원·10원은 검증 결과에서 제외되고 서버 단가 1,000원으로 합계 5,500원이 계산돼야 합니다.
-호출 코드와 예상·실제 결과는 원고 8.3.2를 따릅니다. 마치면 exit()로 나와 테스트를 실행합니다.
+정상 수량과 수량 0의 ValueError를 확인하고 수량 5로 고친 새 입력을 검증합니다.
+요청 단가와 서버 단가 중 하나를 골라 양의 정수로 바꾸고 예상과 실행 결과를 비교합니다. 서버 단가 105원의 VAT 11원·합계 116원도 확인합니다.
+음수·소수·문자열·논리값 수량과 요청 단가 추가 변경의 직접 호출은 선택입니다.
+호출 코드는 원고 8.3.2를 따릅니다. 마치면 exit()로 나와 통합 검사 명령을 실행합니다.
 별도 입력 프로그램을 구현하는 과정은 필수가 아닙니다.
