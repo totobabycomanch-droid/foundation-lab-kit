@@ -60,6 +60,7 @@ DO $$
 DECLARE
     v_blocked  boolean;
     v_state    text;
+    v_attempts integer;
     v_list     integer;
     v_products integer;
     v_trades   integer;
@@ -69,6 +70,7 @@ DECLARE
     v_qty      integer;
     v_deleted  boolean;
 BEGIN
+    SELECT COUNT(*) INTO v_attempts FROM ch05_lab.lab_delete_attempt;
     SELECT blocked, sqlstate INTO v_blocked, v_state FROM ch05_lab.lab_delete_attempt;
     SELECT COUNT(*) INTO v_list     FROM ch05_lab.lab_product WHERE NOT is_deleted;
     SELECT COUNT(*) INTO v_products FROM ch05_lab.lab_product;
@@ -77,6 +79,9 @@ BEGIN
       INTO v_trade_no, v_code, v_name, v_qty, v_deleted
       FROM ch05_lab.lab_trade t JOIN ch05_lab.lab_product p ON p.id = t.product_id;
 
+    IF v_attempts IS DISTINCT FROM 1 THEN
+        RAISE EXCEPTION '검사 실패: 삭제 시도 기록 건수 기대 1, 실제 %', v_attempts;
+    END IF;
     IF v_blocked IS DISTINCT FROM true OR v_state IS DISTINCT FROM '23503' THEN
         RAISE EXCEPTION '검사 실패: 삭제 차단 기록 기대 true/23503, 실제 %/%', v_blocked, v_state;
     END IF;
@@ -116,6 +121,8 @@ FROM (
            t.trade_no || '|' || p.code || '|' || p.name || '|' || t.quantity || '|' || p.is_deleted,
            'T-0001|A001|샘플 상품|5|true'
       FROM ch05_lab.lab_trade t JOIN ch05_lab.lab_product p ON p.id = t.product_id
+    UNION ALL
+    SELECT 6, '삭제 시도 기록 건수', COUNT(*)::text, '1' FROM ch05_lab.lab_delete_attempt
 ) AS summary
 ORDER BY ord;
 

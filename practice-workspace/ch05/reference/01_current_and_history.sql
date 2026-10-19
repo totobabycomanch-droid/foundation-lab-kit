@@ -41,18 +41,31 @@ DECLARE
     v_rows    integer;
     v_in      integer;
     v_out     integer;
+    v_in_code text;
+    v_out_code text;
+    v_in_reason text;
+    v_out_reason text;
 BEGIN
     SELECT quantity INTO v_current FROM ch05_lab.lab_stock WHERE product_code = 'A001';
     SELECT COALESCE(SUM(change_qty), 0), COUNT(*) INTO v_sum, v_rows
       FROM ch05_lab.lab_stock_history WHERE product_code = 'A001';
-    SELECT change_qty INTO v_in  FROM ch05_lab.lab_stock_history WHERE product_code = 'A001' AND reason = '입고';
-    SELECT change_qty INTO v_out FROM ch05_lab.lab_stock_history WHERE product_code = 'A001' AND reason = '출고';
+    -- 사유로 행을 찾지 않고 순서별로 읽어, 입고·출고가 뒤바뀐 경우도 검사한다.
+    SELECT product_code, change_qty, reason INTO v_in_code, v_in, v_in_reason
+      FROM ch05_lab.lab_stock_history WHERE seq = 1;
+    SELECT product_code, change_qty, reason INTO v_out_code, v_out, v_out_reason
+      FROM ch05_lab.lab_stock_history WHERE seq = 2;
 
     IF v_current IS DISTINCT FROM 7 THEN
         RAISE EXCEPTION '검사 실패: 현재 수량 기대 7, 실제 %', v_current;
     END IF;
     IF v_rows IS DISTINCT FROM 2 THEN
         RAISE EXCEPTION '검사 실패: 이력 행 수 기대 2, 실제 %', v_rows;
+    END IF;
+    IF v_in_code IS DISTINCT FROM 'A001' OR v_in_reason IS DISTINCT FROM '입고' THEN
+        RAISE EXCEPTION '검사 실패: 이력 순서 1의 상품/사유 기대 A001/입고, 실제 %/%', v_in_code, v_in_reason;
+    END IF;
+    IF v_out_code IS DISTINCT FROM 'A001' OR v_out_reason IS DISTINCT FROM '출고' THEN
+        RAISE EXCEPTION '검사 실패: 이력 순서 2의 상품/사유 기대 A001/출고, 실제 %/%', v_out_code, v_out_reason;
     END IF;
     IF v_in IS DISTINCT FROM 10 THEN
         RAISE EXCEPTION '검사 실패: 입고 수량 기대 10, 실제 %', v_in;
@@ -75,11 +88,11 @@ FROM (
     SELECT 1 AS ord, '현재 수량' AS item, quantity::text AS actual, '7' AS expected
       FROM ch05_lab.lab_stock WHERE product_code = 'A001'
     UNION ALL
-    SELECT 2, '이력 1행 (입고)', string_agg(change_qty::text, ','), '10'
-      FROM ch05_lab.lab_stock_history WHERE product_code = 'A001' AND reason = '입고'
+    SELECT 2, '이력 순서 1 (상품|수량|사유)', product_code || '|' || change_qty || '|' || reason, 'A001|10|입고'
+      FROM ch05_lab.lab_stock_history WHERE seq = 1
     UNION ALL
-    SELECT 3, '이력 2행 (출고)', string_agg(change_qty::text, ','), '-3'
-      FROM ch05_lab.lab_stock_history WHERE product_code = 'A001' AND reason = '출고'
+    SELECT 3, '이력 순서 2 (상품|수량|사유)', product_code || '|' || change_qty || '|' || reason, 'A001|-3|출고'
+      FROM ch05_lab.lab_stock_history WHERE seq = 2
     UNION ALL
     SELECT 4, '이력 행 수', COUNT(*)::text, '2'
       FROM ch05_lab.lab_stock_history WHERE product_code = 'A001'
