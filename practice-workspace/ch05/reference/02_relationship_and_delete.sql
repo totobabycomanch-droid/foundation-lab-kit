@@ -1,9 +1,12 @@
--- 목적: 상품 삭제 차단과 목록 제외 후 거래 연결 보존을 확인합니다.
--- 실행: 기초 실습 전용 PostgreSQL SQL Editor에서 BEGIN부터 COMMIT까지 전체 실행합니다.
--- 재실행: ch05_lab의 이 파일 전용 테이블만 삭제하고 처음부터 다시 만듭니다.
--- 보존: COMMIT 후 일반 테이블이 남아 별도 쿼리에서도 조회할 수 있습니다.
--- 범위: 다른 스키마·업무 테이블은 변경하지 않습니다. DROP 순서는 참조하는 거래가 먼저입니다.
+-- 목적: 시작 상태 → 물리 삭제 차단 → 목록 제외 후 과거 거래 보존을 직접 확인합니다.
+-- 실행: 아래 세 구간을 순서대로 실행합니다. 각 시작·끝 주석 사이 전체를 새 쿼리에 복사합니다.
+-- 각 구간은 BEGIN부터 COMMIT까지 독립된 트랜잭션입니다. 파일 전체 실행은 학습 경로가 아닙니다.
+-- 초기화: 구간 1만 실습 2의 테이블을 삭제하고 다시 만듭니다. 실습 1 테이블은 변경하지 않습니다.
+-- 오류: 실패한 구간은 필요하면 ROLLBACK 후 원인 해결·해당 구간 전체 재실행합니다.
+-- 이미 완료한 구간 2·3을 반복하면 사전 검사가 실패합니다. 처음부터 시작하려면 구간 1로 돌아갑니다.
+-- reference 결과를 생성 SQL의 결과로 대신 보고하지 않습니다.
 
+-- [구간 1 시작] 시작 데이터 준비
 BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS ch05_lab;
@@ -37,93 +40,203 @@ INSERT INTO ch05_lab.lab_product (code, name) VALUES ('A001', '샘플 상품');
 INSERT INTO ch05_lab.lab_trade (trade_no, product_id, quantity)
 SELECT 'T-0001', id, 5 FROM ch05_lab.lab_product WHERE code = 'A001';
 
--- 검사 1: 실제 DELETE를 시도한다.
--- foreign_key_violation만 예상된 차단으로 기록하고, 삭제가 성공하면 검사 실패로 처리한다.
--- 다른 오류는 잡지 않으므로 그대로 전달된다.
+-- 시작 상태의 실제 데이터와 연결을 확인합니다.
+DO $$
+BEGIN
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product) <> 1
+       OR (SELECT COUNT(*) FROM ch05_lab.lab_trade) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 시작 상태 상품·거래는 각각 1건이어야 합니다';
+    END IF;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_trade AS t
+        JOIN ch05_lab.lab_product AS p ON p.id = t.product_id
+        WHERE t.trade_no = 'T-0001' AND p.code = 'A001'
+          AND p.name = '샘플 상품' AND t.quantity = 5
+          AND p.is_deleted = false
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 시작 상태 거래 내용·상품 연결·목록 제외 표시가 다릅니다';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 시작 상태 상품 목록 기대 1건';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) <> 0 THEN
+        RAISE EXCEPTION '검사 실패: 시작 상태 삭제 시도 기록 기대 0행';
+    END IF;
+END $$;
+
+-- 보조 결과는 위 검사를 대신하지 않습니다.
+SELECT
+    (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) AS visible_products,
+    (SELECT COUNT(*) FROM ch05_lab.lab_product) AS products,
+    (SELECT COUNT(*) FROM ch05_lab.lab_trade) AS trades,
+    (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) AS delete_attempts;
+
+COMMIT;
+-- [구간 1 끝]
+
+-- [구간 2 시작] 물리 삭제 시도
+BEGIN;
+
+-- 구간 1 완료 상태인지 확인합니다. 누락·반복 실행을 다음 단계로 넘기지 않습니다.
+DO $$
+BEGIN
+    IF to_regclass('ch05_lab.lab_product') IS NULL
+       OR to_regclass('ch05_lab.lab_trade') IS NULL
+       OR to_regclass('ch05_lab.lab_delete_attempt') IS NULL THEN
+        RAISE EXCEPTION '실행 순서 오류: 구간 1부터 실행하세요';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product) <> 1
+       OR (SELECT COUNT(*) FROM ch05_lab.lab_trade) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 구간 2 실행 전: 구간 1 완료 상태 필요, 상품·거래는 각각 1건이어야 합니다';
+    END IF;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_trade AS t
+        JOIN ch05_lab.lab_product AS p ON p.id = t.product_id
+        WHERE t.trade_no = 'T-0001' AND p.code = 'A001'
+          AND p.name = '샘플 상품' AND t.quantity = 5
+          AND p.is_deleted = false
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 구간 2 실행 전: 구간 1 완료 상태 필요, 거래 내용·상품 연결·목록 제외 표시가 다릅니다';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 구간 2 실행 전: 구간 1 완료 상태 필요, 상품 목록 기대 1건';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) <> 0 THEN
+        RAISE EXCEPTION '검사 실패: 구간 2 실행 전: 구간 1 완료 상태 필요, 삭제 시도 기록 기대 0행';
+    END IF;
+END $$;
+
+-- 실제 삭제에서 발생한 foreign_key_violation(23503) 또는 restrict_violation(23001)만 처리합니다.
+-- 내부 블록의 실패한 DELETE는 취소되지만 바깥 트랜잭션은 이어서 검사할 수 있습니다.
 DO $$
 BEGIN
     BEGIN
         DELETE FROM ch05_lab.lab_product WHERE code = 'A001';
         RAISE EXCEPTION '검사 실패: 거래가 참조하는 상품 A001 삭제가 성공했다';
     EXCEPTION
-        WHEN foreign_key_violation THEN
+        WHEN foreign_key_violation OR restrict_violation THEN
             INSERT INTO ch05_lab.lab_delete_attempt (blocked, sqlstate) VALUES (true, SQLSTATE);
     END;
 END $$;
 
--- 삭제 대신 목록 제외 표시만 바꾼다.
-UPDATE ch05_lab.lab_product SET is_deleted = true WHERE code = 'A001';
-
--- 검사 2: 실제 조회값으로 차단 여부, 목록·전체 건수, 연결 보존을 확인한다.
--- 다르면 RAISE EXCEPTION으로 실패한다. JOIN의 상품명은 "현재" 상품명이며 당시 값 보존과는 다르다.
+-- 예상한 차단 기록과 상품·거래 보존을 실제 조회로 확인합니다.
 DO $$
-DECLARE
-    v_blocked  boolean;
-    v_state    text;
-    v_attempts integer;
-    v_list     integer;
-    v_products integer;
-    v_trades   integer;
-    v_trade_no text;
-    v_code     text;
-    v_name     text;
-    v_qty      integer;
-    v_deleted  boolean;
 BEGIN
-    SELECT COUNT(*) INTO v_attempts FROM ch05_lab.lab_delete_attempt;
-    SELECT blocked, sqlstate INTO v_blocked, v_state FROM ch05_lab.lab_delete_attempt;
-    SELECT COUNT(*) INTO v_list     FROM ch05_lab.lab_product WHERE NOT is_deleted;
-    SELECT COUNT(*) INTO v_products FROM ch05_lab.lab_product;
-    SELECT COUNT(*) INTO v_trades   FROM ch05_lab.lab_trade;
-    SELECT t.trade_no, p.code, p.name, t.quantity, p.is_deleted
-      INTO v_trade_no, v_code, v_name, v_qty, v_deleted
-      FROM ch05_lab.lab_trade t JOIN ch05_lab.lab_product p ON p.id = t.product_id;
-
-    IF v_attempts IS DISTINCT FROM 1 THEN
-        RAISE EXCEPTION '검사 실패: 삭제 시도 기록 건수 기대 1, 실제 %', v_attempts;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product) <> 1
+       OR (SELECT COUNT(*) FROM ch05_lab.lab_trade) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 삭제 차단 후 상품·거래는 각각 1건이어야 합니다';
     END IF;
-    IF v_blocked IS DISTINCT FROM true OR v_state IS DISTINCT FROM '23503' THEN
-        RAISE EXCEPTION '검사 실패: 삭제 차단 기록 기대 true/23503, 실제 %/%', v_blocked, v_state;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_trade AS t
+        JOIN ch05_lab.lab_product AS p ON p.id = t.product_id
+        WHERE t.trade_no = 'T-0001' AND p.code = 'A001'
+          AND p.name = '샘플 상품' AND t.quantity = 5
+          AND p.is_deleted = false
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 삭제 차단 후 거래 내용·상품 연결·목록 제외 표시가 다릅니다';
     END IF;
-    IF v_list IS DISTINCT FROM 0 THEN
-        RAISE EXCEPTION '검사 실패: 목록 건수 기대 0, 실제 %', v_list;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 삭제 차단 후 상품 목록 기대 1건';
     END IF;
-    IF v_products IS DISTINCT FROM 1 THEN
-        RAISE EXCEPTION '검사 실패: 상품 건수 기대 1, 실제 %', v_products;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 삭제 차단 후 삭제 시도 기록 기대 1행';
     END IF;
-    IF v_trades IS DISTINCT FROM 1 THEN
-        RAISE EXCEPTION '검사 실패: 거래 건수 기대 1, 실제 %', v_trades;
-    END IF;
-    IF v_trade_no IS DISTINCT FROM 'T-0001' OR v_code IS DISTINCT FROM 'A001'
-       OR v_name IS DISTINCT FROM '샘플 상품' OR v_qty IS DISTINCT FROM 5
-       OR v_deleted IS DISTINCT FROM true THEN
-        RAISE EXCEPTION '검사 실패: 연결된 거래 값 불일치 (%, %, %, %, %)',
-            v_trade_no, v_code, v_name, v_qty, v_deleted;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_delete_attempt
+        WHERE blocked = true AND sqlstate IN ('23503', '23001')
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 삭제 차단 기록 기대 blocked=true, SQLSTATE 23503 또는 23001';
     END IF;
 END $$;
 
--- 보조 결과 표: 실제 조회값을 모읍니다. COMMIT 후에도 본문의 SELECT로 다시 조회할 수 있습니다.
-SELECT item, actual, expected,
-       CASE WHEN actual = expected THEN 'Pass' ELSE 'Fail' END AS result
-FROM (
-    SELECT 1 AS ord, '삭제 차단 (blocked/SQLSTATE)' AS item,
-           blocked::text || '/' || sqlstate AS actual, 'true/23503' AS expected
-      FROM ch05_lab.lab_delete_attempt
-    UNION ALL
-    SELECT 2, '목록 건수 (제외 표시 없음)', COUNT(*)::text, '0'
-      FROM ch05_lab.lab_product WHERE NOT is_deleted
-    UNION ALL
-    SELECT 3, '전체 상품 건수', COUNT(*)::text, '1' FROM ch05_lab.lab_product
-    UNION ALL
-    SELECT 4, '거래 건수', COUNT(*)::text, '1' FROM ch05_lab.lab_trade
-    UNION ALL
-    SELECT 5, '연결된 거래 (번호|코드|상품명|수량|제외)',
-           t.trade_no || '|' || p.code || '|' || p.name || '|' || t.quantity || '|' || p.is_deleted,
-           'T-0001|A001|샘플 상품|5|true'
-      FROM ch05_lab.lab_trade t JOIN ch05_lab.lab_product p ON p.id = t.product_id
-    UNION ALL
-    SELECT 6, '삭제 시도 기록 건수', COUNT(*)::text, '1' FROM ch05_lab.lab_delete_attempt
-) AS summary
-ORDER BY ord;
+SELECT
+    (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) AS visible_products,
+    (SELECT COUNT(*) FROM ch05_lab.lab_product) AS products,
+    (SELECT COUNT(*) FROM ch05_lab.lab_trade) AS trades,
+    (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) AS delete_attempts;
+SELECT blocked, sqlstate FROM ch05_lab.lab_delete_attempt;
 
 COMMIT;
+-- [구간 2 끝]
+
+-- [구간 3 시작] 목록 제외
+BEGIN;
+
+-- 삭제 차단을 확인한 상태에서만 진행합니다. 완료한 구간 3의 반복도 실패합니다.
+DO $$
+BEGIN
+    IF to_regclass('ch05_lab.lab_product') IS NULL
+       OR to_regclass('ch05_lab.lab_trade') IS NULL
+       OR to_regclass('ch05_lab.lab_delete_attempt') IS NULL THEN
+        RAISE EXCEPTION '실행 순서 오류: 구간 1부터 실행하세요';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product) <> 1
+       OR (SELECT COUNT(*) FROM ch05_lab.lab_trade) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 구간 3 실행 전: 구간 2 완료 상태 필요, 상품·거래는 각각 1건이어야 합니다';
+    END IF;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_trade AS t
+        JOIN ch05_lab.lab_product AS p ON p.id = t.product_id
+        WHERE t.trade_no = 'T-0001' AND p.code = 'A001'
+          AND p.name = '샘플 상품' AND t.quantity = 5
+          AND p.is_deleted = false
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 구간 3 실행 전: 구간 2 완료 상태 필요, 거래 내용·상품 연결·목록 제외 표시가 다릅니다';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 구간 3 실행 전: 구간 2 완료 상태 필요, 상품 목록 기대 1건';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 구간 3 실행 전: 구간 2 완료 상태 필요, 삭제 시도 기록 기대 1행';
+    END IF;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_delete_attempt
+        WHERE blocked = true AND sqlstate IN ('23503', '23001')
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 삭제 차단 기록 기대 blocked=true, SQLSTATE 23503 또는 23001';
+    END IF;
+END $$;
+
+UPDATE ch05_lab.lab_product SET is_deleted = true WHERE code = 'A001';
+
+-- 목록 제외 뒤에도 행과 거래 내용·연결이 남는지 확인합니다.
+DO $$
+BEGIN
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product) <> 1
+       OR (SELECT COUNT(*) FROM ch05_lab.lab_trade) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 목록 제외 후 상품·거래는 각각 1건이어야 합니다';
+    END IF;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_trade AS t
+        JOIN ch05_lab.lab_product AS p ON p.id = t.product_id
+        WHERE t.trade_no = 'T-0001' AND p.code = 'A001'
+          AND p.name = '샘플 상품' AND t.quantity = 5
+          AND p.is_deleted = true
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 목록 제외 후 거래 내용·상품 연결·목록 제외 표시가 다릅니다';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) <> 0 THEN
+        RAISE EXCEPTION '검사 실패: 목록 제외 후 상품 목록 기대 0건';
+    END IF;
+    IF (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) <> 1 THEN
+        RAISE EXCEPTION '검사 실패: 목록 제외 후 삭제 시도 기록 기대 1행';
+    END IF;
+    IF NOT EXISTS (
+        SELECT 1 FROM ch05_lab.lab_delete_attempt
+        WHERE blocked = true AND sqlstate IN ('23503', '23001')
+    ) THEN
+        RAISE EXCEPTION '검사 실패: 삭제 차단 기록 기대 blocked=true, SQLSTATE 23503 또는 23001';
+    END IF;
+END $$;
+
+SELECT
+    (SELECT COUNT(*) FROM ch05_lab.lab_product WHERE is_deleted = false) AS visible_products,
+    (SELECT COUNT(*) FROM ch05_lab.lab_product) AS products,
+    (SELECT COUNT(*) FROM ch05_lab.lab_trade) AS trades,
+    (SELECT COUNT(*) FROM ch05_lab.lab_delete_attempt) AS delete_attempts;
+SELECT t.trade_no, p.code, p.name, t.quantity, p.is_deleted
+FROM ch05_lab.lab_trade AS t
+JOIN ch05_lab.lab_product AS p ON p.id = t.product_id;
+
+COMMIT;
+-- [구간 3 끝]

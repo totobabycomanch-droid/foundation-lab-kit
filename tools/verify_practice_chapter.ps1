@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [ValidateSet("ch04", "ch05", "ch07", "ch08", "ch09", "ch10", "ch11")]
@@ -32,6 +32,52 @@ $required = @{
 Write-Check (Test-Path -LiteralPath $chapterRoot -PathType Container) "$Chapter root exists"
 foreach ($relativePath in $required[$Chapter]) {
     Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "$Chapter/$relativePath"
+}
+
+if ($Chapter -eq "ch05") {
+    $rulesPath = Join-Path $chapterRoot "AGENTS.md"
+    if (Test-Path -LiteralPath $rulesPath) {
+        $rules = Get-Content -Raw -Encoding UTF8 -LiteralPath $rulesPath
+        Write-Check ($rules.Contains("common-rules-version: chapter5-v4")) "ch05 staged execution rules version"
+    }
+    $sqlPath = Join-Path $chapterRoot "reference/02_relationship_and_delete.sql"
+    if (Test-Path -LiteralPath $sqlPath) {
+        $sql = Get-Content -Raw -Encoding UTF8 -LiteralPath $sqlPath
+        $previousEnd = 0
+        foreach ($stage in 1..3) {
+            $startPattern = '(?m)^-- \[구간 ' + $stage + ' 시작\].*$'
+            $endPattern = '(?m)^-- \[구간 ' + $stage + ' 끝\].*$'
+            $starts = [regex]::Matches($sql, $startPattern)
+            $ends = [regex]::Matches($sql, $endPattern)
+            $valid = $starts.Count -eq 1 -and $ends.Count -eq 1
+            if ($valid) {
+                $valid = $starts[0].Index -ge $previousEnd -and $ends[0].Index -gt $starts[0].Index
+            }
+            Write-Check $valid "ch05 stage $stage has one ordered, non-overlapping boundary pair"
+            if (-not $valid) { continue }
+            $body = $sql.Substring($starts[0].Index, $ends[0].Index - $starts[0].Index)
+            $previousEnd = $ends[0].Index + $ends[0].Length
+            $begins = [regex]::Matches($body, '(?m)^BEGIN;\s*$')
+            $commits = [regex]::Matches($body, '(?m)^COMMIT;\s*$')
+            $transaction = $begins.Count -eq 1 -and $commits.Count -eq 1
+            if ($transaction) { $transaction = $begins[0].Index -lt $commits[0].Index }
+            Write-Check $transaction "ch05 stage $stage has one explicit transaction"
+            $checks = [regex]::Matches($body, '(?m)^\s*RAISE EXCEPTION\b')
+            $checksBeforeCommit = $transaction -and $checks.Count -gt 0
+            if ($checksBeforeCommit) {
+                $checksBeforeCommit = @($checks | Where-Object { $_.Index -gt $commits[0].Index }).Count -eq 0
+            }
+            Write-Check $checksBeforeCommit "ch05 stage $stage contains failing checks before COMMIT"
+            if ($stage -gt 1) {
+                Write-Check (-not [regex]::IsMatch($body, '(?im)^\s*(DROP|TRUNCATE|CREATE)\b')) "ch05 stage $stage does not reset tables"
+                $guard = $body.IndexOf("to_regclass(")
+                $mutation = [regex]::Match($body, '(?m)^\s*(DELETE FROM|UPDATE)\b')
+                Write-Check ($guard -ge 0 -and $mutation.Success -and $guard -lt $mutation.Index) "ch05 stage $stage checks required tables before mutation"
+            }
+        }
+        Write-Check (-not [regex]::IsMatch($sql, '(?im)^\s*(DROP TABLE(?: IF EXISTS)?|TRUNCATE(?: TABLE)?|DELETE FROM|UPDATE)\s+ch05_lab\.lab_stock(?:_history)?\b')) "ch05 relationship reference does not mutate exercise 1"
+    }
+    Write-Host "INFO    Stage boundaries and SQL structure checked; data behavior is NOT RUN."
 }
 
 if ($Chapter -eq "ch08") {
