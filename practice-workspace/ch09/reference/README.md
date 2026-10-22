@@ -10,13 +10,16 @@
 4. test_order.py의 재승인 테스트에서 예외 검사와 상태 유지 검사를 비교합니다.
 5. 원고의 세 파일 범위 안에서 최소 수정한 뒤 예제·생성 테스트·고정 검사를 다시 실행합니다.
 
-기준 예제 자체를 확인하려면 키트 루트에서 실행합니다.
+기준 예제 자체를 확인할 때도 `ch09/`의 PowerShell에서 실행합니다.
 
 ```powershell
-python -B ./practice-workspace/ch09/reference/test_order.py
-python -B ./practice-workspace/ch09/checks/test_order_rules.py --order-file ./practice-workspace/ch09/reference/order.py
+python -B ./reference/test_order.py
+python -B ./checks/test_order_rules.py --order-file ./reference/order.py
 ```
 
 고정 검사는 업무 규칙에서 작성한 기대값으로 30개 상태·행동 조합과 신규 상태,
-직접 대입 거부, 주문 간 상태 독립성을 검사합니다. 생성 코드의 전이 표를 기대값으로 사용하지 않습니다.
+직접 대입 거부, 주문 간 상태 독립성을 검사합니다. 여섯 상태 모두에서 공개 status가 일반 문자열(str)을
+반환하고 print(order.status)가 상태 이름과 줄바꿈만 출력하는지도 검사합니다.
+총 35개 테스트이며, 반환 형식과 출력 검사는 각각 여섯 상태를 순회합니다.
+생성 코드의 전이 표를 기대값으로 사용하지 않습니다.
 DB·HTTP·동시 요청·멱등성은 검사 범위 밖입니다. 기준 파일은 초기화 후에도 보존됩니다.

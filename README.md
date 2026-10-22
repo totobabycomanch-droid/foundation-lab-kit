@@ -1,7 +1,9 @@
 # Foundation Lab Kit
 
-현재 키트 버전은 v1.3.28입니다. Chapter 6은 Python 진입 필수 환경과 이후 준비할 도구를 구분합니다. Chapter 8의 실습 방식은 v1.3.21과 같습니다. python 실행 후 >>>에서 검증·계산 함수를 직접 호출합니다.
-별도의 입력 모드·재입력 프로그램을 구현할 필요가 없습니다. 아래 버전별 설명은 배포 이력입니다.
+실습 키트 기준 버전은 foundation-kit-v1.3.29입니다.
+Chapter 9는 ch09/에서 run.ps1로 실행합니다. 주문의 업무 규칙과 테스트 기준은
+erp-mini/AGENTS.md에 있으며, 고정 검사는 35개 조건을 확인합니다.
+기존 실습 결과는 보존하고 새 버전은 별도 폴더에 압축을 풀어 사용하세요.
 
 Chapter 2~3에서는 `reference-app/`을 읽고 테스트하며, Chapter 4~11에서는
 `practice-workspace/`의 해당 Chapter 폴더만 수정합니다.

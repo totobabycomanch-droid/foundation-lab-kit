@@ -1,8 +1,10 @@
 """Check the public Order interface against fixed business expectations."""
 import argparse
 import importlib.util
+import io
 import sys
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 
 PATHS = {
@@ -36,6 +38,23 @@ class OrderRules(unittest.TestCase):
     def test_initial_state(self):
         """A new order starts pending."""
         self.assertEqual(self.order_type(order_id=1).status, 'PENDING')
+
+    def test_status_returns_plain_string(self):
+        """Every public state is a plain str, including terminal states."""
+        for state in PATHS:
+            with self.subTest(state=state):
+                order = self.prepared(state)
+                self.assertIs(type(order.status), str)
+
+    def test_status_print_output(self):
+        """Printing each public state emits only its name and a newline."""
+        for state in PATHS:
+            with self.subTest(state=state):
+                order = self.prepared(state)
+                output = io.StringIO()
+                with redirect_stdout(output):
+                    print(order.status)
+                self.assertEqual(output.getvalue(), state + '\n')
 
     def test_status_assignment(self):
         """Direct public assignment is rejected in every state."""
