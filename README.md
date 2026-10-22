@@ -1,6 +1,7 @@
 # Foundation Lab Kit
 
-실습 키트 기준 버전은 foundation-kit-v1.3.29입니다.
+실습 키트 기준 버전은 foundation-kit-v1.3.30입니다.
+Chapter 9의 시작 안내는 practice-workspace/ch09/README.md에서 확인합니다.
 Chapter 9는 ch09/에서 run.ps1로 실행합니다. 주문의 업무 규칙과 테스트 기준은
 erp-mini/AGENTS.md에 있으며, 고정 검사는 35개 조건을 확인합니다.
 기존 실습 결과는 보존하고 새 버전은 별도 폴더에 압축을 풀어 사용하세요.
