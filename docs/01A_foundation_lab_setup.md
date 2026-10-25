@@ -1,6 +1,6 @@
 # 기초 실습 환경 준비: Chapter 2 선택 실습과 Chapter 3~11 실습 키트
 
-> **이 준비 안내의 배포 기준:** `foundation-kit-v1.3.32` · [최신 배포와 다운로드](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest)
+> **기초 실습 키트:** [최신 배포와 다운로드](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest)
 
 VS Code·PowerShell·Git 준비를 마쳤다면 [1. 실습 키트 다운로드·검증·압축 해제](#kit-download)로 바로 이동하세요.
 처음 준비한다면 아래 도구 설치 안내부터 순서대로 진행합니다.
@@ -312,7 +312,8 @@ Expand-Archive -LiteralPath .\foundation-lab-kit-latest.zip -DestinationPath C:\
 이미 `C:\erp-book\foundation-lab-kit` 폴더가 있다면 덮어쓰지 말고, 기존 폴더를 보존한 채
 비어 있는 다른 폴더에 압축을 풉니다.
 이전 버전으로 실습했다면 그 결과는 기존 폴더에 보존합니다.
-새로 실습을 시작할 때는 [최신 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest)를 새 폴더에 준비하세요. 이전 실습을 다시 할 필요는 없습니다.
+처음 실습을 시작할 때 [최신 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest)를 준비하고, 실습 중에는 같은 키트를 계속 사용하세요.
+새 키트가 필요하면 기존 실습 폴더를 보존한 채 새 폴더에 준비합니다. 이전 실습을 다시 할 필요는 없습니다.
 예를 들어 `C:\erp-book-ch05`에 풀려면 위 명령의 `-DestinationPath`를 이 경로로 바꾸고,
 이후 명령의 `C:\erp-book`도 `C:\erp-book-ch05`로 바꿉니다. 이전 파일을 새 키트에 덮어쓰지 않습니다.
 기본 경로에 압축을 풀었다면 다음 경로가 생깁니다.
@@ -325,16 +326,17 @@ C:\erp-book\foundation-lab-kit\
 
 ```text
 foundation-lab-kit/
-├─ reference-app/       # Chapter 2~3에서 조사할 완성 기준 소스
+├─ reference-app/       # Chapter 2~3에서 조사할 읽기 전용 참조 사례
 ├─ practice-workspace/  # Chapter 4~11에서 직접 수정할 연습 공간
 └─ tools/               # 환경 확인과 실습 초기화 도구
 ```
 
-`reference-app`은 완성된 구현에서 근거를 찾는 공간입니다. Chapter 2~3에서는 이 폴더의 코드를
-수정하지 않습니다. `practice-workspace`는 이후 실습에서 파일과 데이터를 직접 바꾸는
+`reference-app`은 현재 동작과 결함을 소스·테스트 근거로 조사하는 읽기 전용 참조 사례입니다.
+안전한 구현의 완성본을 뜻하지 않으며, Chapter 3의 가맹점 등록에는 저장 경계가 빠진 사례가
+포함되어 있습니다. Chapter 2~3에서는 이 폴더의 코드를 수정하지 않습니다. `practice-workspace`는 이후 실습에서 파일과 데이터를 직접 바꾸는
 공간입니다.
 
-두 공간을 나누면 완성 기준 소스를 보존하면서 자신의 결과와 비교할 수 있습니다. SQL이나
+두 공간을 나누면 조사 대상 소스를 보존하면서 자신의 결과와 비교할 수 있습니다. SQL이나
 코드를 잘못 수정하더라도 조사 기준까지 함께 망가뜨리지 않습니다.
 
 압축을 푼 뒤에는 키트 루트에서 구조 검증 스크립트를 실행합니다.
@@ -666,7 +668,7 @@ Supabase URL, 데이터베이스 비밀번호와 API 키는 각자의 로컬 환
 ## 7. Day 00에서는 새 폴더로 시작합니다
 
 Chapter 11을 완료한 뒤 `foundation-lab-kit`을 삭제하거나 Day 프로젝트로 바꾸지 않습니다.
-완성 기준 소스와 기초 실습 결과는 비교·복습용으로 남겨둡니다.
+조사한 참조 사례와 기초 실습 결과는 비교·복습용으로 남겨둡니다.
 
 Day 00에서는 다음처럼 별도의 폴더에 30일 ERP 프로젝트용 스타터 저장소를 준비합니다.
 

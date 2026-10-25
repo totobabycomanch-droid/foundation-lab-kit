@@ -1,6 +1,6 @@
 # Chapter 11. DB-API-화면 3층 연동 실습: 설계를 동작하는 코드로
 
-> **실습 키트 버전:** `foundation-kit-v1.3.32`
+> **실습 키트:** [기초 실습 환경 준비](01A_foundation_lab_setup.md#kit-download)
 > 아직 준비하지 않았다면 [기초 실습 환경 준비](01A_foundation_lab_setup.md)를 먼저 완료하세요.
 
 ## 11.0 이 챕터에서 얻는 것
@@ -1381,26 +1381,26 @@ Day에서도 화면의 성공 표시를 해당 API와 저장 결과로 확인하
 
 > **[선택 참조]** Core를 완료했다면 읽지 않아도 됩니다. 막힌 단계의 코드를 비교·복구할 때 사용합니다.
 
-전체 참조 코드는 `foundation-kit-v1.3.32`의 `chapter-reference/ch11/` 폴더에 포함되어 있습니다.
-이미 새 키트를 준비했다면 추가 ZIP을 받을 필요가 없습니다. 시작 scaffold와 구분해 비교·복구용으로 사용합니다.
-[사용 안내](https://github.com/totobabycomanch-droid/foundation-lab-kit/blob/foundation-kit-v1.3.32/chapter-reference/ch11/README.md)를 읽고 필요한 파일만 비교하세요.
+전체 참조 코드는 기초 실습 키트의 `chapter-reference/ch11/` 폴더에 포함되어 있습니다.
+이미 키트를 준비했다면 추가 ZIP을 받을 필요가 없습니다. 시작 scaffold와 구분해 비교·복구용으로 사용합니다.
+`chapter-reference/ch11/README.md`를 읽고 필요한 파일만 비교하세요.
 
 <a id="ch11-db-reference"></a>
 
-**DB 테이블과 함수:** [approve_order.sql](https://github.com/totobabycomanch-droid/foundation-lab-kit/blob/foundation-kit-v1.3.32/chapter-reference/ch11/approve_order.sql)에서 주문·재고 검사, 행 잠금과 세 쓰기를 비교합니다.
+**DB 테이블과 함수:** `chapter-reference/ch11/approve_order.sql`에서 주문·재고 검사, 행 잠금과 세 쓰기를 비교합니다.
 이미 테이블이 있다면 전체 DDL을 다시 실행하지 말고 현재 객체와 필요한 변경부터 확인하세요.
 고정 데이터 등록과 실험별 복원은 11.2와 [초기화 SQL](#reset-sql)을 따릅니다.
 참조 SQL을 사용했더라도 실제 성공한 내용은 [SQL 실행본 보존 절차](#ch11-sql-record)에 따라 남깁니다.
 
 <a id="ch11-api-reference"></a>
 
-**API:** [main.py](https://github.com/totobabycomanch-droid/foundation-lab-kit/blob/foundation-kit-v1.3.32/chapter-reference/ch11/main.py)를 `workspace/erp-project/api/main.py`와 비교합니다.
+**API:** `chapter-reference/ch11/main.py`를 `workspace/erp-project/api/main.py`와 비교합니다.
 요청 검사·매개변수 바인딩·커밋·롤백·세션 정리를 확인하며, 연결값은 기존 로컬 `.env`를 사용합니다.
 
 <a id="ch11-ui-basic-reference"></a>
 <a id="ch11-ui-state-reference"></a>
 
-**화면과 앱 연결:** [ApproveOrder.vue](https://github.com/totobabycomanch-droid/foundation-lab-kit/blob/foundation-kit-v1.3.32/chapter-reference/ch11/ApproveOrder.vue)와 [App.vue](https://github.com/totobabycomanch-droid/foundation-lab-kit/blob/foundation-kit-v1.3.32/chapter-reference/ch11/App.vue)를
+**화면과 앱 연결:** `chapter-reference/ch11/ApproveOrder.vue`와 `chapter-reference/ch11/App.vue`를
 `workspace/frontend-project/src/`의 해당 파일과 비교합니다. 요청·로딩·성공·오류 처리와 카드 등록을 확인합니다.
 통신만 되는 기본형으로 되돌리거나 정상 화면을 다시 작성할 필요는 없습니다.
 
