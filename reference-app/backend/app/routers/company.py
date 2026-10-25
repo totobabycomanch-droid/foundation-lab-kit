@@ -15,6 +15,9 @@ router = APIRouter()
 
 
 def _request_token(request: Request, query_token: Optional[str]) -> Optional[str]:
+    """HTTP 요청에서 인증 토큰 문자열을 꺼낸다.
+    Authorization의 Bearer 값을 우선하며, 없으면 query_token을 반환한다. 토큰의 유효성은 검사하지 않는다.
+    """
     authorization = request.headers.get("Authorization", "")
     if authorization.lower().startswith("bearer "):
         return authorization[7:].strip()
@@ -22,6 +25,9 @@ def _request_token(request: Request, query_token: Optional[str]) -> Optional[str
 
 
 def _require_hq_manager(auth_info: dict) -> None:
+    """해석된 인증 정보가 파트너 관리 권한 조건을 충족하는지 검사한다.
+    본사 회사 계정 또는 본사의 MANAGER·ADMIN 사원을 허용한다. 거부 시 HTTP 403을 발생시키며 DB는 변경하지 않는다.
+    """
     is_hq = str(auth_info.get("corp_category") or "") == "10"
     is_company_account = auth_info.get("user_type") == "company"
     is_manager = auth_info.get("role") in ("MANAGER", "ADMIN")
@@ -39,12 +45,21 @@ async def register_company(
     token: Optional[str] = None,
     db=Depends(get_tenant_db),
 ):
+    """회사 등록 POST 요청을 인증 확인·권한 검사·저장 함수로 연결한다.
+    company는 등록 대상 입력, req와 token은 요청의 인증 정보, db는 저장소다.
+    검사를 통과하면 저장 함수의 결과를 반환하며, 실제 저장은 _save_company에 맡긴다.
+    """
     auth_info = await verify_token(_request_token(req, token))
     _require_hq_manager(auth_info)
     return await _save_company(company, req, db, auth_info)
 
 
 async def _save_company(company, req, db, auth_info):
+    """신규 회사 입력을 받아 회사 저장과 가맹점의 기본 부서·관리자 생성을 순서대로 시도한다.
+    비밀번호 누락·기존 업체 ID는 HTTP 400, 수정 요청은 501로 거부한다.
+    회사 비밀번호를 해시로 바꾸고 DB와 감사 로그를 기록한 뒤 회사 저장 결과를 반환한다.
+    각 저장 호출과 예외 처리의 범위는 아래 코드에서 확인한다.
+    """
     if not company.id and not company.password:
         raise HTTPException(status_code=400, detail="신규 등록 시 비밀번호는 필수입니다.")
     if company.id:
@@ -121,6 +136,10 @@ async def _save_company(company, req, db, auth_info):
 
 @router.get("/api/v1/companies")
 async def get_companies(category: str = "20", db=Depends(get_tenant_db)):
+    """category와 일치하는 회사 행 목록을 DB에서 읽어 반환한다.
+    기본값 20은 가맹점이며 조회 결과가 없으면 빈 목록을 반환한다.
+    현재 쿼리는 모든 컬럼을 선택하며, 이 함수 자체에는 인증 정보 검사 단계가 없다.
+    """
     response = db.table("companies").select("*").eq("corp_category", category).execute()
     return response.data or []
 

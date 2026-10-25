@@ -1,13 +1,22 @@
+/**
+ * 화면 테스트는 API 응답과 로그인 상태를 대체한다. 실제 서버 인증이나 DB 저장은 검증하지 않는다.
+ */
 import { expect, test } from '@playwright/test';
 
 const hqUser = {
   user_id: 'day05-hq-user', corp_id: 'admin', corp_category: '10', corp_type: '0', role: 'MANAGER',
 };
 
+/**
+ * 가로챈 요청 route에 지정한 상태 코드와 JSON 본문을 응답한다.
+ */
 const jsonResponse = (route, body, status = 200) => route.fulfill({
   status, contentType: 'application/json', body: JSON.stringify(body),
 });
 
+/**
+ * 테스트 페이지에 본사 로그인 상태를 준비하고 외부 주소 검색 스크립트 요청을 대체한다.
+ */
 const installHqSession = async (page) => {
   await page.route('**/mapjsapi/bundle/postcode/prod/postcode.v2.js', (route) => route.fulfill({
     status: 200,
@@ -22,6 +31,9 @@ const installHqSession = async (page) => {
   }, hqUser);
 };
 
+/**
+ * 공개 가입 주소로 이동하면 본사 가맹점 관리 화면으로 연결되는지 확인한다.
+ */
 test('D05-E2E-00 redirects the removed self-registration page to HQ management', async ({ page }) => {
   await installHqSession(page);
   await page.route(/^https?:\/\/[^/]+\/api\//, (route) => jsonResponse(route, []));
@@ -32,6 +44,10 @@ test('D05-E2E-00 redirects the removed self-registration page to HQ management',
   await expect(page.getByRole('heading', { name: '가맹점 마스터 관리' })).toBeVisible();
 });
 
+/**
+ * 가맹점 목록·키보드 선택·저장 중 버튼 상태와 중복 클릭 시 POST 한 번을 확인한다.
+ * 요청의 Bearer 헤더와 가맹점 구분도 검사하며 서버 응답은 대체한다.
+ */
 test('D05-E2E-01 filters franchises, supports keyboard selection, and prevents duplicate save', async ({ page }) => {
   const requests = [];
   let listCalls = 0;
@@ -79,6 +95,10 @@ test('D05-E2E-01 filters franchises, supports keyboard selection, and prevents d
   expect(requests.filter((item) => item.method === 'GET').every((item) => item.authorization === 'Bearer day05-e2e-token' && item.category === '20' && item.queryToken === null)).toBe(true);
 });
 
+/**
+ * 공급사 등록 API가 409 오류를 반환할 때 오류 문구와 입력 유지·요청 헤더를 확인한다.
+ * 가맹점 등록 성공이나 실제 DB의 중복 제약을 검사하는 테스트는 아니다.
+ */
 test('D05-E2E-02 keeps supplier input after a visible server error', async ({ page }) => {
   const requests = [];
   await installHqSession(page);

@@ -158,20 +158,33 @@ const detail = ref({
 
 const postcodeRef = ref(null);
 
+/**
+ * 주소 검색 창을 연다. 우편번호 컴포넌트의 open 메서드를 호출한다.
+ */
 const openPostcode = () => {
   postcodeRef.value.open();
 };
 
+/**
+ * 주소 검색 결과 data를 받아 입력 폼의 우편번호와 기본 주소를 갱신한다.
+ */
 const onPostcodeSelect = (data) => {
   detail.value.zip_code = data.zipCode;
   detail.value.address1 = data.address1;
 };
 
+/**
+ * 응답 JSON의 detail을 오류 문구로 반환한다. 읽을 수 없거나 detail이 없으면 fallback을 사용한다.
+ */
 const responseError = async (response, fallback) => {
   const body = await response.json().catch(() => ({}));
   return body.detail || fallback;
 };
 
+/**
+ * 검색어와 가맹점 구분으로 목록을 요청한다.
+ * 로딩 상태를 갱신하고 응답으로 목록을 바꾸며, 실패하면 오류 문구와 빈 목록을 표시한다.
+ */
 const fetchCompanies = async () => {
   if (isLoading.value) return;
   isLoading.value = true;
@@ -196,6 +209,9 @@ const fetchCompanies = async () => {
   }
 };
 
+/**
+ * 선택한 회사 행을 폼에 복사하고 선택 ID와 신규 여부를 갱신한다. 비밀번호 입력은 비운다.
+ */
 const selectCompany = (corp) => {
   selectedCorpId.value = corp.corp_id;
   isNew.value = false;
@@ -204,6 +220,9 @@ const selectCompany = (corp) => {
   detail.value = { ...corp, password: '' }; // 비밀번호는 비워둠
 };
 
+/**
+ * 새 가맹점을 입력할 수 있도록 폼을 초기화한다. DB에는 저장하지 않는다.
+ */
 const addNewCompany = () => {
     isNew.value = true;
     selectedCorpId.value = null;
@@ -223,6 +242,11 @@ const addNewCompany = () => {
     };
 };
 
+/**
+ * 입력한 가맹점 정보를 등록 API로 전송한다.
+ * 필수 입력을 확인하고 저장 중 추가 실행을 막는다.
+ * 응답에 따라 성공·오류 문구를 표시하며, 성공 후 목록을 다시 조회한다.
+ */
 const saveCompany = async () => {
     if (isSaving.value) return;
     errorMessage.value = '';

@@ -1,6 +1,6 @@
 # Foundation Lab Kit
 
-이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.33`입니다.
+이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.34`입니다.
 Chapter 2~3에서는 `reference-app/`을 읽고 테스트하며, Chapter 4~11에서는
 `practice-workspace/`의 해당 Chapter 폴더를 열어 실습합니다.
 기존 작업을 보존하고 비어 있는 새 폴더에 압축을 풉니다. 실제 `.env`·DB·가상환경은 제공하지 않습니다.

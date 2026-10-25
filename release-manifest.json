@@ -1,19 +1,18 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.33",
+  "release_id": "foundation-kit-v1.3.34",
   "release_status": "release_payload",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "source_tag": "foundation-kit-v1.3.33",
-  "base_release": "foundation-kit-v1.3.32",
+  "source_tag": "foundation-kit-v1.3.34",
+  "base_release": "foundation-kit-v1.3.33",
   "latest_download": "https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.zip",
   "reader_documents": [
     "01A_foundation_lab_setup.md",
     "11_chapter11.md"
   ],
   "notes": [
-    "Reference-app is a read-only case for inspecting current behavior and defects, not a production-ready implementation.",
-    "Missing tests and unexecuted tests are distinguished from implementation defects.",
-    "Application code, SQL, and clean starter files are unchanged from v1.3.32.",
-    "Live DB/API/UI combined verification and junior beta remain incomplete."
+    "Korean function/class documentation and role comments added to six Chapter 3 inspection files.",
+    "Executable code, SQL statements, test scenarios and clean starters unchanged from v1.3.33.",
+    "Actual DB/API/UI integrated verification is outside this documentation-only release."
   ]
 }

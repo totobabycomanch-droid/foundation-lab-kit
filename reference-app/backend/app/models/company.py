@@ -4,6 +4,10 @@ from pydantic import BaseModel
 
 
 class CompanyCreate(BaseModel):
+    """회사 등록 요청 본문의 필드와 자료형을 정의한다.
+    corp_id는 업체 ID, corp_code는 업체 코드이며, corp_category의 기본값 20은 가맹점이다.
+    이 모델은 DB에 저장하지 않으며 권한·중복·신규 비밀번호 검사는 라우터에서 확인한다.
+    """
     id: Optional[str] = None
     corp_code: str
     corp_id: str
@@ -35,6 +39,9 @@ class CompanyCreate(BaseModel):
 
 
 class Department(BaseModel):
+    """부서 입력의 필드와 자료형을 정의한다. dept_code는 부서 코드, dept_name은 부서명이다.
+    이 모델 자체는 부서 저장이나 회사 소유권 검사를 수행하지 않는다.
+    """
     id: Optional[str] = None
     dept_code: str
     dept_name: str
@@ -43,6 +50,9 @@ class Department(BaseModel):
 
 
 class Employee(BaseModel):
+    """사원 입력의 필드와 자료형을 정의한다. dept_id는 소속 부서, user_id는 로그인 ID다.
+    role의 기본값은 STAFF이며, 실제 권한 검사와 저장은 이 모델 밖에서 수행한다.
+    """
     id: Optional[str] = None
     dept_id: str
     emp_code: Optional[str] = None

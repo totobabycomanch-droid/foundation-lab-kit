@@ -7,9 +7,11 @@ BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- 회사의 기본 정보와 계정 데이터를 보관한다. corp_id는 업체 ID, corp_code는 별도의 업체 코드다.
 CREATE TABLE IF NOT EXISTS public.companies (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     corp_code VARCHAR(20) NOT NULL,
+    -- 같은 업체 ID의 중복과 NULL을 막는다. 같은 요청의 이전 응답을 보관하는 기능은 아니다.
     corp_id VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     name_kr VARCHAR(100) NOT NULL,
@@ -42,6 +44,7 @@ CREATE TABLE IF NOT EXISTS public.companies (
         CHECK (corp_category IN ('10', '20', '30'))
 );
 
+-- 회사별 부서를 보관한다. corp_id로 회사에 연결하고 회사 안의 부서 코드 중복을 막는다.
 CREATE TABLE IF NOT EXISTS public.departments (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     corp_id VARCHAR(50) NOT NULL
@@ -56,6 +59,7 @@ CREATE TABLE IF NOT EXISTS public.departments (
     CONSTRAINT ck_departments_is_used CHECK (is_used IN ('Y', 'N'))
 );
 
+-- 회사·부서에 소속된 사원과 로그인 정보를 보관한다. user_id는 사원 로그인 ID다.
 CREATE TABLE IF NOT EXISTS public.employees (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     corp_id VARCHAR(50) NOT NULL
@@ -80,6 +84,7 @@ CREATE TABLE IF NOT EXISTS public.employees (
     CONSTRAINT ck_employees_role CHECK (role IN ('STAFF', 'MANAGER', 'ADMIN'))
 );
 
+-- 사원 테이블 생성 뒤 부서의 관리자 사원을 참조하는 외래 키를 추가한다.
 DO $department_manager_fk$
 BEGIN
     IF NOT EXISTS (
