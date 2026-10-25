@@ -1,5 +1,5 @@
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 import pg8000.dbapi
 from dotenv import dotenv_values
@@ -18,8 +18,8 @@ def get_connection():
         raise RuntimeError("DATABASE_URL format is invalid")
 
     return pg8000.dbapi.connect(
-        user=url.username,
-        password=url.password,
+        user=unquote(url.username),
+        password=unquote(url.password),
         host=url.hostname,
         database=url.path.lstrip("/"),
         port=url.port or 5432,

@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param()
 
 $ErrorActionPreference = "Stop"
@@ -40,6 +40,15 @@ function Test-PackageLock([string]$FrontendRoot, [string]$Label) {
 Write-Host "Foundation Lab Kit: $kitRoot"
 
 $requiredPaths = @(
+    "chapter-reference/ch10/schema.sql",
+    "chapter-reference/ch10/server.py",
+    "chapter-reference/ch10/seed.sql",
+    "chapter-reference/ch11/approve_order.sql",
+    "chapter-reference/ch11/main.py",
+    "chapter-reference/ch11/ApproveOrder.vue",
+    "chapter-reference/ch11/App.vue",
+    "chapter-reference/ch11/README.md",
+    "practice-workspace/ch11/observation_record.md",
     "practice-workspace/AGENTS.md",
     "practice-workspace/README.md",
     "practice-workspace/ch04/AGENTS.md",

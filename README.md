@@ -1,20 +1,30 @@
 # Foundation Lab Kit
 
-실습 키트 기준 버전은 foundation-kit-v1.3.30입니다.
-Chapter 9의 시작 안내는 practice-workspace/ch09/README.md에서 확인합니다.
-Chapter 9는 ch09/에서 run.ps1로 실행합니다. 주문의 업무 규칙과 테스트 기준은
-erp-mini/AGENTS.md에 있으며, 고정 검사는 35개 조건을 확인합니다.
-기존 실습 결과는 보존하고 새 버전은 별도 폴더에 압축을 풀어 사용하세요.
-
+이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.31`입니다.
 Chapter 2~3에서는 `reference-app/`을 읽고 테스트하며, Chapter 4~11에서는
-`practice-workspace/`의 해당 Chapter 폴더만 수정합니다.
+`practice-workspace/`의 해당 Chapter 폴더를 열어 실습합니다.
+기존 작업을 보존하고 비어 있는 새 폴더에 압축을 풉니다. 실제 `.env`·DB·가상환경은 제공하지 않습니다.
+
+## 이번 버전에 포함된 자료
+
+- Chapter 10: 전용 DB 초기화 표식·시작 코드와 `chapter-reference/ch10/`의 비교·복구 코드
+- Chapter 11: 관찰 기록 양식과 `chapter-reference/ch11/`의 SQL·API·Vue 참조 코드 및 사용 안내
+- 검증 도구: 시작 파일과 Chapter 10·11 참조 파일의 누락 확인
+
+참조 코드는 필수 실습을 대신하지 않습니다. 막힌 단계에서만 비교하며 정상 코드를 덮어쓰지 않습니다.
+Chapter 11의 API와 화면 완성 코드는 시작 폴더에 없으며 AI와 직접 작성합니다.
+추가 참조 ZIP을 받을 필요 없이 해당 `chapter-reference/` 폴더를 확인하세요.
 
 ```powershell
 ./tools/verify_foundation_kit.ps1
+./tools/verify_practice_chapter.ps1 -Chapter ch10
+./tools/verify_practice_chapter.ps1 -Chapter ch11
 ```
 
+검증 도구는 Supabase DB에 접속하지 않습니다. DB·브라우저의 실제 동작은 원고에 따라 직접 확인합니다.
 Day 00에서는 이 키트를 개조하지 않고 별도 폴더에 ERP 프로젝트를 준비합니다.
 
+## 이전 버전 이력
 
 ## v1.3.9 Chapter 8
 

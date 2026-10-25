@@ -1,4 +1,4 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [ValidateSet("ch04", "ch05", "ch07", "ch08", "ch09", "ch10", "ch11")]
@@ -25,13 +25,20 @@ $required = @{
     ch07 = @("AGENTS.md", "README.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/reference/transaction_example.py", "understanding/reference/sale_example.py", "understanding/reference/test_examples.py")
     ch08 = @("AGENTS.md", "README.md", "ai_build_rules.md", "ai_review_rules.md", "chapter8_order_spec.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/checks/test_order_rules.py", "understanding/reference/order_example.py", "understanding/reference/test_order_example.py", "../../tools/verify_ch08_core.ps1")
     ch09 = @("AGENTS.md", "README.md", "run.ps1", "erp-mini/AGENTS.md", "erp-mini/domain/__init__.py", "erp-mini/routers/__init__.py", "erp-mini/services/__init__.py", "erp-mini/tests/__init__.py", "checks/test_order_rules.py", "reference/order.py", "reference/test_order.py", "reference/README.md", "../../tools/verify_ch09_core.ps1")
-    ch10 = @("erp-mini/db.py", "erp-mini/schema.sql", "erp-mini/server.py", "erp-mini/sql/00_initialize_lab.sql", "erp-mini/sql/99_reset_lab.sql")
-    ch11 = @("workspace/erp-project/requirements.txt", "workspace/frontend-project/package.json", "workspace/_starter/App.vue", "workspace/sql/00_initialize_lab.sql", "workspace/sql/99_reset_lab.sql")
+    ch10 = @("AGENTS.md", "erp-mini/AGENTS.md", "erp-mini/README.md", "erp-mini/requirements.txt", "erp-mini/db.py", "erp-mini/schema.sql", "erp-mini/server.py", "erp-mini/_starter/db.py", "erp-mini/_starter/schema.sql", "erp-mini/_starter/server.py", "erp-mini/sql/00_initialize_lab.sql", "erp-mini/sql/99_reset_lab.sql")
+    ch11 = @("observation_record.md", "workspace/erp-project/requirements.txt", "workspace/frontend-project/package.json", "workspace/_starter/App.vue", "workspace/sql/00_initialize_lab.sql", "workspace/sql/99_reset_lab.sql")
 }
 
 Write-Check (Test-Path -LiteralPath $chapterRoot -PathType Container) "$Chapter root exists"
 foreach ($relativePath in $required[$Chapter]) {
     Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "$Chapter/$relativePath"
+}
+
+if ($Chapter -eq "ch10") {
+    foreach ($fileName in @("schema.sql", "server.py", "seed.sql")) {
+        $relativePath = "chapter-reference/ch10/$fileName"
+        Write-Check (Test-Path -LiteralPath (Join-Path $kitRoot $relativePath) -PathType Leaf) $relativePath
+    }
 }
 
 if ($Chapter -eq "ch05") {
@@ -98,6 +105,13 @@ if ($Chapter -eq "ch08") {
         foreach ($section in @("## 입력 검증", "## 서버 기준 계산", "## 세 대표 사례와 완료 기준", "## 본문 읽기와 Day 16 연결")) {
             Write-Check ($text.Contains($section)) "ch08 specification section: $section"
         }
+    }
+}
+
+if ($Chapter -eq "ch11") {
+    foreach ($fileName in @("approve_order.sql", "main.py", "ApproveOrder.vue", "App.vue", "README.md")) {
+        $relativePath = "chapter-reference/ch11/$fileName"
+        Write-Check (Test-Path -LiteralPath (Join-Path $kitRoot $relativePath) -PathType Leaf) $relativePath
     }
 }
 
