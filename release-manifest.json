@@ -1,16 +1,18 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.31",
+  "release_id": "foundation-kit-v1.3.32",
   "release_status": "release_payload",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "source_tag": "foundation-kit-v1.3.31",
-  "base_release": "foundation-kit-v1.3.30",
-  "included_candidates": [
-    "foundation-kit-ch10-rc1",
-    "foundation-kit-ch11-rc1"
+  "source_tag": "foundation-kit-v1.3.32",
+  "base_release": "foundation-kit-v1.3.31",
+  "latest_download": "https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.zip",
+  "reader_documents": [
+    "01A_foundation_lab_setup.md",
+    "11_chapter11.md"
   ],
   "notes": [
-    "Complete kit; clean starters and Chapter 10/11 references included.",
-    "DB and browser execution remain reader-run checks."
+    "Clean starters retained; updated reader guides and Chapter 11 observation template included.",
+    "No author QA files, credentials, databases or generated implementations included.",
+    "Live DB/API/UI combined verification and junior beta remain incomplete."
   ]
 }

@@ -1,9 +1,22 @@
 # Foundation Lab Kit
 
-이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.31`입니다.
+이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.32`입니다.
 Chapter 2~3에서는 `reference-app/`을 읽고 테스트하며, Chapter 4~11에서는
 `practice-workspace/`의 해당 Chapter 폴더를 열어 실습합니다.
 기존 작업을 보존하고 비어 있는 새 폴더에 압축을 풉니다. 실제 `.env`·DB·가상환경은 제공하지 않습니다.
+
+## 최신 점검용 다운로드
+
+- [최신 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest)
+- [최신 키트 ZIP](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.zip)
+- [최신 체크섬](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.sha256)
+
+다운로드 주소는 유지하며 새 배포마다 최신 Release로 연결됩니다. ZIP·체크섬을 같은 Release에서 받으세요.
+현재 버전은 루트의 release-manifest.json으로 확인합니다. 기존 실습 폴더에 덮어쓰지 않습니다.
+
+최신 [기초 준비 안내](docs/01A_foundation_lab_setup.md)와 [Chapter 11 원고](docs/11_chapter11.md),
+두 문서에서 사용하는 화면 이미지를 함께 제공합니다. 다른 장의 본문은 전자책을 참고합니다.
+이 묶음의 문서 범위는 [문서 안내](docs/README.md)를 확인하세요.
 
 ## 이번 버전에 포함된 자료
 
