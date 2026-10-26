@@ -54,6 +54,8 @@ $requiredPaths = @(
     "practice-workspace/ch03/AGENTS.md",
     "practice-workspace/ch03/README.md",
     "practice-workspace/ch03/start_lab.ps1",
+    "practice-workspace/ch03/verify_observation.py",
+    "practice-workspace/ch03/observation-baseline.json",
     "practice-workspace/ch03/requirements.txt",
     "practice-workspace/ch03/package.json",
     "practice-workspace/ch03/package-lock.json",

@@ -1,14 +1,14 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.35",
+  "release_id": "foundation-kit-v1.3.36",
   "release_status": "release_source",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "source_tag": "foundation-kit-v1.3.35",
-  "base_release": "foundation-kit-v1.3.34",
-  "base_source_commit": "d1aeca89290c2e8d255722a731e88cb669c618ec",
+  "source_tag": "foundation-kit-v1.3.36",
+  "base_release": "foundation-kit-v1.3.35",
+  "base_source_commit": "d795af66b90e63eca2df8b6c534db102d831ae33",
   "source_snapshot": "Source for this tag. Release assets carry the resolved source commit and file hash inventory.",
   "notes": [
-    "Chapter 3 work files are starters; complete QA implementations are not included.",
-    "Existing unrelated Chapter 8 work on main is preserved outside this release branch."
+    "Chapter-local observation checker requires only Python standard library.",
+    "Only Chapter 3 checker, instructions and static checks changed; application implementation files remain unchanged."
   ]
 }

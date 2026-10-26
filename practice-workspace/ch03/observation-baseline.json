@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "profile": "ch03-observation-v1",
+  "note": "Supplied chapter baseline. Do not regenerate to accept modified observation files. The baseline itself is not included in its own inventory.",
+  "fixed_files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 9234,
+      "sha256": "4682cfbe8f84cf2123a41b61f1e1417ad53c01fac101298354453386989558f7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7007,
+      "sha256": "bc6de5f7a593872f5bbf48ee252d3fa826190dbc8b6d8366e53a83c7722f8596"
+    },
+    {
+      "path": "_starter/backend/company_read.py",
+      "bytes": 510,
+      "sha256": "730cb9c9e7c150a7bbe8adf97d63832c6f36e3a2170aec292ebf1ffd2a9a9209"
+    },
+    {
+      "path": "_starter/backend/order_replay.py",
+      "bytes": 408,
+      "sha256": "61c2f4ce508abd91a3699674a5e76d665d7dfee841c87d1aa33748f3a9f1040c"
+    },
+    {
+      "path": "_starter/backend/order_write.py",
+      "bytes": 376,
+      "sha256": "e7995f5fe5881cddd91294fbce250f0b65278b29bba61749399da752688fd9ca"
+    },
+    {
+      "path": "_starter/frontend/order-form.js",
+      "bytes": 127,
+      "sha256": "02c192ede98b0dfdd7d0c0cbb64b76fa39ff6856590b0186d9c62b78231fdc46"
+    },
+    {
+      "path": "backend/__init__.py",
+      "bytes": 27,
+      "sha256": "66ced0281266f8476a7408c63a590e6283267a4d02ae3bfc1ef74ddd78466816"
+    },
+    {
+      "path": "backend/app.py",
+      "bytes": 2313,
+      "sha256": "d4ad595c7d07f245f042394dfb7c71347fdfadfa41fdc46695bcc24f911f3e8f"
+    },
+    {
+      "path": "backend/lab_auth.py",
+      "bytes": 2140,
+      "sha256": "069f8a64072c4c33f7b816df9618faf61134bed70582a62f1670e9af9b2b7e5b"
+    },
+    {
+      "path": "backend/models.py",
+      "bytes": 424,
+      "sha256": "09d18c9cf5a05d13fc3ce743ec3f7096e9d873e494d80d98cce5de8ee0240dfa"
+    },
+    {
+      "path": "backend/store.py",
+      "bytes": 2821,
+      "sha256": "252015355dbf791c37f6903bc67ac04b7ba0113b696a873fccf619121cce6d3c"
+    },
+    {
+      "path": "frontend/app.js",
+      "bytes": 5724,
+      "sha256": "e1dbc206d4612725b3c96d42df8c6f241300950fc7a65d25d58cd107cec591ef"
+    },
+    {
+      "path": "frontend/company-probe.js",
+      "bytes": 3273,
+      "sha256": "6ecf813c0003741439a7033d0f02752884a0b3be2fc95f29460e7c92ac6f200c"
+    },
+    {
+      "path": "frontend/index.html",
+      "bytes": 370,
+      "sha256": "bd0227b913494c0ef97381486f923eed7a3ecaff11a26ffe8899d080833dcc44"
+    },
+    {
+      "path": "frontend/order-transport.js",
+      "bytes": 1668,
+      "sha256": "a6de294af156f5d17acdc83065b1dcc2e382d5186820d1bb949b7637bee21c0d"
+    },
+    {
+      "path": "frontend/style.css",
+      "bytes": 2249,
+      "sha256": "4b4f08a25c0b7e17aa5de4a17e21d7ad1b83a1cbe3297b56d9da9c656a7d987e"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 10448,
+      "sha256": "a785ec8e5fecd897d22fccc3de4c1040efe388d961426a6f972c44b79e408776"
+    },
+    {
+      "path": "package.json",
+      "bytes": 136,
+      "sha256": "d34e9b7836c7aff038884bcd9949d77b5224d3a5681d2651affb2a05b6468264"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 33,
+      "sha256": "d31c786a6d0856b755aefa2e506b894017aefb68d8bab745b1f27e6ac3ae3bbc"
+    },
+    {
+      "path": "start_lab.ps1",
+      "bytes": 1447,
+      "sha256": "15f086d8e8c35a64e7f570ce2e35de52d5e0f1638913da9f59f79788ee6ab6a2"
+    },
+    {
+      "path": "verify_observation.py",
+      "bytes": 3381,
+      "sha256": "32f41c4ec62b6436a58730484b04f2e28b72d5ec20c223c7b4ff390c7873a98f"
+    }
+  ]
+}

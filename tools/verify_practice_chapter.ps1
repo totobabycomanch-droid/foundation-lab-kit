@@ -22,6 +22,7 @@ function Write-Check([bool]$Condition, [string]$Message) {
 $required = @{
     ch03 = @(
         "AGENTS.md", "README.md", "start_lab.ps1", "requirements.txt", "package.json", "package-lock.json",
+        "verify_observation.py", "observation-baseline.json",
         "backend/__init__.py", "backend/app.py", "backend/models.py", "backend/store.py",
         "backend/order_write.py", "backend/order_replay.py", "backend/company_read.py", "backend/lab_auth.py",
         "frontend/index.html", "frontend/app.js", "frontend/order-form.js", "frontend/order-transport.js",

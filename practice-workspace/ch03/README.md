@@ -31,6 +31,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\start_lab.ps1
 | `frontend/order-transport.js` | 요청 키·본문 보관과 동일 요청 재전송. 수정 금지 |
 | `backend/lab_auth.py` | 조회용 테스트 사용자와 서버 세션. 수정 금지 |
 | `frontend/company-probe.js` | 사용자 선택·회사 표시·실제 조회 응답 표시. 수정 금지 |
+| `verify_observation.py`, `observation-baseline.json` | 같은 폴더 안에서 관찰 장치 변경을 확인하는 고정 검사. 수정 금지 |
 
 SQLite는 Python에 포함된 파일 DB다. 실습 데이터만 `.lab/orders.sqlite3`에 저장한다.
 실제 Supabase, ERP 계정과 Docker는 사용하지 않는다. 로컬 상세 조회의 회사 제한을 확인하며,
@@ -67,6 +68,25 @@ SQLite는 Python에 포함된 파일 DB다. 실습 데이터만 `.lab/orders.sql
 - 초기화 버튼은 저장·재전송 데이터만 비운다. 조회용 고정 데이터와 테스트 세션은 유지한다.
 - 서버 재시작 후에는 세션이 사라지므로 테스트 사용자를 다시 선택한다.
 - 상세 조회 API는 처음에는 501이다. 회사별 조회 실습에서 AI가 구현한다.
+
+## 관찰 장치 확인
+
+AI 검증 단계에서 AI가 현재 `ch03` 폴더에서 다음 명령을 실행한다.
+
+```powershell
+python verify_observation.py
+```
+
+Python 기본 기능만 사용하며 서버 실행·패키지 설치·Git 연결은 필요 없다.
+검사 도구와 기준 데이터는 모두 `ch03` 안에 있다. 다른 Chapter나 상위 폴더의 파일은 읽지 않는다.
+독자가 구현할 네 작업 파일은 제외하고 관찰 화면·전송기·서버·저장소 등 고정 파일을 비교한다.
+DB·가상환경·node_modules 같은 실행 중 생성 파일도 검사 대상이 아니다.
+
+- `PASS`: 제공된 관찰 장치와 기준본이 같다. 업무 규칙은 화면 결과와 코드로 따로 확인한다.
+- `FAIL modified` 또는 `FAIL missing`: 표시한 고정 파일이 바뀌었거나 없다. 기준값을 갱신해 통과시키지 않는다.
+- `NOT RUN`: 기준 데이터가 없거나 읽을 수 없어 확인하지 못했다. 통과로 간주하지 않는다.
+
+이 검사는 실습 중 고정 파일의 변경 여부를 확인한다. 기준 데이터 자체는 배포본과 함께 보존한다.
 
 ## 오류가 나면
 

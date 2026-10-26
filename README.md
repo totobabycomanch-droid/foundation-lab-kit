@@ -1,15 +1,22 @@
 # Foundation Lab Kit
 
-이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.35`입니다.
+이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.36`입니다.
 Chapter 2의 선택 소스 확인은 `reference-app/`을 사용합니다.
 Chapter 3은 `practice-workspace/ch03/`에서 정상 저장·중복 클릭·재전송·회사별 상세 조회를 확인합니다.
 Python 3.12 이상과 Node.js 22 이상을 준비한 뒤 `ch03/README.md`의 실행 안내를 따릅니다.
 Chapter 4~11도 해당 Chapter 폴더만 엽니다. 앞 장의 코드·DB를 옮기거나 기존 폴더를 덮어쓰지 않습니다.
 실제 `.env`·DB·가상환경은 제공하지 않습니다.
 
+## Chapter 3 관찰 장치 검사
+
+Chapter 3의 AI 검증은 같은 폴더의 `verify_observation.py`와 고정 기준 데이터를 사용합니다.
+`ch03` 안에서 `python verify_observation.py`를 실행하면 관찰 장치의 변경 여부를 확인합니다.
+독자가 구현하는 네 작업 파일은 검사에서 제외하며, 상위 매니페스트·Git·추가 패키지는 필요 없습니다.
+검사 통과와 업무 규칙의 화면 확인은 구분합니다. 자세한 절차는 `ch03/AGENTS.md`를 따릅니다.
+
 ## 다운로드와 시작
 
-- [이번 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/tag/foundation-kit-v1.3.35)
+- [이번 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/tag/foundation-kit-v1.3.36)
 - [최신 ZIP](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.zip)
 - [최신 체크섬](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.sha256)
 
