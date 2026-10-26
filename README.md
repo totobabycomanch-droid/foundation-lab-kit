@@ -1,43 +1,36 @@
 # Foundation Lab Kit
 
-이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.34`입니다.
-Chapter 2~3에서는 `reference-app/`을 읽고 테스트하며, Chapter 4~11에서는
-`practice-workspace/`의 해당 Chapter 폴더를 열어 실습합니다.
-기존 작업을 보존하고 비어 있는 새 폴더에 압축을 풉니다. 실제 `.env`·DB·가상환경은 제공하지 않습니다.
+이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.35`입니다.
+Chapter 2의 선택 소스 확인은 `reference-app/`을 사용합니다.
+Chapter 3은 `practice-workspace/ch03/`에서 정상 저장·중복 클릭·재전송·회사별 상세 조회를 확인합니다.
+Python 3.12 이상과 Node.js 22 이상을 준비한 뒤 `ch03/README.md`의 실행 안내를 따릅니다.
+Chapter 4~11도 해당 Chapter 폴더만 엽니다. 앞 장의 코드·DB를 옮기거나 기존 폴더를 덮어쓰지 않습니다.
+실제 `.env`·DB·가상환경은 제공하지 않습니다.
 
-## 최신 점검용 다운로드
+## 다운로드와 시작
 
-- [최신 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest)
-- [최신 키트 ZIP](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.zip)
+- [이번 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/tag/foundation-kit-v1.3.35)
+- [최신 ZIP](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.zip)
 - [최신 체크섬](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.sha256)
 
-다운로드 주소는 유지하며 새 배포마다 최신 Release로 연결됩니다. ZIP·체크섬을 같은 Release에서 받으세요.
-현재 버전은 루트의 release-manifest.json으로 확인합니다. 기존 실습 폴더에 덮어쓰지 않습니다.
+ZIP과 체크섬은 같은 Release에서 받습니다. 새 폴더에 압축을 풀고 키트 구조를 검사하세요.
+Chapter 3의 회사별 조회는 준비된 별도 발주 두 건을 사용하며 실제 ERP 전체의 격리를 완성한 것은 아닙니다.
 
-최신 [기초 준비 안내](docs/01A_foundation_lab_setup.md)와 [Chapter 11 원고](docs/11_chapter11.md),
-두 문서에서 사용하는 화면 이미지를 함께 제공합니다. 다른 장의 본문은 전자책을 참고합니다.
-이 묶음의 문서 범위는 [문서 안내](docs/README.md)를 확인하세요.
+Chapter 8에서는 Python 실행 후 `>>>`에서 검증·계산 함수를 직접 호출합니다.
+별도의 입력 모드·재입력 프로그램을 구현할 필요는 없습니다. 아래 버전별 설명은 배포 이력입니다.
 
-## 이번 버전에 포함된 자료
+Chapter 2의 선택 소스 확인은 `reference-app/`을 읽고 테스트합니다.
+Chapter 3은 `practice-workspace/ch03/`에서 작은 발주를 저장하고, 중복 클릭·재전송·회사별 조회를 확인합니다.
+Chapter 4~11도 `practice-workspace/`의 해당 Chapter 폴더만 엽니다. 앞 장의 코드나 DB를 옮기지 않습니다.
 
-- Chapter 10: 전용 DB 초기화 표식·시작 코드와 `chapter-reference/ch10/`의 비교·복구 코드
-- Chapter 11: 관찰 기록 양식과 `chapter-reference/ch11/`의 SQL·API·Vue 참조 코드 및 사용 안내
-- 검증 도구: 시작 파일과 Chapter 10·11 참조 파일의 누락 확인
-
-참조 코드는 필수 실습을 대신하지 않습니다. 막힌 단계에서만 비교하며 정상 코드를 덮어쓰지 않습니다.
-Chapter 11의 API와 화면 완성 코드는 시작 폴더에 없으며 AI와 직접 작성합니다.
-추가 참조 ZIP을 받을 필요 없이 해당 `chapter-reference/` 폴더를 확인하세요.
+파일 구성과 실행 안내는 `practice-workspace/ch03/README.md`를 따릅니다.
 
 ```powershell
 ./tools/verify_foundation_kit.ps1
-./tools/verify_practice_chapter.ps1 -Chapter ch10
-./tools/verify_practice_chapter.ps1 -Chapter ch11
 ```
 
-검증 도구는 Supabase DB에 접속하지 않습니다. DB·브라우저의 실제 동작은 원고에 따라 직접 확인합니다.
 Day 00에서는 이 키트를 개조하지 않고 별도 폴더에 ERP 프로젝트를 준비합니다.
 
-## 이전 버전 이력
 
 ## v1.3.9 Chapter 8
 
@@ -127,10 +120,3 @@ v1.3.17 기준 다른 Chapter의 실습은 유지합니다. 기존 폴더를 덮
 관찰 기록 제출 없이 예제와 테스트를 검토합니다. 예상과 다른 결과나 오류가 있을 때만 해당 출력을 전달합니다.
 검색 주석·대표 테스트 읽기 표시·완료 보고 형식은 키트 지침에서 관리합니다.
 공개 함수·계산 규칙·참고 구현·고정 검사와 다른 Chapter는 v1.3.20과 같습니다.
-
-## v1.3.22 Chapter 5 검사 보강
-
-현재값·이력 실습은 입고와 출고의 순서별 상품·수량·사유까지 검사합니다.
-상품·거래 실습은 삭제 차단 기록이 정확히 한 행인지 확인합니다.
-두 실습의 조회 결과와 자동 검사 코드는 나누어 검토합니다.
-다른 Chapter의 실습 파일은 v1.3.21과 같습니다. 기존 작업 폴더를 덮어쓰지 말고 새 폴더에 압축을 푸세요.

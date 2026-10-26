@@ -1,7 +1,7 @@
 ﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("ch04", "ch05", "ch07", "ch08", "ch09", "ch10", "ch11")]
+    [ValidateSet("ch03", "ch04", "ch05", "ch07", "ch08", "ch09", "ch10", "ch11")]
     [string]$Chapter
 )
 
@@ -20,6 +20,14 @@ function Write-Check([bool]$Condition, [string]$Message) {
 }
 
 $required = @{
+    ch03 = @(
+        "AGENTS.md", "README.md", "start_lab.ps1", "requirements.txt", "package.json", "package-lock.json",
+        "backend/__init__.py", "backend/app.py", "backend/models.py", "backend/store.py",
+        "backend/order_write.py", "backend/order_replay.py", "backend/company_read.py", "backend/lab_auth.py",
+        "frontend/index.html", "frontend/app.js", "frontend/order-form.js", "frontend/order-transport.js",
+        "frontend/company-probe.js", "frontend/style.css", "_starter/backend/order_write.py",
+        "_starter/backend/order_replay.py", "_starter/backend/company_read.py", "_starter/frontend/order-form.js"
+    )
     ch04 = @("AGENTS.md", "README.md", "inputs/requirements_brief.md", "inputs/unsafe_tenant_query.py", "inputs/debug_case.md")
     ch05 = @("AGENTS.md", "README.md", "sql/README.md", "reference/README.md", "reference/01_current_and_history.sql", "reference/02_relationship_and_delete.sql")
     ch07 = @("AGENTS.md", "README.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/reference/transaction_example.py", "understanding/reference/sale_example.py", "understanding/reference/test_examples.py")
@@ -32,6 +40,21 @@ $required = @{
 Write-Check (Test-Path -LiteralPath $chapterRoot -PathType Container) "$Chapter root exists"
 foreach ($relativePath in $required[$Chapter]) {
     Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "$Chapter/$relativePath"
+}
+
+if ($Chapter -eq "ch03") {
+    $packagePath = Join-Path $chapterRoot "package.json"
+    $lockPath = Join-Path $chapterRoot "package-lock.json"
+    if ((Test-Path -LiteralPath $packagePath) -and (Test-Path -LiteralPath $lockPath)) {
+        $package = Get-Content -LiteralPath $packagePath -Raw -Encoding UTF8 | ConvertFrom-Json
+        # Windows PowerShell 5.1 cannot deserialize npm's empty root-package property.
+        $lockText = Get-Content -LiteralPath $lockPath -Raw -Encoding UTF8
+        $lockName = [regex]::Match($lockText, '(?m)^\s*"name"\s*:\s*"([^"]+)"').Groups[1].Value
+        $vueVersion = [regex]::Match($lockText, '(?s)"node_modules/vue"\s*:\s*\{.*?"version"\s*:\s*"([^"]+)"').Groups[1].Value
+        Write-Check ($package.name -eq $lockName) "ch03 package and lock identify the same project"
+        Write-Check ($package.dependencies.vue -eq $vueVersion) "ch03 Vue dependency matches package lock"
+    }
+    Write-Host "NOT RUN generated API and UI behavior; use the Chapter 3 screen to verify each rule"
 }
 
 if ($Chapter -eq "ch10") {

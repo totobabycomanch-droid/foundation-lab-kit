@@ -51,6 +51,30 @@ $requiredPaths = @(
     "practice-workspace/ch11/observation_record.md",
     "practice-workspace/AGENTS.md",
     "practice-workspace/README.md",
+    "practice-workspace/ch03/AGENTS.md",
+    "practice-workspace/ch03/README.md",
+    "practice-workspace/ch03/start_lab.ps1",
+    "practice-workspace/ch03/requirements.txt",
+    "practice-workspace/ch03/package.json",
+    "practice-workspace/ch03/package-lock.json",
+    "practice-workspace/ch03/backend/__init__.py",
+    "practice-workspace/ch03/backend/app.py",
+    "practice-workspace/ch03/backend/models.py",
+    "practice-workspace/ch03/backend/store.py",
+    "practice-workspace/ch03/backend/order_write.py",
+    "practice-workspace/ch03/backend/order_replay.py",
+    "practice-workspace/ch03/backend/company_read.py",
+    "practice-workspace/ch03/backend/lab_auth.py",
+    "practice-workspace/ch03/frontend/index.html",
+    "practice-workspace/ch03/frontend/app.js",
+    "practice-workspace/ch03/frontend/order-form.js",
+    "practice-workspace/ch03/frontend/order-transport.js",
+    "practice-workspace/ch03/frontend/company-probe.js",
+    "practice-workspace/ch03/frontend/style.css",
+    "practice-workspace/ch03/_starter/backend/order_write.py",
+    "practice-workspace/ch03/_starter/backend/order_replay.py",
+    "practice-workspace/ch03/_starter/backend/company_read.py",
+    "practice-workspace/ch03/_starter/frontend/order-form.js",
     "practice-workspace/ch04/AGENTS.md",
     "practice-workspace/ch05/AGENTS.md",
     "practice-workspace/ch05/README.md",
@@ -125,6 +149,7 @@ if ($forbiddenItems.Count -gt 0) {
 }
 
 Test-PackageLock (Join-Path $practiceRoot "ch11/workspace/frontend-project") "Chapter 11 frontend"
+Test-PackageLock (Join-Path $practiceRoot "ch03") "Chapter 3 Vue lab"
 Test-PackageLock (Join-Path $kitRoot "reference-app/frontend") "Reference app frontend"
 
 Test-Command "powershell"

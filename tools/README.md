@@ -1,5 +1,18 @@
 # Foundation Lab Kit 도구
 
+## Chapter 3 작은 발주 실습
+
+키트 루트에서 시작 파일을 읽기 전용으로 확인합니다.
+
+```powershell
+./tools/verify_practice_chapter.ps1 -Chapter ch03
+```
+
+이 검사는 파일 구성과 Vue 잠금 파일만 확인하며 저장·재전송·회사별 조회 동작을 대신 검증하지 않습니다.
+실행은 `practice-workspace/ch03`에서 `start_lab.ps1`을 사용합니다.
+저장·재전송 데이터는 화면의 초기화 버튼으로 비우며, 회사별 조회용 고정 데이터는 유지합니다.
+기존 `reset_practice_chapter.ps1`은 Chapter 3에 사용하지 않습니다.
+
 ## Chapter 9 고정 검사
 
 생성 후 키트 루트에서 `./tools/verify_ch09_core.ps1`을 실행합니다.

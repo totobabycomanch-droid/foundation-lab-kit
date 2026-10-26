@@ -1,10 +1,14 @@
-# Chapter 4~11 practice workspace
+# Chapter 3~11 practice workspace
 
-이 폴더는 전자책 Chapter 4~11의 수정용 실습 공간입니다. 한 번에 현재 Chapter 폴더 하나만
+이 폴더는 전자책 Chapter 3~11의 실습 공간입니다. 한 번에 현재 Chapter 폴더 하나만
 VS Code로 엽니다. 다른 Chapter의 결과를 복사하거나 이어서 사용하지 않습니다.
 
 각 폴더의 `AGENTS.md`를 먼저 읽고, 실제 비밀값은 `.env`에만 보관합니다. `.env`는 키트나
 Git에 포함하지 않습니다. 실행하지 않은 검증은 `Not Run`으로 기록합니다.
+
+Chapter 3은 `ch03/`의 README를 따라 Python·Node.js를 준비하고 작은 발주 화면을 실행합니다.
+정상 저장 뒤 중복 클릭·서버 재전송·회사별 상세 조회를 하나씩 확인합니다.
+관찰 장치와 테스트 사용자·조회 데이터는 준비되어 있으며, 생성할 파일은 각 단계의 지침을 따릅니다.
 
 Chapter 11을 마친 뒤에도 이 폴더는 비교·복습용으로 보존합니다. Day 00~30 프로젝트는
 `foundation-lab-kit` 밖의 새 폴더에서 시작합니다.

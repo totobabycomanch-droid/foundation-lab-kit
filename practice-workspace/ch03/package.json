@@ -1,0 +1,7 @@
+{
+  "name": "chapter03-order-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": { "vue": "3.5.26" }
+}
