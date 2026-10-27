@@ -1,4 +1,4 @@
-# Foundation Lab Kit v1.3.37
+# Foundation Lab Kit v1.3.38
 
 이 키트는 Chapter 4 발주 승인 실습과 완료 후 API 검증 도구를 포함합니다.
 ZIP과 체크섬은 같은 Release의 파일을 사용하고, 기존 실습 폴더를 보존한 채 새 폴더에 풉니다.
@@ -7,7 +7,8 @@ ZIP과 체크섬은 같은 Release의 파일을 사용하고, 기존 실습 폴�
 Chapter 2의 선택 소스 확인은 reference-app/을 사용합니다.
 Chapter 3은 practice-workspace/ch03/에서 저장·중복 클릭·재전송·회사별 상세 조회를 실습합니다.
 Chapter 3의 관찰 장치 검사 도구와 기존 시작본은 v1.3.36과 같습니다.
-Chapter 4는 practice-workspace/ch04/에서 요구사항 질문, 역할·상태 검사, 회사 경계 추적을 진행합니다.
+Chapter 4는 practice-workspace/ch04/에서 업무 회의의 역할·회사 규칙을 구현하고,
+재승인 사건을 재현해 상태 규칙을 보완한 뒤 회사 경계 결함을 다룹니다.
 각 Chapter 폴더만 VS Code에서 열며 앞 장의 코드·DB·가상환경을 복사하지 않습니다.
 
 ## Chapter 4 실행

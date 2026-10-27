@@ -8,13 +8,13 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 3870,
-      "sha256": "d5f79bfbfcbd82d152a2776de3adfa18378539e0e4efce8df3edfae20fe20d18"
+      "bytes": 4680,
+      "sha256": "554b16fe5a101f4127fcb6f9131c8ac6cc298dd0c6ba662fa6d8f204b173ef8f"
     },
     {
       "path": "README.md",
-      "bytes": 7718,
-      "sha256": "201e4d07045bb60139514cfc39b51353fc79995f1371fcc6cf88cb01cedeb3eb"
+      "bytes": 8522,
+      "sha256": "a976c76c2bc9f4e1ed695fd625ddf7b836bb5c9859e658b689d20ca2faa1c1a5"
     },
     {
       "path": "start_lab.ps1",
@@ -98,18 +98,18 @@
     },
     {
       "path": "lessons/01_requirement.md",
-      "bytes": 2556,
-      "sha256": "d72e61dd88ab2f8e408cd7efcd76ddea04952a94730524cbd19b90d88c7db9de"
+      "bytes": 1895,
+      "sha256": "a4cd9e3e5c15b429c769111e0942497adde7454bca0d2b4212e81b2e6ecc65e0"
     },
     {
       "path": "lessons/02_role.md",
-      "bytes": 4313,
-      "sha256": "d55a912c5041ec73f00462ad7758dd415ac7f09d1ff8c99737b39bff92827de8"
+      "bytes": 4415,
+      "sha256": "920b85a04f936867ad8815e6969e93d924277c54f7ced742efd9a23b0c15f83a"
     },
     {
       "path": "lessons/03_state.md",
-      "bytes": 4787,
-      "sha256": "dc0132a941321cb31ba85604acaa1d6627e1e3815d968bda9f0d24fca14f56f8"
+      "bytes": 7773,
+      "sha256": "fbfac7b9dbd233330ffa5aa34092a6a844f0e14e4b36bba7b359c126575788d6"
     },
     {
       "path": "lessons/04_company.md",
