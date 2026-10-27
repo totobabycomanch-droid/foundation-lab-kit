@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "fixed_files": [
+    {
+      "path": ".gitignore",
+      "bytes": 46,
+      "sha256": "5fdb7a51fcaef4061f5de30a792205b1dd6a8418b002ef39ed4319da06c6da9d"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 3870,
+      "sha256": "d5f79bfbfcbd82d152a2776de3adfa18378539e0e4efce8df3edfae20fe20d18"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7718,
+      "sha256": "201e4d07045bb60139514cfc39b51353fc79995f1371fcc6cf88cb01cedeb3eb"
+    },
+    {
+      "path": "start_lab.ps1",
+      "bytes": 1449,
+      "sha256": "cfa4da2daf66139ce7aec3f01538d4504542f6d5ee1ca11883fa448dc69c0075"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 33,
+      "sha256": "d31c786a6d0856b755aefa2e506b894017aefb68d8bab745b1f27e6ac3ae3bbc"
+    },
+    {
+      "path": "package.json",
+      "bytes": 139,
+      "sha256": "2a5b0af19bc7113ee03f7d99b1f7a19e94ff32523afc080cd202a5513ab0d892"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 10456,
+      "sha256": "38c41328658ecb593928e4d31426f2fa8ca3ba151be20ac85a122a02405254ec"
+    },
+    {
+      "path": "verify_observation.py",
+      "bytes": 3616,
+      "sha256": "2dc9ae2d9c335b99e3773615c0204dabfa44d182af7793e553544b905a1dc46c"
+    },
+    {
+      "path": "verify_business_rules.py",
+      "bytes": 11570,
+      "sha256": "e459bef4796d15aeeb33098bbf4b3b1512f3c5b35d1bb511da4ba99df413c040"
+    },
+    {
+      "path": "backend/__init__.py",
+      "bytes": 36,
+      "sha256": "410c80725b0f515cf5fc2209ff4dc15041f355322eeea30477fce35ade275e85"
+    },
+    {
+      "path": "backend/app.py",
+      "bytes": 4069,
+      "sha256": "1192db49055cc2a582bc165a74fb2c9fee0c3ff6e3b2c6088ef8058ae92fa8ad"
+    },
+    {
+      "path": "backend/lab_auth.py",
+      "bytes": 1714,
+      "sha256": "11b113288b94c9df70b41315a0c7f78d2a019ec24b7593addeda2e71ea97413e"
+    },
+    {
+      "path": "backend/store.py",
+      "bytes": 3607,
+      "sha256": "ca23ec362a0aded1771c4333b860b0e80dca6bdf4624d0933d222dfb6a7d60e5"
+    },
+    {
+      "path": "frontend/index.html",
+      "bytes": 350,
+      "sha256": "94243d0aac29ec04429d719d881cc107834a6ea70930d4f278e46873c2858c94"
+    },
+    {
+      "path": "frontend/app.js",
+      "bytes": 7603,
+      "sha256": "4b2f4ddc5346ea87b03ccb8d844193b7c04ac82fc9ba7feb36cd08cb0dd30369"
+    },
+    {
+      "path": "frontend/transport.js",
+      "bytes": 484,
+      "sha256": "134a4967c8eb7ae25c7e40ca86048f1083d76bb6cb37305553691301b19f5584"
+    },
+    {
+      "path": "frontend/style.css",
+      "bytes": 1425,
+      "sha256": "c4599457f679a606c00542bc69e31baf36685a14a4d57d5d27b4f7e228a1e961"
+    },
+    {
+      "path": "_starter/backend/approval_rules.py",
+      "bytes": 276,
+      "sha256": "473210a988009d7d848ada830f434019c8ffcf282268e8856ecdcbe58ec942a4"
+    },
+    {
+      "path": "_starter/frontend/approval-action.js",
+      "bytes": 294,
+      "sha256": "acd6419b093e646ed9b8d4bbc2363ecded76d82a33b959052498c78482a2543f"
+    },
+    {
+      "path": "lessons/01_requirement.md",
+      "bytes": 2556,
+      "sha256": "d72e61dd88ab2f8e408cd7efcd76ddea04952a94730524cbd19b90d88c7db9de"
+    },
+    {
+      "path": "lessons/02_role.md",
+      "bytes": 4313,
+      "sha256": "d55a912c5041ec73f00462ad7758dd415ac7f09d1ff8c99737b39bff92827de8"
+    },
+    {
+      "path": "lessons/03_state.md",
+      "bytes": 4787,
+      "sha256": "dc0132a941321cb31ba85604acaa1d6627e1e3815d968bda9f0d24fca14f56f8"
+    },
+    {
+      "path": "lessons/04_company.md",
+      "bytes": 12057,
+      "sha256": "96d40575870a278a7d637f945d0829893c7af258320dc5d7fe9f39e045a27cc1"
+    },
+    {
+      "path": "backend/defect_rules.py",
+      "bytes": 375,
+      "sha256": "c414bbbb441de6d73d8c648cf62b4b6f594da4c8a5c61862241cd6b34b156a5a"
+    },
+    {
+      "path": "backend/defect_approval.py",
+      "bytes": 1069,
+      "sha256": "bcaa5ef3584700505b5cd2469fef0cc2806e5fe446df6d029fc6c71cff26166a"
+    },
+    {
+      "path": "_starter/backend/defect_scope.py",
+      "bytes": 217,
+      "sha256": "3d8ac13557d67bb23c7a957c58688f510b30a8bb1c12eae50930f239edbb1ef1"
+    }
+  ]
+}

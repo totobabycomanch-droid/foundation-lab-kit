@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param()
 
 $ErrorActionPreference = "Stop"
@@ -78,6 +78,34 @@ $requiredPaths = @(
     "practice-workspace/ch03/_starter/backend/company_read.py",
     "practice-workspace/ch03/_starter/frontend/order-form.js",
     "practice-workspace/ch04/AGENTS.md",
+    "practice-workspace/ch04/.gitignore",
+    "practice-workspace/ch04/README.md",
+    "practice-workspace/ch04/start_lab.ps1",
+    "practice-workspace/ch04/requirements.txt",
+    "practice-workspace/ch04/package.json",
+    "practice-workspace/ch04/package-lock.json",
+    "practice-workspace/ch04/verify_observation.py",
+    "practice-workspace/ch04/backend/__init__.py",
+    "practice-workspace/ch04/backend/app.py",
+    "practice-workspace/ch04/backend/lab_auth.py",
+    "practice-workspace/ch04/backend/store.py",
+    "practice-workspace/ch04/frontend/index.html",
+    "practice-workspace/ch04/frontend/app.js",
+    "practice-workspace/ch04/frontend/transport.js",
+    "practice-workspace/ch04/frontend/style.css",
+    "practice-workspace/ch04/_starter/backend/approval_rules.py",
+    "practice-workspace/ch04/_starter/frontend/approval-action.js",
+    "practice-workspace/ch04/lessons/01_requirement.md",
+    "practice-workspace/ch04/lessons/02_role.md",
+    "practice-workspace/ch04/lessons/03_state.md",
+    "practice-workspace/ch04/lessons/04_company.md",
+    "practice-workspace/ch04/backend/defect_rules.py",
+    "practice-workspace/ch04/backend/defect_approval.py",
+    "practice-workspace/ch04/_starter/backend/defect_scope.py",
+    "practice-workspace/ch04/observation-baseline.json",
+    "practice-workspace/ch04/backend/approval_rules.py",
+    "practice-workspace/ch04/frontend/approval-action.js",
+    "practice-workspace/ch04/backend/defect_scope.py",
     "practice-workspace/ch05/AGENTS.md",
     "practice-workspace/ch05/README.md",
     "practice-workspace/ch05/sql/README.md",
@@ -152,6 +180,7 @@ if ($forbiddenItems.Count -gt 0) {
 
 Test-PackageLock (Join-Path $practiceRoot "ch11/workspace/frontend-project") "Chapter 11 frontend"
 Test-PackageLock (Join-Path $practiceRoot "ch03") "Chapter 3 Vue lab"
+Test-PackageLock (Join-Path $practiceRoot "ch04") "Chapter 4 Vue lab"
 Test-PackageLock (Join-Path $kitRoot "reference-app/frontend") "Reference app frontend"
 
 Test-Command "powershell"

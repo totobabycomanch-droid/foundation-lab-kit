@@ -29,7 +29,15 @@ $required = @{
         "frontend/company-probe.js", "frontend/style.css", "_starter/backend/order_write.py",
         "_starter/backend/order_replay.py", "_starter/backend/company_read.py", "_starter/frontend/order-form.js"
     )
-    ch04 = @("AGENTS.md", "README.md", "inputs/requirements_brief.md", "inputs/unsafe_tenant_query.py", "inputs/debug_case.md")
+    ch04 = @(
+        ".gitignore", "AGENTS.md", "README.md", "start_lab.ps1", "requirements.txt", "package.json", "package-lock.json",
+        "verify_observation.py", "observation-baseline.json",
+        "backend/__init__.py", "backend/app.py", "backend/lab_auth.py", "backend/store.py", "backend/approval_rules.py",
+        "backend/defect_approval.py", "backend/defect_rules.py", "backend/defect_scope.py",
+        "frontend/index.html", "frontend/app.js", "frontend/style.css", "frontend/transport.js", "frontend/approval-action.js",
+        "_starter/backend/approval_rules.py", "_starter/backend/defect_scope.py", "_starter/frontend/approval-action.js",
+        "lessons/01_requirement.md", "lessons/02_role.md", "lessons/03_state.md", "lessons/04_company.md"
+    )
     ch05 = @("AGENTS.md", "README.md", "sql/README.md", "reference/README.md", "reference/01_current_and_history.sql", "reference/02_relationship_and_delete.sql")
     ch07 = @("AGENTS.md", "README.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/reference/transaction_example.py", "understanding/reference/sale_example.py", "understanding/reference/test_examples.py")
     ch08 = @("AGENTS.md", "README.md", "ai_build_rules.md", "ai_review_rules.md", "chapter8_order_spec.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/checks/test_order_rules.py", "understanding/reference/order_example.py", "understanding/reference/test_order_example.py", "../../tools/verify_ch08_core.ps1")
@@ -43,7 +51,7 @@ foreach ($relativePath in $required[$Chapter]) {
     Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "$Chapter/$relativePath"
 }
 
-if ($Chapter -eq "ch03") {
+if ($Chapter -in @("ch03", "ch04")) {
     $packagePath = Join-Path $chapterRoot "package.json"
     $lockPath = Join-Path $chapterRoot "package-lock.json"
     if ((Test-Path -LiteralPath $packagePath) -and (Test-Path -LiteralPath $lockPath)) {
@@ -52,10 +60,11 @@ if ($Chapter -eq "ch03") {
         $lockText = Get-Content -LiteralPath $lockPath -Raw -Encoding UTF8
         $lockName = [regex]::Match($lockText, '(?m)^\s*"name"\s*:\s*"([^"]+)"').Groups[1].Value
         $vueVersion = [regex]::Match($lockText, '(?s)"node_modules/vue"\s*:\s*\{.*?"version"\s*:\s*"([^"]+)"').Groups[1].Value
-        Write-Check ($package.name -eq $lockName) "ch03 package and lock identify the same project"
-        Write-Check ($package.dependencies.vue -eq $vueVersion) "ch03 Vue dependency matches package lock"
+        Write-Check ($package.name -eq $lockName) "$Chapter package and lock identify the same project"
+        Write-Check ($package.dependencies.vue -eq $vueVersion) "$Chapter Vue dependency matches package lock"
     }
-    Write-Host "NOT RUN generated API and UI behavior; use the Chapter 3 screen to verify each rule"
+    $chapterNumber = $Chapter.Substring(2).TrimStart('0')
+    Write-Host "NOT RUN generated API and UI behavior; use the Chapter $chapterNumber screen to verify each rule"
 }
 
 if ($Chapter -eq "ch10") {

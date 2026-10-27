@@ -1,43 +1,37 @@
-# Foundation Lab Kit
+# Foundation Lab Kit v1.3.37
 
-이 실습 키트의 고정 배포 버전은 `foundation-kit-v1.3.36`입니다.
-Chapter 2의 선택 소스 확인은 `reference-app/`을 사용합니다.
-Chapter 3은 `practice-workspace/ch03/`에서 정상 저장·중복 클릭·재전송·회사별 상세 조회를 확인합니다.
-Python 3.12 이상과 Node.js 22 이상을 준비한 뒤 `ch03/README.md`의 실행 안내를 따릅니다.
-Chapter 4~11도 해당 Chapter 폴더만 엽니다. 앞 장의 코드·DB를 옮기거나 기존 폴더를 덮어쓰지 않습니다.
-실제 `.env`·DB·가상환경은 제공하지 않습니다.
+이 키트는 Chapter 4 발주 승인 실습과 완료 후 API 검증 도구를 포함합니다.
+ZIP과 체크섬은 같은 Release의 파일을 사용하고, 기존 실습 폴더를 보존한 채 새 폴더에 풉니다.
+키트 루트의 release-manifest.json에서 배포 버전와 전체 파일 목록을 확인할 수 있습니다.
 
-## Chapter 3 관찰 장치 검사
+Chapter 2의 선택 소스 확인은 reference-app/을 사용합니다.
+Chapter 3은 practice-workspace/ch03/에서 저장·중복 클릭·재전송·회사별 상세 조회를 실습합니다.
+Chapter 3의 관찰 장치 검사 도구와 기존 시작본은 v1.3.36과 같습니다.
+Chapter 4는 practice-workspace/ch04/에서 요구사항 질문, 역할·상태 검사, 회사 경계 추적을 진행합니다.
+각 Chapter 폴더만 VS Code에서 열며 앞 장의 코드·DB·가상환경을 복사하지 않습니다.
 
-Chapter 3의 AI 검증은 같은 폴더의 `verify_observation.py`와 고정 기준 데이터를 사용합니다.
-`ch03` 안에서 `python verify_observation.py`를 실행하면 관찰 장치의 변경 여부를 확인합니다.
-독자가 구현하는 네 작업 파일은 검사에서 제외하며, 상위 매니페스트·Git·추가 패키지는 필요 없습니다.
-검사 통과와 업무 규칙의 화면 확인은 구분합니다. 자세한 절차는 `ch03/AGENTS.md`를 따릅니다.
+## Chapter 4 실행
 
-## 다운로드와 시작
-
-- [이번 배포](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/tag/foundation-kit-v1.3.36)
-- [최신 ZIP](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.zip)
-- [최신 체크섬](https://github.com/totobabycomanch-droid/foundation-lab-kit/releases/latest/download/foundation-lab-kit-latest.sha256)
-
-ZIP과 체크섬은 같은 Release에서 받습니다. 새 폴더에 압축을 풀고 키트 구조를 검사하세요.
-Chapter 3의 회사별 조회는 준비된 별도 발주 두 건을 사용하며 실제 ERP 전체의 격리를 완성한 것은 아닙니다.
-
-Chapter 8에서는 Python 실행 후 `>>>`에서 검증·계산 함수를 직접 호출합니다.
-별도의 입력 모드·재입력 프로그램을 구현할 필요는 없습니다. 아래 버전별 설명은 배포 이력입니다.
-
-Chapter 2의 선택 소스 확인은 `reference-app/`을 읽고 테스트합니다.
-Chapter 3은 `practice-workspace/ch03/`에서 작은 발주를 저장하고, 중복 클릭·재전송·회사별 조회를 확인합니다.
-Chapter 4~11도 `practice-workspace/`의 해당 Chapter 폴더만 엽니다. 앞 장의 코드나 DB를 옮기지 않습니다.
-
-파일 구성과 실행 안내는 `practice-workspace/ch03/README.md`를 따릅니다.
+Python 3.12 이상과 Node.js 22 이상을 준비한 뒤 ch04/에서 실행합니다.
 
 ```powershell
-./tools/verify_foundation_kit.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\start_lab.ps1
 ```
 
-Day 00에서는 이 키트를 개조하지 않고 별도 폴더에 ERP 프로젝트를 준비합니다.
+http://127.0.0.1:8304 에서 본 실습과 회사 경계 결함 실습을 선택합니다.
+초기화는 현재 공간의 데이터·세션을 복원하고 구현 코드는 유지합니다.
+본 실습은 역할·상태를 제한하지 않는 비교 시작본이며 결함 공간은 회사 범위 검사만 빠진 비교 코드입니다.
+실제 계정이나 운영 데이터로 사용하지 않습니다. 실습 순서는 ch04/README.md를 따릅니다.
 
+## 파일 검사
+
+키트 루트에서 tools/verify_foundation_kit.ps1과 tools/verify_practice_chapter.ps1 -Chapter ch04를 실행합니다.
+ch04/에서는 python verify_observation.py로 고정 관찰 파일을 검사합니다.
+검사 통과와 업무 동작 확인은 별개입니다. 실제 응답·상태·처리 횟수도 원고에 따라 확인합니다.
+배포본에는 실행 DB·세션·의존성·가상환경·비밀정보와 검수용 완성 코드를 넣지 않습니다.
+
+Chapter 8은 Python 실행 후 >>>에서 검증·계산 함수를 직접 호출합니다.
+아래는 이전 배포 이력입니다.
 
 ## v1.3.9 Chapter 8
 
@@ -127,3 +121,7 @@ v1.3.17 기준 다른 Chapter의 실습은 유지합니다. 기존 폴더를 덮
 관찰 기록 제출 없이 예제와 테스트를 검토합니다. 예상과 다른 결과나 오류가 있을 때만 해당 출력을 전달합니다.
 검색 주석·대표 테스트 읽기 표시·완료 보고 형식은 키트 지침에서 관리합니다.
 공개 함수·계산 규칙·참고 구현·고정 검사와 다른 Chapter는 v1.3.20과 같습니다.
+
+실습 4까지 완료한 뒤 ch04에서 `.venv/Scripts/python.exe verify_business_rules.py`를 실행하면
+두 공간의 API 24개 사례를 임시 사본에서 검사합니다. 시작본의 실패는 아직 구현하지 않은 규칙을 뜻합니다.
+화면 버튼·동시 요청·저장 실패는 이 검사에 포함되지 않습니다.

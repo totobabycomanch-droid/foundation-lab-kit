@@ -13,6 +13,17 @@
 저장·재전송 데이터는 화면의 초기화 버튼으로 비우며, 회사별 조회용 고정 데이터는 유지합니다.
 기존 `reset_practice_chapter.ps1`은 Chapter 3에 사용하지 않습니다.
 
+## Chapter 4 발주 승인 실습
+
+키트 루트에서 `./tools/verify_practice_chapter.ps1 -Chapter ch04`로 실행 파일·실습 자료와
+Vue 잠금 파일을 확인합니다. 이 정적 검사는 승인 업무 동작이나 관찰 파일 해시를 검사하지 않습니다.
+`practice-workspace/ch04`에서 `start_lab.ps1`로 실행하고 원고 순서대로 직접 확인합니다.
+관찰 파일 변경 검사는 같은 ch04 폴더의 `python verify_observation.py`를 사용합니다.
+역할·상태 판단, 일반 승인 안내, 결함 공간의 회사 조회는 학습자 수정 대상이므로 해시 검사에서 제외합니다.
+업무 통과 여부는 응답뿐 아니라 상태·처리 횟수로 확인합니다.
+초기화는 화면 버튼으로 현재 공간의 데이터·세션만 복원하며 코드는 보존합니다.
+`reset_practice_chapter.ps1`은 Chapter 4에 사용하지 않습니다.
+
 ## Chapter 9 고정 검사
 
 생성 후 키트 루트에서 `./tools/verify_ch09_core.ps1`을 실행합니다.
