@@ -8,13 +8,13 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 5008,
-      "sha256": "2fe65faaaa7d4d05b17104aecaed4f28b3b3730b6b861d79554d5bb330d07130"
+      "bytes": 5763,
+      "sha256": "ab164c77a6cbe815729e5ae371a23c51e824b56d8a38d1e5a41343c7f1000eea"
     },
     {
       "path": "README.md",
-      "bytes": 8937,
-      "sha256": "00f18378f5063f754e3b791a1914392e48ea831fb958d5e91e89868ddbcbb09e"
+      "bytes": 6314,
+      "sha256": "321d441af90a92c4c8cf8f867a7751c9b65b4ab20d285c2cc9aa10f3d14c9ad1"
     },
     {
       "path": "start_lab.ps1",
@@ -38,8 +38,8 @@
     },
     {
       "path": "verify_observation.py",
-      "bytes": 4496,
-      "sha256": "a2984a0eab6aeb8b1be291566f574f7460c7ef19200f69f82ce7f09c6ca9a164"
+      "bytes": 4505,
+      "sha256": "af4403108759c265fc9f20cb2a9cf6e40dafecf1959c28c4f7033e712cd47f0b"
     },
     {
       "path": "verify_business_rules.py",
@@ -72,9 +72,9 @@
       "sha256": "94243d0aac29ec04429d719d881cc107834a6ea70930d4f278e46873c2858c94"
     },
     {
-      "path": "frontend/app.js",
-      "bytes": 7603,
-      "sha256": "4b2f4ddc5346ea87b03ccb8d844193b7c04ac82fc9ba7feb36cd08cb0dd30369"
+      "path": "_starter/frontend/app.js",
+      "bytes": 688,
+      "sha256": "523c5e884da52c83561572b85c121c7f20b3e67b81eafd7e0a5c6d1e410ddfd2"
     },
     {
       "path": "frontend/transport.js",
@@ -98,23 +98,23 @@
     },
     {
       "path": "lessons/01_requirement.md",
-      "bytes": 1895,
-      "sha256": "a4cd9e3e5c15b429c769111e0942497adde7454bca0d2b4212e81b2e6ecc65e0"
+      "bytes": 2074,
+      "sha256": "72f5058f4994fc60847bce40e42281be833e9adc995ff8c434b481b3abd7c87a"
     },
     {
       "path": "lessons/02_role.md",
-      "bytes": 5618,
-      "sha256": "80b6b73722d66e3993e26ca3d9f0cce9512fb2c670c54e1a784869684637bc95"
+      "bytes": 9732,
+      "sha256": "4be237480a89832b9c4abd33b53b3e3e13c4b66d49ffe40d5822a8d220ec7025"
     },
     {
       "path": "lessons/03_state.md",
-      "bytes": 8402,
-      "sha256": "34e6ac39b8bf635334cbabe0b0081dded8a18da633d0fad2a5b27ee9e10be7ef"
+      "bytes": 9464,
+      "sha256": "88c12c1a66246b156f5a1dda852ec04465b83849bd35ddc9d632b0a92e925a94"
     },
     {
       "path": "lessons/04_company.md",
-      "bytes": 12959,
-      "sha256": "3cc38c69fdd3d897dd768d5a9fc76b78121eda462f3086d326ed32c2337bbc90"
+      "bytes": 19322,
+      "sha256": "167346c0701f05f9a03184d7d34846177903a17423ba4ed834c4302d59d1c721"
     },
     {
       "path": "backend/defect_rules.py",

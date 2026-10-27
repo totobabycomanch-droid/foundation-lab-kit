@@ -35,7 +35,7 @@ $required = @{
         "backend/__init__.py", "backend/app.py", "backend/lab_auth.py", "backend/store.py", "backend/approval_rules.py",
         "backend/defect_approval.py", "backend/defect_rules.py", "backend/defect_scope.py",
         "frontend/index.html", "frontend/app.js", "frontend/style.css", "frontend/transport.js", "frontend/approval-action.js",
-        "_starter/backend/approval_rules.py", "_starter/backend/defect_scope.py", "_starter/frontend/approval-action.js",
+        "_starter/backend/approval_rules.py", "_starter/backend/defect_scope.py", "_starter/frontend/approval-action.js", "_starter/frontend/app.js",
         "lessons/01_requirement.md", "lessons/02_role.md", "lessons/03_state.md", "lessons/04_company.md"
     )
     ch05 = @("AGENTS.md", "README.md", "sql/README.md", "reference/README.md", "reference/01_current_and_history.sql", "reference/02_relationship_and_delete.sql")

@@ -1,43 +1,38 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.39",
+  "release_id": "foundation-kit-v1.3.40",
   "release_status": "published",
-  "built_at_utc": "2026-10-27T13:33:44.033032+00:00",
+  "built_at_utc": "2026-10-27T15:13:27.823584+00:00",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "base_release": "foundation-kit-v1.3.38",
-  "base_source_commit": "dbdb7398f000b3c67f72cc7bb2b6eea5468945df",
-  "base_archive_sha256": "bc4a9ee19b379ef9f36191b19b1242e096b8a05448894327ff708c82b8d87be3",
-  "source_snapshot": "Release tag foundation-kit-v1.3.39 on release/ch04-v1.3.39; based on the published v1.3.38 payload.",
+  "base_release": "foundation-kit-v1.3.39",
+  "base_source_commit": "94ba3367a24c2fba9300ca45838e0603ae0176e2",
+  "base_archive_sha256": "16e71dc68618a1201d6259c9899afa1edcd56f404484b42d32b681861fc7a0cd",
+  "source_snapshot": "Release tag foundation-kit-v1.3.40 on release/ch04-v1.3.40; based on the published v1.3.39 payload.",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
-    "added": [],
+    "added": [
+      "practice-workspace/ch04/_starter/frontend/app.js"
+    ],
     "changed": [
       "README.md",
       "practice-workspace/ch04/AGENTS.md",
       "practice-workspace/ch04/README.md",
-      "practice-workspace/ch04/_starter/backend/approval_rules.py",
-      "practice-workspace/ch04/_starter/backend/defect_scope.py",
-      "practice-workspace/ch04/backend/app.py",
-      "practice-workspace/ch04/backend/approval_rules.py",
-      "practice-workspace/ch04/backend/defect_approval.py",
-      "practice-workspace/ch04/backend/defect_rules.py",
-      "practice-workspace/ch04/backend/defect_scope.py",
-      "practice-workspace/ch04/backend/lab_auth.py",
-      "practice-workspace/ch04/backend/store.py",
+      "practice-workspace/ch04/frontend/app.js",
+      "practice-workspace/ch04/lessons/01_requirement.md",
       "practice-workspace/ch04/lessons/02_role.md",
       "practice-workspace/ch04/lessons/03_state.md",
       "practice-workspace/ch04/lessons/04_company.md",
       "practice-workspace/ch04/observation-baseline.json",
-      "practice-workspace/ch04/verify_business_rules.py",
-      "practice-workspace/ch04/verify_observation.py"
+      "practice-workspace/ch04/verify_observation.py",
+      "tools/verify_practice_chapter.ps1"
     ],
-    "preserved_baseline_file_count": 229,
-    "description": "Chapter 4 Korean function docstrings and manuscript-aligned verification instructions; executable logic unchanged."
+    "preserved_baseline_file_count": 237,
+    "description": "Chapter 4 learner-generated verification UI and staged role/state/company exercises; server foundations preserved."
   },
   "payload": {
-    "file_count": 247,
+    "file_count": 248,
     "files": [
       {
         "path": ".gitignore",
@@ -46,8 +41,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 9315,
-        "sha256": "2ea2923d66942850bd69af63f43c00beab2e6f61acc4ad5ae8f484f3a0397a08"
+        "bytes": 9627,
+        "sha256": "afa939c2737d6ab7362459d618329fac79999ac07a830689d6aa41764de2f535"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -321,13 +316,13 @@
       },
       {
         "path": "practice-workspace/ch04/AGENTS.md",
-        "bytes": 5008,
-        "sha256": "2fe65faaaa7d4d05b17104aecaed4f28b3b3730b6b861d79554d5bb330d07130"
+        "bytes": 5763,
+        "sha256": "ab164c77a6cbe815729e5ae371a23c51e824b56d8a38d1e5a41343c7f1000eea"
       },
       {
         "path": "practice-workspace/ch04/README.md",
-        "bytes": 8937,
-        "sha256": "00f18378f5063f754e3b791a1914392e48ea831fb958d5e91e89868ddbcbb09e"
+        "bytes": 6314,
+        "sha256": "321d441af90a92c4c8cf8f867a7751c9b65b4ab20d285c2cc9aa10f3d14c9ad1"
       },
       {
         "path": "practice-workspace/ch04/_starter/backend/approval_rules.py",
@@ -338,6 +333,11 @@
         "path": "practice-workspace/ch04/_starter/backend/defect_scope.py",
         "bytes": 607,
         "sha256": "08c7ab2248086a695f60710da9bdeb321a6f37c563a9e1cf8f7da39eb4b20b69"
+      },
+      {
+        "path": "practice-workspace/ch04/_starter/frontend/app.js",
+        "bytes": 688,
+        "sha256": "523c5e884da52c83561572b85c121c7f20b3e67b81eafd7e0a5c6d1e410ddfd2"
       },
       {
         "path": "practice-workspace/ch04/_starter/frontend/approval-action.js",
@@ -386,8 +386,8 @@
       },
       {
         "path": "practice-workspace/ch04/frontend/app.js",
-        "bytes": 7603,
-        "sha256": "4b2f4ddc5346ea87b03ccb8d844193b7c04ac82fc9ba7feb36cd08cb0dd30369"
+        "bytes": 688,
+        "sha256": "523c5e884da52c83561572b85c121c7f20b3e67b81eafd7e0a5c6d1e410ddfd2"
       },
       {
         "path": "practice-workspace/ch04/frontend/approval-action.js",
@@ -426,28 +426,28 @@
       },
       {
         "path": "practice-workspace/ch04/lessons/01_requirement.md",
-        "bytes": 1895,
-        "sha256": "a4cd9e3e5c15b429c769111e0942497adde7454bca0d2b4212e81b2e6ecc65e0"
+        "bytes": 2074,
+        "sha256": "72f5058f4994fc60847bce40e42281be833e9adc995ff8c434b481b3abd7c87a"
       },
       {
         "path": "practice-workspace/ch04/lessons/02_role.md",
-        "bytes": 5618,
-        "sha256": "80b6b73722d66e3993e26ca3d9f0cce9512fb2c670c54e1a784869684637bc95"
+        "bytes": 9732,
+        "sha256": "4be237480a89832b9c4abd33b53b3e3e13c4b66d49ffe40d5822a8d220ec7025"
       },
       {
         "path": "practice-workspace/ch04/lessons/03_state.md",
-        "bytes": 8402,
-        "sha256": "34e6ac39b8bf635334cbabe0b0081dded8a18da633d0fad2a5b27ee9e10be7ef"
+        "bytes": 9464,
+        "sha256": "88c12c1a66246b156f5a1dda852ec04465b83849bd35ddc9d632b0a92e925a94"
       },
       {
         "path": "practice-workspace/ch04/lessons/04_company.md",
-        "bytes": 12959,
-        "sha256": "3cc38c69fdd3d897dd768d5a9fc76b78121eda462f3086d326ed32c2337bbc90"
+        "bytes": 19322,
+        "sha256": "167346c0701f05f9a03184d7d34846177903a17423ba4ed834c4302d59d1c721"
       },
       {
         "path": "practice-workspace/ch04/observation-baseline.json",
-        "bytes": 4190,
-        "sha256": "417d3eb26256546ec38173089fb165a0caac0e70e3f1c6f658b8f3eb415b75b1"
+        "bytes": 4198,
+        "sha256": "6986f8e09a4dc94836005912dc621ad845ecf42bbda5b072f451d08f82e53ee7"
       },
       {
         "path": "practice-workspace/ch04/package-lock.json",
@@ -476,8 +476,8 @@
       },
       {
         "path": "practice-workspace/ch04/verify_observation.py",
-        "bytes": 4496,
-        "sha256": "a2984a0eab6aeb8b1be291566f574f7460c7ef19200f69f82ce7f09c6ca9a164"
+        "bytes": 4505,
+        "sha256": "af4403108759c265fc9f20cb2a9cf6e40dafecf1959c28c4f7033e712cd47f0b"
       },
       {
         "path": "practice-workspace/ch05/.archive/README.md",
@@ -1271,8 +1271,8 @@
       },
       {
         "path": "tools/verify_practice_chapter.ps1",
-        "bytes": 10394,
-        "sha256": "e9a2ef79cbbdced223770a382aab9cc5eaea2334b9545effb2305cd449351725"
+        "bytes": 10422,
+        "sha256": "c6196edce1028955a35820cc29ed577e478fd0a161c72b75bc807e339b8eedda"
       }
     ]
   },
