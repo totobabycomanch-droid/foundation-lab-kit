@@ -49,17 +49,24 @@ CASES = (
 
 class NoRedirect(HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
+        """예상하지 않은 HTTP 리다이렉트를 따라가지 않고 검사 오류로 알린다."""
         raise RuntimeError("Unexpected HTTP redirect from the local test server")
 
 
 class Client:
     def __init__(self, port):
+        """임시 로컬 서버로 요청할 클라이언트와 독립된 쿠키 저장소를 준비한다."""
         self.base = f"http://127.0.0.1:{port}"
         self.opener = build_opener(
             ProxyHandler({}), NoRedirect(), HTTPCookieProcessor(CookieJar()),
         )
 
     def request(self, space, path, method="GET", body=None):
+        """지정한 공간의 API를 호출하고 실제 HTTP 상태 코드와 JSON 객체를 반환한다.
+
+        403·404 같은 오류 응답도 검사 대상이므로 HTTPError에서 응답을 읽는다.
+        본문이 유효한 JSON 객체가 아니면 AssertionError로 검사 실패를 알린다.
+        """
         payload = None if body is None else json.dumps(body).encode("utf-8")
         req = Request(self.base + f"/api/{space}" + path, data=payload, method=method)
         if payload is not None:
@@ -78,16 +85,22 @@ class Client:
             return response.code, result
 
     def login(self, space, user):
+        """임시 서버에서 실습 사용자를 선택하고 응답의 사용자 ID까지 확인한다."""
         status, body = self.request(space, "/session", "POST", {"user_id": user})
         require(status == 200 and body.get("user_id") == user, "test-user login failed")
 
 
 def require(condition, message):
+    """검사 조건이 거짓이면 원인을 담은 AssertionError를 발생시킨다."""
     if not condition:
         raise AssertionError(message)
 
 
 def snapshot(workspace):
+    """두 임시 DB의 모든 발주를 읽기 전용으로 조회해 비교용 사전으로 반환한다.
+
+    응답 메시지만 믿지 않고 요청 전후의 실제 저장값을 비교하는 데 사용한다.
+    """
     result = {}
     for space in ("main", "defect"):
         path = (workspace / ".lab" / f"{space}.sqlite3").resolve()
@@ -98,6 +111,10 @@ def snapshot(workspace):
 
 
 def check_database(actual, expected, reason):
+    """두 공간의 전체 발주 행을 비교하고 예상 밖의 변경이 있으면 실패시킨다.
+
+    화면용 요약에는 번호·상태·횟수를 표시하지만 실제 비교는 모든 컬럼을 대상으로 한다.
+    """
     for space in ("main", "defect"):
         if actual[space] != expected[space]:
             compact = lambda rows: [(row["id"], row["status"], row["approval_count"]) for row in rows]
@@ -108,6 +125,12 @@ def check_database(actual, expected, reason):
 
 
 def check_case(workspace, port, space, case):
+    """한 승인 사례의 응답과 DB 변경 여부를 확인하고 소유자 API로 재조회한다.
+
+    각 사례는 두 임시 공간을 초기화한 뒤 실행한다. 성공 시 대상 발주만
+    한 번 갱신돼야 하고, 거부 시 두 DB의 모든 발주가 그대로여야 한다.
+    case의 기대 응답은 완성한 규칙의 기준이며, 시작본은 일부 사례에 실패한다.
+    """
     # Reset only the disposable databases. Each row starts with the same seeds.
     client = Client(port)
     for name in ("main", "defect"):
@@ -151,6 +174,11 @@ def check_case(workspace, port, space, case):
 
 
 def worker(workspace):
+    """별도 프로세스에서 복사된 코드로 임시 서버를 실행한다.
+
+    OS가 고른 빈 로컬 포트를 port.json에 기록해 검사 프로세스에 알린다.
+    앱을 가져올 때 만드는 DB도 임시 workspace 안에만 생성된다.
+    """
     # The child imports only the copied backend. app.py's import-time DB creation
     # therefore also stays under the temporary directory.
     sys.path.insert(0, str(workspace))
@@ -168,6 +196,11 @@ def worker(workspace):
 
 @contextmanager
 def isolated_server():
+    """코드를 임시 폴더로 복사해 서버를 띄우고 검사 후 프로세스와 폴더를 정리한다.
+
+    준비된 임시 폴더와 포트를 with 블록에 제공한다. 기존 실습 DB와 실행 중인
+    서버는 사용하지 않으며, 서버 준비에 실패하면 예외로 미실행 원인을 알린다.
+    """
     with tempfile.TemporaryDirectory(prefix="ch04-business-") as directory:
         workspace = Path(directory)
         for name in ("backend", "frontend"):
@@ -211,6 +244,12 @@ def isolated_server():
 
 
 def main():
+    """완성 기준의 API 24개 사례를 실행하고 Pass·Fail·Not Run을 구분한다.
+
+    두 공간에서 각각 12개 사례를 실행한다. 반환값은 모두 통과 0, 기준 실패 1,
+    미실행·환경 문제 2이며 실패가 있으면 1이 우선한다. 화면 버튼·동시 요청·
+    저장 실패는 이 도구가 검증하지 않는다.
+    """
     if any(importlib.util.find_spec(name) is None for name in ("fastapi", "uvicorn")):
         print("NOT RUN use .venv/Scripts/python.exe after start_lab.ps1 installs dependencies")
         print("RESULT Pass=0 Fail=0 Not Run=24 Total=24")

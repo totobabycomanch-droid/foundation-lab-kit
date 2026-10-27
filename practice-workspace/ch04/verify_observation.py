@@ -37,12 +37,21 @@ FIXED_PATHS = (
 
 
 def chapter_path(relative: str) -> Path:
+    """검사할 파일의 경로를 구하고 현재 Chapter 폴더 안의 경로인지 확인한다.
+
+    상위 폴더나 외부를 가리키는 경로는 relative_to에서 예외로 거부한다.
+    """
     path = ROOT / relative
     path.resolve().relative_to(ROOT)
     return path
 
 
 def read_baseline() -> list[dict]:
+    """제공 파일의 원래 크기·SHA-256 목록을 읽고 형식을 검사해 반환한다.
+
+    SHA-256은 파일 내용의 변경 여부를 비교할 지문이다. 목록의 누락·중복이나
+    잘못된 값이 있으면 ValueError를 발생시킨다. 기준 파일을 새로 만들지는 않는다.
+    """
     BASELINE.resolve().relative_to(ROOT)
     document = json.loads(BASELINE.read_text(encoding="utf-8-sig"))
     if not isinstance(document, dict) or document.get("schema_version") != 1:
@@ -65,6 +74,11 @@ def read_baseline() -> list[dict]:
 
 
 def main() -> int:
+    """제공 파일을 기준 목록과 비교하고 변경·누락·읽기 실패를 보고한다.
+
+    반환값은 일치 0, 파일 차이 1, 기준·읽기 문제로 검사하지 못한 경우 2다.
+    업무 규칙의 동작은 실행하지 않으므로 이 검사만으로 승인 기능을 통과 판정하지 않는다.
+    """
     try:
         entries = read_baseline()
     except (OSError, ValueError, TypeError):
