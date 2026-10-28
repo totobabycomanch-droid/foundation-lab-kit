@@ -1,35 +1,27 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.41",
+  "release_id": "foundation-kit-v1.3.42",
   "release_status": "published",
-  "built_at_utc": "2026-10-28T02:12:28.300256+00:00",
+  "built_at_utc": "2026-10-28T03:03:27.943201+00:00",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "base_release": "foundation-kit-v1.3.40",
-  "base_source_commit": "de518f0a6149277c7497287afdd7e4ab3c9c32ad",
-  "base_archive_sha256": "ead0a4201784069fc2ea95731069b16e3d839ba98dc8b1783a90c412c1d2fa78",
-  "source_snapshot": "Release tag foundation-kit-v1.3.41 on release/ch04-v1.3.41; based on the published v1.3.40 payload.",
+  "base_release": "foundation-kit-v1.3.41",
+  "base_source_commit": "e7c9e17af2d6bb7833a8b1c3cb8d1504fa37fb3a",
+  "base_archive_sha256": "5ff39fc268d2e2871dcb48bba74597ec00cb697dbd82f7accef5d0ab3e599897",
+  "source_snapshot": "Release tag foundation-kit-v1.3.42 on release/ch04-v1.3.42; based on the published v1.3.41 payload.",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
     "added": [],
-    "removed": [
-      "practice-workspace/ch04/_starter/frontend/app.js"
-    ],
+    "removed": [],
     "changed": [
       "README.md",
-      "practice-workspace/ch04/AGENTS.md",
-      "practice-workspace/ch04/README.md",
-      "practice-workspace/ch04/frontend/app.js",
-      "practice-workspace/ch04/lessons/01_requirement.md",
       "practice-workspace/ch04/lessons/02_role.md",
-      "practice-workspace/ch04/lessons/04_company.md",
-      "practice-workspace/ch04/observation-baseline.json",
-      "practice-workspace/ch04/verify_observation.py",
-      "tools/verify_practice_chapter.ps1"
+      "practice-workspace/ch04/lessons/03_state.md",
+      "practice-workspace/ch04/observation-baseline.json"
     ],
-    "preserved_baseline_file_count": 237,
-    "description": "Chapter 4 verification UI provided by the kit again; learner implements the role rule and the approve-button restriction. Server foundations preserved."
+    "preserved_baseline_file_count": 243,
+    "description": "Chapter 4 guidance update: explicit 403 message in the 4.2 prompt, clearer 4.3 note, moved verification-tool note. Code and screen unchanged."
   },
   "payload": {
     "file_count": 247,
@@ -41,8 +33,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 10068,
-        "sha256": "d9255b21a1fd40670e8a9cc035b23afb1483dfcd935db12de5227631d35e4334"
+        "bytes": 10472,
+        "sha256": "59746a23a0a8ed9914b06bb27047e52fda16a8f26e9278c60712e8a8c0dc92d2"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -426,13 +418,13 @@
       },
       {
         "path": "practice-workspace/ch04/lessons/02_role.md",
-        "bytes": 7963,
-        "sha256": "a4ff135d52dd74fdc29ac759860f048829b41d3b490ba5fd8a17d5604ddaed90"
+        "bytes": 8074,
+        "sha256": "a70a7d65a7f9812e71433abe4a1cdfb2c563bab74e500f5d22bd01725f24d4cd"
       },
       {
         "path": "practice-workspace/ch04/lessons/03_state.md",
-        "bytes": 9464,
-        "sha256": "88c12c1a66246b156f5a1dda852ec04465b83849bd35ddc9d632b0a92e925a94"
+        "bytes": 9622,
+        "sha256": "362ae78917de6d03f890cb36aca79d63a32894ac5606e549233b678264847688"
       },
       {
         "path": "practice-workspace/ch04/lessons/04_company.md",
@@ -442,7 +434,7 @@
       {
         "path": "practice-workspace/ch04/observation-baseline.json",
         "bytes": 4190,
-        "sha256": "59b20f2fb6b4226bd71977fccbaac62007ac053d9acfe8b206fdfb89b9ac82d7"
+        "sha256": "50f6a6a33b13bd72e93c0b8541683edfdf855cace31a059684b6c147d41d2e50"
       },
       {
         "path": "practice-workspace/ch04/package-lock.json",

@@ -103,13 +103,13 @@
     },
     {
       "path": "lessons/02_role.md",
-      "bytes": 7963,
-      "sha256": "a4ff135d52dd74fdc29ac759860f048829b41d3b490ba5fd8a17d5604ddaed90"
+      "bytes": 8074,
+      "sha256": "a70a7d65a7f9812e71433abe4a1cdfb2c563bab74e500f5d22bd01725f24d4cd"
     },
     {
       "path": "lessons/03_state.md",
-      "bytes": 9464,
-      "sha256": "88c12c1a66246b156f5a1dda852ec04465b83849bd35ddc9d632b0a92e925a94"
+      "bytes": 9622,
+      "sha256": "362ae78917de6d03f890cb36aca79d63a32894ac5606e549233b678264847688"
     },
     {
       "path": "lessons/04_company.md",
