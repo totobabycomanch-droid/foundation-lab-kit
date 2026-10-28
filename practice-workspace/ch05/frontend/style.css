@@ -1,0 +1,14 @@
+:root{font-family:"Malgun Gothic",system-ui,sans-serif;color:#233645;background:#f5f8fa;line-height:1.65}
+*{box-sizing:border-box}body{margin:0}main{max-width:1100px;padding:24px;margin:auto}
+header{border-bottom:3px solid #3498db;padding-bottom:16px}h1{font-size:1.8rem}h2{font-size:1.25rem}
+section{background:white;border:1px solid #dce5eb;border-radius:10px;padding:24px;margin-top:22px;min-width:0}
+.fields,.cards{display:flex;gap:20px;flex-wrap:wrap}.fields label{display:grid;gap:6px;flex:1;min-width:150px}
+input,select,button,textarea{font:inherit;padding:9px 12px;border:1px solid #8c9daa;border-radius:5px;max-width:100%}
+button{background:#24465c;color:white;margin:8px 8px 0 0;cursor:pointer}.secondary{background:white;color:#24465c}
+button:disabled,input:disabled,select:disabled{opacity:.55;cursor:default}:focus-visible{outline:3px solid #3498db;outline-offset:3px}
+.cards>p{border:1px solid #dce5eb;border-radius:6px;flex:1;padding:14px;min-width:145px}.cards strong{display:block;font-size:1.6rem}
+.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:360px}th,td{padding:10px;text-align:left;border-bottom:1px solid #dce5eb}caption{text-align:left;color:#536a7c}
+summary{cursor:pointer;font-weight:bold;padding:12px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf3f6;padding:12px;border-radius:5px}
+.sql-step{border-top:1px solid #dce5eb;margin-top:14px;padding-top:10px}.sql-step h3{font-size:1rem}#error{color:#a12424}#request,#observed{overflow-wrap:anywhere}
+textarea{width:100%;font-size:.85rem;background:#f8fafb}#status{font-weight:bold}p{overflow-wrap:anywhere}
+@media(max-width:600px){main{padding:12px}section{padding:16px}.fields{gap:10px}.fields label{min-width:100%}h1{font-size:1.4rem}}

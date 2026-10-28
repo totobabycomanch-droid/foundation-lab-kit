@@ -78,7 +78,20 @@ if ($Chapter -eq "ch05") {
     $rulesPath = Join-Path $chapterRoot "AGENTS.md"
     if (Test-Path -LiteralPath $rulesPath) {
         $rules = Get-Content -Raw -Encoding UTF8 -LiteralPath $rulesPath
-        Write-Check ($rules.Contains("common-rules-version: chapter5-v4")) "ch05 staged execution rules version"
+        $webPilot = Test-Path -LiteralPath (Join-Path $chapterRoot 'web-baseline.json')
+        $expectedVersion = if ($webPilot) { 'chapter5-v5' } else { 'chapter5-v4' }
+        Write-Check ($rules.Contains("common-rules-version: $expectedVersion")) "ch05 execution rules version"
+        if ($webPilot) {
+            foreach ($relativePath in @(
+                'start_lab.ps1', 'requirements.txt', 'backend/app.py', 'backend/store.py',
+                'backend/contracts.py', 'backend/movement_rules.py', 'backend/movement_write.py',
+                'frontend/index.html', 'frontend/app.js', 'frontend/style.css',
+                'verify_observation.py', 'verify_web.py', 'reference/web/README.md',
+                'reference/web/movement_rules.py', 'reference/web/movement_write.py'
+            )) {
+                Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "ch05/$relativePath"
+            }
+        }
     }
     $sqlPath = Join-Path $chapterRoot "reference/02_relationship_and_delete.sql"
     if (Test-Path -LiteralPath $sqlPath) {

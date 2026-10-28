@@ -1,30 +1,50 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.44",
+  "release_id": "foundation-kit-v1.3.45",
   "release_status": "release_payload",
-  "built_at_utc": "2026-10-28T10:35:40.648801+00:00",
+  "built_at_utc": "2026-10-28T12:13:55.231854+00:00",
+  "base_release": "foundation-kit-v1.3.44",
+  "base_source_commit": "4dc7daf1a927db75a8f7fb695d9522f7ea581f96",
+  "base_archive_sha256": "ecb054517e34d9f2c8858b000b8f5b3b2734db2b0767925d400d8edbe81c43f1",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "base_release": "foundation-kit-v1.3.43",
-  "base_source_commit": "0763db16a38a0431618064e454c68da364907137",
-  "base_archive_sha256": "53250e18d0a255764fe7971f329fe35dbed99e6aaac5653a88659cd217725671",
-  "source_snapshot": "Isolated release/ch05-v1.3.44 payload based on verified v1.3.43; Chapter 5 guidance only.",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
-    "added": [],
-    "removed": [],
+    "added": [
+      "practice-workspace/ch05/.gitignore",
+      "practice-workspace/ch05/_starter/backend/movement_rules.py",
+      "practice-workspace/ch05/_starter/backend/movement_write.py",
+      "practice-workspace/ch05/backend/__init__.py",
+      "practice-workspace/ch05/backend/app.py",
+      "practice-workspace/ch05/backend/contracts.py",
+      "practice-workspace/ch05/backend/movement_rules.py",
+      "practice-workspace/ch05/backend/movement_write.py",
+      "practice-workspace/ch05/backend/store.py",
+      "practice-workspace/ch05/frontend/app.js",
+      "practice-workspace/ch05/frontend/index.html",
+      "practice-workspace/ch05/frontend/style.css",
+      "practice-workspace/ch05/reference/web/README.md",
+      "practice-workspace/ch05/reference/web/movement_rules.py",
+      "practice-workspace/ch05/reference/web/movement_write.py",
+      "practice-workspace/ch05/requirements.txt",
+      "practice-workspace/ch05/start_lab.ps1",
+      "practice-workspace/ch05/verify_observation.py",
+      "practice-workspace/ch05/verify_web.py",
+      "practice-workspace/ch05/web-baseline.json"
+    ],
     "changed": [
+      "README.md",
       "practice-workspace/ch05/AGENTS.md",
       "practice-workspace/ch05/README.md",
+      "practice-workspace/ch05/reference/README.md",
       "practice-workspace/ch05/sql/README.md",
-      "README.md"
+      "tools/verify_practice_chapter.ps1"
     ],
-    "preserved_baseline_file_count": 243,
-    "description": "Separate business-meeting, generation, execution, review and reporting for each Chapter 5 exercise; reference SQL and other chapters unchanged."
+    "removed": []
   },
   "payload": {
-    "file_count": 247,
+    "file_count": 267,
     "files": [
       {
         "path": ".gitignore",
@@ -33,8 +53,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 11419,
-        "sha256": "97e46e9511f360288e7853652af8af4cb5161dbad53bb941371df0ab3727cd57"
+        "bytes": 11427,
+        "sha256": "e07669a42291195a132a7fe7dff30e301dd1f3bc8f735e63cfec4234489ea9c2"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -482,14 +502,74 @@
         "sha256": "8b22b26af2138336147e4abc8e3d7785023664078bda54d24aa75478c7a1541c"
       },
       {
+        "path": "practice-workspace/ch05/.gitignore",
+        "bytes": 32,
+        "sha256": "c62cc474753c85fcb4818d9a1764473c69d43ac22c5328539c5b4798fed95d3f"
+      },
+      {
         "path": "practice-workspace/ch05/AGENTS.md",
-        "bytes": 6025,
-        "sha256": "e911fbd5610b309bf6126afbba65f8ae655e353b3a9aff0b40b10d2d6d1cc4a6"
+        "bytes": 5895,
+        "sha256": "e77accd1e7cf7792aaa022cff14a9493141afb3f42db79e5e817a12ff6c948c3"
       },
       {
         "path": "practice-workspace/ch05/README.md",
-        "bytes": 3376,
-        "sha256": "2caabaff434b864f6804b7daa36c3cc996eccb79c1f2b69f60061d5291303275"
+        "bytes": 3562,
+        "sha256": "075aea8e1904571475f183209f818d42041b46aece5503831f92707a34b2adc3"
+      },
+      {
+        "path": "practice-workspace/ch05/_starter/backend/movement_rules.py",
+        "bytes": 599,
+        "sha256": "062f75ab09331789bd052d3e4985d9a2e38754ea8f956431b0c5389e2d9f4c76"
+      },
+      {
+        "path": "practice-workspace/ch05/_starter/backend/movement_write.py",
+        "bytes": 708,
+        "sha256": "70cd88a9defc189718d16e278216acac13b52a6d300e67536917ae67ed1432dc"
+      },
+      {
+        "path": "practice-workspace/ch05/backend/__init__.py",
+        "bytes": 53,
+        "sha256": "6ebe292d6964ccc9266647aa5b9af6b10389fd650b170ae6b983515afce59a64"
+      },
+      {
+        "path": "practice-workspace/ch05/backend/app.py",
+        "bytes": 2967,
+        "sha256": "54838fb1039530d41292eeeaf8d33a7cd26c0c8b759d95533836d1cc23bf1bf9"
+      },
+      {
+        "path": "practice-workspace/ch05/backend/contracts.py",
+        "bytes": 258,
+        "sha256": "ddf365d47421381c835078178533888b01d8090fc49e0b925807538230491bb1"
+      },
+      {
+        "path": "practice-workspace/ch05/backend/movement_rules.py",
+        "bytes": 599,
+        "sha256": "062f75ab09331789bd052d3e4985d9a2e38754ea8f956431b0c5389e2d9f4c76"
+      },
+      {
+        "path": "practice-workspace/ch05/backend/movement_write.py",
+        "bytes": 708,
+        "sha256": "70cd88a9defc189718d16e278216acac13b52a6d300e67536917ae67ed1432dc"
+      },
+      {
+        "path": "practice-workspace/ch05/backend/store.py",
+        "bytes": 5771,
+        "sha256": "ad0db89d787a4c3071e088c10d706df63cd3b91b86b15923f3847f1084b54a93"
+      },
+      {
+        "path": "practice-workspace/ch05/frontend/app.js",
+        "bytes": 5518,
+        "sha256": "273527b7c541b791bab83279c80069d6e8ffdf49ccf863f67917297f2e904cd9"
+      },
+      {
+        "path": "practice-workspace/ch05/frontend/index.html",
+        "bytes": 3378,
+        "sha256": "6715c2a2515a629418a5536b474fd1eb9b3cab0c008e6872f8ba2bac8c7d0a84"
+      },
+      {
+        "path": "practice-workspace/ch05/frontend/style.css",
+        "bytes": 1767,
+        "sha256": "3451a431ee633da23f09385b1c087d4236f2b3346dfb73e9b2447b0150eef2c7"
       },
       {
         "path": "practice-workspace/ch05/reference/01_current_and_history.sql",
@@ -503,13 +583,53 @@
       },
       {
         "path": "practice-workspace/ch05/reference/README.md",
-        "bytes": 1364,
-        "sha256": "a7e5f54f270d4d9cf2a3423f94631cc17b2f1054b783f64c883a838beea25731"
+        "bytes": 1611,
+        "sha256": "1f66377b6557291fcc5a4ca3f49f01c15aec6fb1843f0954bc6c7664feb01768"
+      },
+      {
+        "path": "practice-workspace/ch05/reference/web/README.md",
+        "bytes": 939,
+        "sha256": "316a231563ce7adefe2c4630cd6f8bbbb5def7e88bac778db968ef82b2273a0e"
+      },
+      {
+        "path": "practice-workspace/ch05/reference/web/movement_rules.py",
+        "bytes": 627,
+        "sha256": "8b5f412f81f076a5b672c2d1573713547efe13b0ab7046cba44e24d9e5cbf5c5"
+      },
+      {
+        "path": "practice-workspace/ch05/reference/web/movement_write.py",
+        "bytes": 725,
+        "sha256": "9470d3b9badbdba34bfaf28e0de1fc628877f27c8dc177ce9efd64e7ced31965"
+      },
+      {
+        "path": "practice-workspace/ch05/requirements.txt",
+        "bytes": 33,
+        "sha256": "d31c786a6d0856b755aefa2e506b894017aefb68d8bab745b1f27e6ac3ae3bbc"
       },
       {
         "path": "practice-workspace/ch05/sql/README.md",
-        "bytes": 9070,
-        "sha256": "7041681a6709f146b88baca6be409a146843a081b8662548846c2cb52aa9f9b3"
+        "bytes": 8067,
+        "sha256": "a873248980fb8c810271b589d84ecff87c8b9d70dabc4b2e762997dceee1790b"
+      },
+      {
+        "path": "practice-workspace/ch05/start_lab.ps1",
+        "bytes": 936,
+        "sha256": "4b50d5580d1c9279b9481c2f6a895e541560c5dfa9d14ef8d28be9f0da240a05"
+      },
+      {
+        "path": "practice-workspace/ch05/verify_observation.py",
+        "bytes": 1131,
+        "sha256": "e748e1258022fe9c482805b98d18be67ac6e972925130c0c1b849a0f1e7235a5"
+      },
+      {
+        "path": "practice-workspace/ch05/verify_web.py",
+        "bytes": 8358,
+        "sha256": "e83614b3bb92b75f41b813e156d1377141c3c7f280991b91424c528c28096f70"
+      },
+      {
+        "path": "practice-workspace/ch05/web-baseline.json",
+        "bytes": 1317,
+        "sha256": "a3d173ea3c6ca6c68c67e046b87dd64218109a6007c3703a6063e482f2035c56"
       },
       {
         "path": "practice-workspace/ch06/.env.tools.example",
@@ -1258,8 +1378,8 @@
       },
       {
         "path": "tools/verify_practice_chapter.ps1",
-        "bytes": 10394,
-        "sha256": "e9a2ef79cbbdced223770a382aab9cc5eaea2334b9545effb2305cd449351725"
+        "bytes": 11235,
+        "sha256": "9f9150a6e7bfab2af77135577673189a5c8622e4e227925a2d00b9900dd1b526"
       }
     ]
   }

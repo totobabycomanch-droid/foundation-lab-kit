@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 5 입출고와 SQL 추적</title><link rel="stylesheet" href="/frontend/style.css"></head>
+<body>
+<main aria-labelledby="title">
+  <header><p>Chapter 5 · 실습 1</p><h1 id="title">내 입력이 현재고와 이력에 남는 과정</h1>
+  <p>입고·출고를 입력하고, DB에서 다시 읽은 수량과 실제 SQL을 함께 확인합니다.</p></header>
+  <section aria-labelledby="input-title"><h2 id="input-title">입고·출고 입력</h2>
+    <form id="movement-form">
+      <div class="fields"><label for="product">품목<select id="product"><option value="A001">A001 · 샘플 상품 A</option><option value="B001">B001 · 샘플 상품 B</option></select></label>
+      <label for="direction">업무<select id="direction"><option value="IN">입고</option><option value="OUT">출고</option></select></label>
+      <label for="quantity">수량<input id="quantity" type="number" min="1" max="1000000" step="1" value="10" required></label></div>
+      <p>입고와 출고 모두 양수를 입력합니다. 출고의 감소 수량은 서버가 결정합니다.</p>
+      <button type="submit">입출고 처리</button><button type="button" id="refresh">상태 다시 조회</button>
+      <button type="button" id="reset" class="secondary">실습 1 초기화</button>
+    </form>
+    <p>초기화는 두 품목의 로컬 현재고·이력만 되돌립니다. 실습 2의 Supabase 데이터와 작성한 코드는 유지됩니다.</p>
+    <p id="status" role="status" aria-live="polite">DB에서 시작 상태를 읽고 있습니다.</p>
+    <p id="error" role="alert"></p>
+  </section>
+  <section aria-labelledby="state-title"><h2 id="state-title">저장 후 DB에서 다시 조회한 결과</h2>
+    <p id="observed">아직 확인한 값이 없습니다.</p>
+    <div class="cards"><p>현재 수량<strong id="current">—</strong></p><p>이력 합계<strong id="total">—</strong></p><p>대조 결과<strong id="match">—</strong></p></div>
+    <h3>입고·출고 이력</h3><p id="empty">아직 이력이 없습니다.</p>
+    <div class="table-scroll"><table id="history"><caption>선택한 품목의 실제 입출고 기록</caption><thead><tr><th scope="col">순서</th><th scope="col">품목</th><th scope="col">증감 수량</th><th scope="col">사유</th></tr></thead><tbody></tbody></table></div>
+  </section>
+  <section aria-labelledby="request-title"><h2 id="request-title">이번 요청의 결과</h2>
+    <p id="request">아직 요청 결과가 없습니다.</p>
+    <details id="sql-details"><summary>이번 요청의 실제 SQL 상세</summary>
+      <p>실제 SQLite 실행 콜백에서 받은 SQL입니다. SQL이 실행돼도 취소되면 저장되지 않습니다. ‘저장 후 재조회’는 별도 연결에서 확인한 값입니다.</p>
+      <div id="trace"></div>
+    </details>
+    <button id="copy" type="button">AI 검증용 실행 결과 복사</button><p id="copy-status" role="status"></p>
+    <details id="report-details"><summary>복사할 실제 실행 결과 보기</summary><textarea id="report" rows="12" readonly aria-label="AI 검증에 전달할 실제 실행 결과"></textarea></details>
+  </section>
+</main><script type="module" src="/frontend/app.js"></script>
+</body></html>
