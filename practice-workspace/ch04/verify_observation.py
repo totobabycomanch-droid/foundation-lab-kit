@@ -21,7 +21,7 @@ FIXED_PATHS = (
     'backend/lab_auth.py',
     'backend/store.py',
     'frontend/index.html',
-    '_starter/frontend/app.js',
+    'frontend/app.js',
     'frontend/transport.js',
     'frontend/style.css',
     '_starter/backend/approval_rules.py',
