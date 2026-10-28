@@ -1,4 +1,4 @@
-# Foundation Lab Kit v1.3.45
+# Foundation Lab Kit v1.3.46
 
 이 키트는 Chapter 4 발주 승인 실습과 완료 후 API 검증 도구를 포함합니다.
 ZIP과 체크섬은 같은 Release의 파일을 사용하고, 기존 실습 폴더를 보존한 채 새 폴더에 풉니다.
@@ -12,6 +12,8 @@ Chapter 4는 practice-workspace/ch04/에서 업무 회의의 역할·회사 규�
 각 Chapter 폴더만 VS Code에서 열며 앞 장의 코드·DB·가상환경을 복사하지 않습니다.
 
 ## Chapter 5 웹 입력과 실제 SQL 추적
+
+간결한 업무 질문으로 검증을 요청할 수 있도록 AI 검사 실행·데이터 보존·결과 보고 지침을 ch05/AGENTS.md에 보완했습니다.
 
 실습 1은 웹에서 품목·입출고 수량을 입력하고 현재고·이력·실제 실행 SQL을 확인합니다.
 화면과 DB 연결은 제공되며, 업무 코드는 원고 5.2의 프롬프트로 AI와 완성합니다.

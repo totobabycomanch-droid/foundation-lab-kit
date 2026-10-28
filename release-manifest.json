@@ -1,47 +1,22 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.45",
+  "release_id": "foundation-kit-v1.3.46",
   "release_status": "release_payload",
-  "built_at_utc": "2026-10-28T12:13:55.231854+00:00",
-  "base_release": "foundation-kit-v1.3.44",
-  "base_source_commit": "4dc7daf1a927db75a8f7fb695d9522f7ea581f96",
-  "base_archive_sha256": "ecb054517e34d9f2c8858b000b8f5b3b2734db2b0767925d400d8edbe81c43f1",
+  "built_at_utc": "2026-10-28T13:02:39.762212+00:00",
+  "base_release": "foundation-kit-v1.3.45",
+  "base_source_commit": "2b3958ff2411c340cb09c147c9cc5c45ac58f063",
+  "base_archive_sha256": "afb80e5d3dd640ba7ce79b63af99dd1ffaf9310e7cf369843f1166a9bbb2d404",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
-    "added": [
-      "practice-workspace/ch05/.gitignore",
-      "practice-workspace/ch05/_starter/backend/movement_rules.py",
-      "practice-workspace/ch05/_starter/backend/movement_write.py",
-      "practice-workspace/ch05/backend/__init__.py",
-      "practice-workspace/ch05/backend/app.py",
-      "practice-workspace/ch05/backend/contracts.py",
-      "practice-workspace/ch05/backend/movement_rules.py",
-      "practice-workspace/ch05/backend/movement_write.py",
-      "practice-workspace/ch05/backend/store.py",
-      "practice-workspace/ch05/frontend/app.js",
-      "practice-workspace/ch05/frontend/index.html",
-      "practice-workspace/ch05/frontend/style.css",
-      "practice-workspace/ch05/reference/web/README.md",
-      "practice-workspace/ch05/reference/web/movement_rules.py",
-      "practice-workspace/ch05/reference/web/movement_write.py",
-      "practice-workspace/ch05/requirements.txt",
-      "practice-workspace/ch05/start_lab.ps1",
-      "practice-workspace/ch05/verify_observation.py",
-      "practice-workspace/ch05/verify_web.py",
-      "practice-workspace/ch05/web-baseline.json"
-    ],
+    "added": [],
+    "removed": [],
     "changed": [
       "README.md",
-      "practice-workspace/ch05/AGENTS.md",
-      "practice-workspace/ch05/README.md",
-      "practice-workspace/ch05/reference/README.md",
-      "practice-workspace/ch05/sql/README.md",
-      "tools/verify_practice_chapter.ps1"
-    ],
-    "removed": []
+      "practice-workspace/ch05/AGENTS.md"
+    ]
   },
   "payload": {
     "file_count": 267,
@@ -53,8 +28,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 11427,
-        "sha256": "e07669a42291195a132a7fe7dff30e301dd1f3bc8f735e63cfec4234489ea9c2"
+        "bytes": 11590,
+        "sha256": "9be038c4153464a2cbc50b7d5d9aee3accc2c1c4b6e2b88f15f64c31cd766325"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -508,8 +483,8 @@
       },
       {
         "path": "practice-workspace/ch05/AGENTS.md",
-        "bytes": 5895,
-        "sha256": "e77accd1e7cf7792aaa022cff14a9493141afb3f42db79e5e817a12ff6c948c3"
+        "bytes": 6954,
+        "sha256": "68fd7fc744fdd66151ca0356da36b07cf87ea496b2c52be95ae5df02ab370ab2"
       },
       {
         "path": "practice-workspace/ch05/README.md",
