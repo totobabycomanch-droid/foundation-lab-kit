@@ -139,6 +139,16 @@ if ($Chapter -eq "ch05") {
     Write-Host "INFO    Stage boundaries and SQL structure checked; data behavior is NOT RUN."
 }
 
+if ($Chapter -eq 'ch07' -and (Test-Path -LiteralPath (Join-Path $chapterRoot 'understanding/observation-baseline.json'))) {
+    foreach ($relativePath in @('understanding/web_server.py','understanding/lab_store.py','understanding/lab_contracts.py','understanding/start_lab.ps1','understanding/frontend/index.html','understanding/frontend/app.js','understanding/frontend/style.css','understanding/transaction_example.py','understanding/sale_example.py','understanding/test_examples.py','understanding/verify_observation.py','understanding/verify_web.py','understanding/_starter/transaction_example.py','understanding/_starter/sale_example.py','understanding/_starter/test_examples.py')) {
+        Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "ch07/$relativePath"
+    }
+    foreach ($relativePath in @('AGENTS.md','understanding/AGENTS.md')) {
+        $rules = Get-Content -Raw -Encoding UTF8 -LiteralPath (Join-Path $chapterRoot $relativePath)
+        Write-Check ($rules.Contains('common-rules-version: chapter7-v3')) "ch07/$relativePath rules version"
+    }
+}
+
 if ($Chapter -eq "ch08") {
     foreach ($relativePath in @("AGENTS.md", "understanding/AGENTS.md")) {
         $path = Join-Path $chapterRoot $relativePath

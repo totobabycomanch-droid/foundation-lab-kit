@@ -1,4 +1,4 @@
-# Foundation Lab Kit v1.3.47
+# Foundation Lab Kit v1.3.48
 
 이 키트는 Chapter 4 발주 승인 실습과 완료 후 API 검증 도구를 포함합니다.
 ZIP과 체크섬은 같은 Release의 파일을 사용하고, 기존 실습 폴더를 보존한 채 새 폴더에 풉니다.
@@ -10,6 +10,14 @@ Chapter 3의 관찰 장치 검사 도구와 기존 시작본은 v1.3.36과 같�
 Chapter 4는 practice-workspace/ch04/에서 업무 회의의 역할·회사 규칙을 구현하고,
 재승인 사건을 재현해 상태 규칙을 보완한 뒤 회사 경계 결함을 다룹니다.
 각 Chapter 폴더만 VS Code에서 열며 앞 장의 코드·DB·가상환경을 복사하지 않습니다.
+
+## Chapter 7 웹에서 실패와 재시도 뒤 실제 기록 확인
+
+실습 1은 실제 주문 저장 실패 뒤 재고 9/10의 차이, 실습 2는 판매·같은 요청 재전송·충돌·새 판매를 직접 조작합니다.
+화면·연결·실행 추적은 제공하고 업무 코드의 확정·취소와 재시도 처리는 AI와 완성합니다.
+Chapter 6에서 준비한 ch07/.venv의 Python 3.12를 사용합니다. 추가 패키지·Node.js·Docker·Supabase는 필요하지 않습니다.
+practice-workspace/ch07/understanding/README.md를 따르세요. 시작본의 501·업무 검사 미구현 안내는 정상입니다.
+새 폴더에 압축을 풀고 기존 코드·데이터는 보존하세요. 다른 Chapter의 실습 파일은 이전 배포본과 같습니다.
 
 ## Chapter 5 두 실습을 웹에서 입력·확인합니다
 

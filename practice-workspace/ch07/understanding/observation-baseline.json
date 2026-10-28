@@ -1,0 +1,14 @@
+{
+  "web_server.py": "533b6ef433809746e290b53b9ff81b94be4bce4cef363990878de94a5a2af362",
+  "lab_store.py": "afc32070a5784f3311b1cababf15e46344a91b92c20575caf9788b1412377b98",
+  "lab_contracts.py": "fdc28ea6b0e26b5c86dc103392cc3de4a27c6964b84bf35ed4ccf1525f65e94b",
+  "start_lab.ps1": "33fff1b8d8e73d40d0dd1d1facae8da1588e3de8205d56a4ce1e62fc1a356783",
+  "frontend/index.html": "7cb4debf839a078c3cca74ba5e9f0d919d0b6124c60d9b9b42bb25c18d2d4a79",
+  "frontend/app.js": "fd1597f9cd4f42db2612f3f72669a30bf5235f13695aeea06864d5a33a6f2957",
+  "frontend/style.css": "c9f68824d06e36b7501ffe602e6d8efae98a564f4cdb7693e98c63074a11a9c8",
+  "_starter/transaction_example.py": "61690e6792d5072957477a0606bad0a35dc554371121914db4042113d2231cda",
+  "_starter/sale_example.py": "5a4dd2dd7348d2e09b54aff814284c052901c0dafec5172f52e7dbcba1bdbe7f",
+  "_starter/test_examples.py": "eb15fb33d47591abaaa119d295d9f8edc392778e9642cc05419d7dd9a2571fdc",
+  "verify_observation.py": "68ca29048636e50186263376fe0be81a168f9fe21c51cac1bd68297a314bce3c",
+  "verify_web.py": "7325df40b8717f1db1e223ae2885e231aab5fe50ee7c88f814bf4e0791263026"
+}

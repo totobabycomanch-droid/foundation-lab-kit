@@ -25,6 +25,8 @@ $removeTargets = @{
     )
 }
 
+$ch07Web = Test-Path -LiteralPath (Join-Path $kitRoot 'practice-workspace/ch07/understanding/observation-baseline.json')
+
 $restoreTargets = @{
     ch07 = @()
     ch08 = @()
@@ -35,6 +37,15 @@ $restoreTargets = @{
         @("erp-mini/_starter/server.py", "erp-mini/server.py")
     )
     ch11 = ,@("workspace/_starter/App.vue", "workspace/frontend-project/src/App.vue")
+}
+
+if ($Chapter -eq 'ch07' -and $ch07Web) {
+    $removeTargets['ch07'] = @()
+    $restoreTargets['ch07'] = @(
+        @('understanding/_starter/transaction_example.py','understanding/transaction_example.py'),
+        @('understanding/_starter/sale_example.py','understanding/sale_example.py'),
+        @('understanding/_starter/test_examples.py','understanding/test_examples.py')
+    )
 }
 
 function Resolve-SafePath([string]$RelativePath) {

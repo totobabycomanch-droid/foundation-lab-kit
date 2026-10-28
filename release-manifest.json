@@ -1,46 +1,55 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.47",
+  "release_id": "foundation-kit-v1.3.48",
   "release_status": "release_payload",
-  "built_at_utc": "2026-10-28T13:38:45.651432+00:00",
-  "base_release": "foundation-kit-v1.3.46",
-  "base_source_commit": "edc69f5fa265fb00cbbdfadcc26754c36d9636cb",
-  "base_archive_sha256": "ce5053ed1cb2a87e4949875c0fbf400a2942b863a28a1296b6139438a9739f70",
+  "built_at_utc": "2026-10-28T16:24:26.084404+00:00",
+  "base_release": "foundation-kit-v1.3.47",
+  "base_source_commit": "835db24feb66c0aca871122ce6715642e4387b5a",
+  "base_archive_sha256": "64879d89419de854a7a33f911afda79d80638ddf865d18385576c834f7292e55",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
     "added": [
-      "practice-workspace/ch05/_starter/backend/relationship_read.py",
-      "practice-workspace/ch05/_starter/backend/relationship_write.py",
-      "practice-workspace/ch05/backend/relationship_read.py",
-      "practice-workspace/ch05/backend/relationship_store.py",
-      "practice-workspace/ch05/backend/relationship_write.py",
-      "practice-workspace/ch05/frontend/relationships.html",
-      "practice-workspace/ch05/frontend/relationships.js",
-      "practice-workspace/ch05/reference/web/relationship_read.py",
-      "practice-workspace/ch05/reference/web/relationship_write.py",
-      "practice-workspace/ch05/verify_relationships.py"
+      "practice-workspace/ch07/understanding/.gitignore",
+      "practice-workspace/ch07/understanding/_starter/sale_example.py",
+      "practice-workspace/ch07/understanding/_starter/test_examples.py",
+      "practice-workspace/ch07/understanding/_starter/transaction_example.py",
+      "practice-workspace/ch07/understanding/frontend/app.js",
+      "practice-workspace/ch07/understanding/frontend/index.html",
+      "practice-workspace/ch07/understanding/frontend/style.css",
+      "practice-workspace/ch07/understanding/lab_contracts.py",
+      "practice-workspace/ch07/understanding/lab_store.py",
+      "practice-workspace/ch07/understanding/observation-baseline.json",
+      "practice-workspace/ch07/understanding/reference/README.md",
+      "practice-workspace/ch07/understanding/reference/legacy_memory/sale_example.py",
+      "practice-workspace/ch07/understanding/reference/legacy_memory/test_examples.py",
+      "practice-workspace/ch07/understanding/reference/legacy_memory/transaction_example.py",
+      "practice-workspace/ch07/understanding/sale_example.py",
+      "practice-workspace/ch07/understanding/start_lab.ps1",
+      "practice-workspace/ch07/understanding/test_examples.py",
+      "practice-workspace/ch07/understanding/transaction_example.py",
+      "practice-workspace/ch07/understanding/verify_observation.py",
+      "practice-workspace/ch07/understanding/verify_web.py",
+      "practice-workspace/ch07/understanding/web_server.py"
     ],
-    "removed": [],
     "changed": [
       "README.md",
-      "practice-workspace/ch05/AGENTS.md",
-      "practice-workspace/ch05/README.md",
-      "practice-workspace/ch05/backend/app.py",
-      "practice-workspace/ch05/backend/store.py",
-      "practice-workspace/ch05/frontend/index.html",
-      "practice-workspace/ch05/reference/README.md",
-      "practice-workspace/ch05/reference/web/README.md",
-      "practice-workspace/ch05/sql/README.md",
-      "practice-workspace/ch05/verify_observation.py",
-      "practice-workspace/ch05/web-baseline.json",
+      "practice-workspace/ch07/AGENTS.md",
+      "practice-workspace/ch07/README.md",
+      "practice-workspace/ch07/understanding/AGENTS.md",
+      "practice-workspace/ch07/understanding/README.md",
+      "practice-workspace/ch07/understanding/reference/sale_example.py",
+      "practice-workspace/ch07/understanding/reference/test_examples.py",
+      "practice-workspace/ch07/understanding/reference/transaction_example.py",
+      "tools/reset_practice_chapter.ps1",
       "tools/verify_practice_chapter.ps1"
-    ]
+    ],
+    "removed": []
   },
   "payload": {
-    "file_count": 277,
+    "file_count": 298,
     "files": [
       {
         "path": ".gitignore",
@@ -49,8 +58,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 11615,
-        "sha256": "c82deda69c7512f542e507634d6512e8b6a596cc89276f493c815e0074709d7f"
+        "bytes": 12392,
+        "sha256": "d944ddb0368bf2101b9c829817c185b443ca80fc4e5d2a98f139a41c0e2b441b"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -694,13 +703,13 @@
       },
       {
         "path": "practice-workspace/ch07/AGENTS.md",
-        "bytes": 553,
-        "sha256": "9239d28e93e1aa0c11392cbedd59ba0cf64f1e549d917ac231fdf4c69b356c7c"
+        "bytes": 736,
+        "sha256": "92569b8b1ef9e6a52f1da34ee153573dda09610e84c6342e79b664f5ae51ddc1"
       },
       {
         "path": "practice-workspace/ch07/README.md",
-        "bytes": 720,
-        "sha256": "3e42104f7e43a878fa33bf8ef5ae649d03768c387412c1484b8cac4c194bed74"
+        "bytes": 1008,
+        "sha256": "f8935f6d70d8d2fc3ec3aeaa25b4556fca4a5c8e312cb6711424c3c6f06799e7"
       },
       {
         "path": "practice-workspace/ch07/legacy-api/AGENTS.md",
@@ -723,29 +732,134 @@
         "sha256": "7d12a63c6c5308d7bc2576facb713ddb34a3b3cb9fbcae2abb4f2695f30a1678"
       },
       {
+        "path": "practice-workspace/ch07/understanding/.gitignore",
+        "bytes": 25,
+        "sha256": "e4e9ff53b667f1adb9e41d4a9bf7f9f6f7159ddb3f47eca816fbd2ecc9a07bc5"
+      },
+      {
         "path": "practice-workspace/ch07/understanding/AGENTS.md",
-        "bytes": 1435,
-        "sha256": "c7a9583cccd30e67342dbdd5e8f9943641fe016735dc258b5b00745fc3e472cb"
+        "bytes": 6000,
+        "sha256": "ed9e3a69b0e34a497eec70eac87a6beff63e7817261fa4e9f292a22ff7385a9c"
       },
       {
         "path": "practice-workspace/ch07/understanding/README.md",
-        "bytes": 4878,
-        "sha256": "3318ff222512307f11b78ac4b5bf45e78c1fb8f71f938536824915a691408a75"
+        "bytes": 3740,
+        "sha256": "7799710592001bf48737dc9792c58aa38d8f917587bce14449db73fa95579714"
       },
       {
-        "path": "practice-workspace/ch07/understanding/reference/sale_example.py",
+        "path": "practice-workspace/ch07/understanding/_starter/sale_example.py",
+        "bytes": 1046,
+        "sha256": "5a4dd2dd7348d2e09b54aff814284c052901c0dafec5172f52e7dbcba1bdbe7f"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/_starter/test_examples.py",
+        "bytes": 474,
+        "sha256": "eb15fb33d47591abaaa119d295d9f8edc392778e9642cc05419d7dd9a2571fdc"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/_starter/transaction_example.py",
+        "bytes": 838,
+        "sha256": "61690e6792d5072957477a0606bad0a35dc554371121914db4042113d2231cda"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/frontend/app.js",
+        "bytes": 6466,
+        "sha256": "fd1597f9cd4f42db2612f3f72669a30bf5235f13695aeea06864d5a33a6f2957"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/frontend/index.html",
+        "bytes": 4778,
+        "sha256": "7cb4debf839a078c3cca74ba5e9f0d919d0b6124c60d9b9b42bb25c18d2d4a79"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/frontend/style.css",
+        "bytes": 1635,
+        "sha256": "c9f68824d06e36b7501ffe602e6d8efae98a564f4cdb7693e98c63074a11a9c8"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/lab_contracts.py",
+        "bytes": 227,
+        "sha256": "fdc28ea6b0e26b5c86dc103392cc3de4a27c6964b84bf35ed4ccf1525f65e94b"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/lab_store.py",
+        "bytes": 9206,
+        "sha256": "afc32070a5784f3311b1cababf15e46344a91b92c20575caf9788b1412377b98"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/observation-baseline.json",
+        "bytes": 1125,
+        "sha256": "0606c5c90815de2ce842608f4c891c26e812373e201a122330b339f5561b8b93"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/reference/README.md",
+        "bytes": 778,
+        "sha256": "9a74b29724a1f7fb71b50f75c384d834c993f96a883557c0f0e94f66122f3a18"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/reference/legacy_memory/sale_example.py",
         "bytes": 2766,
         "sha256": "c9a725f364559598f7dd09ebd9d4dd485d0a0b0825a18de24a404ceeb84fd43c"
       },
       {
-        "path": "practice-workspace/ch07/understanding/reference/test_examples.py",
+        "path": "practice-workspace/ch07/understanding/reference/legacy_memory/test_examples.py",
         "bytes": 5855,
         "sha256": "055e0998b24e8afd419bde89505033915ebb4a7bbbec447eb7870d4e17412bde"
       },
       {
+        "path": "practice-workspace/ch07/understanding/reference/legacy_memory/transaction_example.py",
+        "bytes": 1403,
+        "sha256": "5b368c2fc8d5eebdca559659b52bc72521cd6412ea8be8c021780a5f7336aa8e"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/reference/sale_example.py",
+        "bytes": 1355,
+        "sha256": "608e9a38758cb4d579cc212df340ba91d32a36332a18ba96bd2a0e7c07e04db4"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/reference/test_examples.py",
+        "bytes": 5616,
+        "sha256": "5ec6e0889cf906b899c45afb59d36965bf47e75b7bd7eea0d0226016e223e8e7"
+      },
+      {
         "path": "practice-workspace/ch07/understanding/reference/transaction_example.py",
-        "bytes": 1437,
-        "sha256": "4a83dd4546e692072326720de7f2683b6d18cc5bd552385e8dcedce4b83974e3"
+        "bytes": 577,
+        "sha256": "fa35918610832643f172c87d60023e5df2baccbdf5bcf05f9c781318eba52b24"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/sale_example.py",
+        "bytes": 1046,
+        "sha256": "5a4dd2dd7348d2e09b54aff814284c052901c0dafec5172f52e7dbcba1bdbe7f"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/start_lab.ps1",
+        "bytes": 694,
+        "sha256": "33fff1b8d8e73d40d0dd1d1facae8da1588e3de8205d56a4ce1e62fc1a356783"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/test_examples.py",
+        "bytes": 474,
+        "sha256": "eb15fb33d47591abaaa119d295d9f8edc392778e9642cc05419d7dd9a2571fdc"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/transaction_example.py",
+        "bytes": 838,
+        "sha256": "61690e6792d5072957477a0606bad0a35dc554371121914db4042113d2231cda"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/verify_observation.py",
+        "bytes": 1011,
+        "sha256": "68ca29048636e50186263376fe0be81a168f9fe21c51cac1bd68297a314bce3c"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/verify_web.py",
+        "bytes": 10655,
+        "sha256": "7325df40b8717f1db1e223ae2885e231aab5fe50ee7c88f814bf4e0791263026"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/web_server.py",
+        "bytes": 5600,
+        "sha256": "533b6ef433809746e290b53b9ff81b94be4bce4cef363990878de94a5a2af362"
       },
       {
         "path": "practice-workspace/ch08/AGENTS.md",
@@ -1394,8 +1508,8 @@
       },
       {
         "path": "tools/reset_practice_chapter.ps1",
-        "bytes": 3171,
-        "sha256": "a0f477dfd0d716c0abc36b4242f632ef5e11ec805c64e9d9165b4c49a70b92ce"
+        "bytes": 3690,
+        "sha256": "b7a050af71b355f8ecc2d666852e150237acee2c9b99ff6d27e750e9ce308461"
       },
       {
         "path": "tools/verify_ch07_core.ps1",
@@ -1424,8 +1538,8 @@
       },
       {
         "path": "tools/verify_practice_chapter.ps1",
-        "bytes": 11949,
-        "sha256": "a9f7898b15c84ce70324b332dbe4eed110100b168c7434cbcf158368203a5646"
+        "bytes": 13052,
+        "sha256": "79cf6c0978371d31d5065c108d8b90af872e6131ae332e3d0932cdbf350f28a9"
       }
     ]
   }
