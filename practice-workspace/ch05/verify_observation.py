@@ -8,7 +8,9 @@ FIXED = ('start_lab.ps1', 'requirements.txt', '.gitignore', 'backend/__init__.py
          'backend/contracts.py', 'backend/app.py', 'backend/store.py',
          'frontend/index.html', 'frontend/app.js', 'frontend/style.css',
          '_starter/backend/movement_rules.py', '_starter/backend/movement_write.py',
-         'verify_observation.py', 'verify_web.py')
+         'verify_observation.py', 'verify_web.py', 'verify_relationships.py',
+         'backend/relationship_store.py', 'frontend/relationships.html', 'frontend/relationships.js',
+         '_starter/backend/relationship_write.py', '_starter/backend/relationship_read.py')
 
 
 def main():

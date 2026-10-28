@@ -79,8 +79,14 @@ if ($Chapter -eq "ch05") {
     if (Test-Path -LiteralPath $rulesPath) {
         $rules = Get-Content -Raw -Encoding UTF8 -LiteralPath $rulesPath
         $webPilot = Test-Path -LiteralPath (Join-Path $chapterRoot 'web-baseline.json')
-        $expectedVersion = if ($webPilot) { 'chapter5-v5' } else { 'chapter5-v4' }
+        $relationshipWeb = Test-Path -LiteralPath (Join-Path $chapterRoot 'backend/relationship_store.py')
+        $expectedVersion = if ($relationshipWeb) { 'chapter5-v6' } elseif ($webPilot) { 'chapter5-v5' } else { 'chapter5-v4' }
         Write-Check ($rules.Contains("common-rules-version: $expectedVersion")) "ch05 execution rules version"
+        if ($relationshipWeb) {
+            foreach ($relativePath in @('backend/relationship_write.py', 'backend/relationship_read.py', 'backend/relationship_store.py', 'frontend/relationships.html', 'frontend/relationships.js', 'verify_relationships.py', 'reference/web/relationship_write.py', 'reference/web/relationship_read.py', '_starter/backend/relationship_write.py', '_starter/backend/relationship_read.py')) {
+                Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "ch05/$relativePath"
+            }
+        }
         if ($webPilot) {
             foreach ($relativePath in @(
                 'start_lab.ps1', 'requirements.txt', 'backend/app.py', 'backend/store.py',

@@ -49,6 +49,9 @@ class TracedDB:
             return Result(rows, cursor.rowcount)
         except Exception as error:
             entry["error"] = type(error).__name__
+            entry["error_detail"] = str(error)
+            entry["sqlite_errorcode"] = getattr(error, 'sqlite_errorcode', None)
+            entry["sqlite_errorname"] = getattr(error, 'sqlite_errorname', None)
             raise
         finally:
             self.active = None

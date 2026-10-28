@@ -5,7 +5,8 @@
 <body>
 <main aria-labelledby="title">
   <header><p>Chapter 5 · 실습 1</p><h1 id="title">내 입력이 현재고와 이력에 남는 과정</h1>
-  <p>입고·출고를 입력하고, DB에서 다시 읽은 수량과 실제 SQL을 함께 확인합니다.</p></header>
+  <p>입고·출고를 입력하고, DB에서 다시 읽은 수량과 실제 SQL을 함께 확인합니다.</p>
+  <nav aria-label="실습 이동"><a href="/relationships">실습 2 · 상품과 예전 거래</a></nav></header>
   <section aria-labelledby="input-title"><h2 id="input-title">입고·출고 입력</h2>
     <form id="movement-form">
       <div class="fields"><label for="product">품목<select id="product"><option value="A001">A001 · 샘플 상품 A</option><option value="B001">B001 · 샘플 상품 B</option></select></label>
@@ -15,7 +16,7 @@
       <button type="submit">입출고 처리</button><button type="button" id="refresh">상태 다시 조회</button>
       <button type="button" id="reset" class="secondary">실습 1 초기화</button>
     </form>
-    <p>초기화는 두 품목의 로컬 현재고·이력만 되돌립니다. 실습 2의 Supabase 데이터와 작성한 코드는 유지됩니다.</p>
+    <p>초기화는 두 품목의 로컬 현재고·이력만 되돌립니다. 실습 2의 상품·거래와 작성한 코드는 유지됩니다.</p>
     <p id="status" role="status" aria-live="polite">DB에서 시작 상태를 읽고 있습니다.</p>
     <p id="error" role="alert"></p>
   </section>

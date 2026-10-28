@@ -1,12 +1,18 @@
-# Chapter 5 SQL 실행과 필수 검사
+# PostgreSQL 선택 참고
+
+기본 실습 1·2는 웹과 SQLite에서 진행합니다. 이 폴더의 SQL을 생성·실행할 필요는 없습니다.
+아래 내용은 기존 PostgreSQL 세 구간 방식을 별도로 비교하고 싶은 독자를 위한 참고입니다.
+SQL은 기초 실습 전용 Supabase에서만 실행하며 웹의 SQLite DB에 붙여 넣지 않습니다.
+
+## 기존 PostgreSQL SQL 실행과 검사
 
 > 웹 실습 1은 backend/movement_rules.py와 backend/movement_write.py로 진행합니다. 실행 규약은 상위 AGENTS.md와 README.md를 따릅니다.
 > 이 문서의 실습 1 SQL 규약은 기존 PostgreSQL 참고 예제용이며 새 웹 실습의 필수 생성·실행 대상이 아닙니다.
-> 실습 2의 PostgreSQL SQL·세 구간·검사는 아래 규칙을 그대로 사용합니다. SQLite 웹 DB에 이 SQL을 실행하지 않습니다.
+> PostgreSQL 방식을 선택한 경우에만 아래 실습 2의 SQL·세 구간·검사를 사용합니다. SQLite 웹 DB에 이 SQL을 실행하지 않습니다.
 
 ## 실행 단위와 변경 범위
 
-기초 실습 전용 PostgreSQL에서 실습 2를 진행합니다.
+이 선택 참고는 기초 실습 전용 PostgreSQL에서 진행합니다.
 실습 2는 한 파일 안의 세 구간을 순서대로 실행하며, 각 구간은 독립된 BEGIN·검사·COMMIT으로 끝납니다.
 COMMIT한 데이터는 ch05_lab의 일반 테이블에 남아 다른 쿼리에서도 조회할 수 있습니다.
 임시 테이블·ON COMMIT DROP·DROP SCHEMA·CASCADE와 다른 스키마·업무 테이블·함수·권한 변경은 금지합니다.
