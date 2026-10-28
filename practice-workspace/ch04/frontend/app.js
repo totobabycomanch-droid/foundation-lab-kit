@@ -29,6 +29,8 @@ createApp({
       if (busy.value) return;
       busy.value = true;
       error.value = '';
+      // 이전 응답을 새 요청의 결과로 오해하지 않도록 비웁니다.
+      result.value = null;
       try { await action(); }
       catch { error.value = '서버 연결을 확인한 뒤 다시 시도하세요.'; }
       finally { busy.value = false; }

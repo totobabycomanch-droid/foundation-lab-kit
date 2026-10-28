@@ -1,13 +1,13 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.42",
+  "release_id": "foundation-kit-v1.3.43",
   "release_status": "published",
-  "built_at_utc": "2026-10-28T03:03:27.943201+00:00",
+  "built_at_utc": "2026-10-28T03:26:45.557128+00:00",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "base_release": "foundation-kit-v1.3.41",
-  "base_source_commit": "e7c9e17af2d6bb7833a8b1c3cb8d1504fa37fb3a",
-  "base_archive_sha256": "5ff39fc268d2e2871dcb48bba74597ec00cb697dbd82f7accef5d0ab3e599897",
-  "source_snapshot": "Release tag foundation-kit-v1.3.42 on release/ch04-v1.3.42; based on the published v1.3.41 payload.",
+  "base_release": "foundation-kit-v1.3.42",
+  "base_source_commit": "0f3e9c110a5aec192a211a07646d15d9f50e630e",
+  "base_archive_sha256": "5810b479f2a85d8dc0cd95036f2f2bb4a454b3e31fe9881167ea2f27fb99c2d2",
+  "source_snapshot": "Release tag foundation-kit-v1.3.43 on release/ch04-v1.3.43; based on the published v1.3.42 payload.",
   "inventory_excludes": [
     "release-manifest.json"
   ],
@@ -16,12 +16,15 @@
     "removed": [],
     "changed": [
       "README.md",
+      "practice-workspace/ch04/AGENTS.md",
+      "practice-workspace/ch04/frontend/app.js",
       "practice-workspace/ch04/lessons/02_role.md",
       "practice-workspace/ch04/lessons/03_state.md",
+      "practice-workspace/ch04/lessons/04_company.md",
       "practice-workspace/ch04/observation-baseline.json"
     ],
-    "preserved_baseline_file_count": 243,
-    "description": "Chapter 4 guidance update: explicit 403 message in the 4.2 prompt, clearer 4.3 note, moved verification-tool note. Code and screen unchanged."
+    "preserved_baseline_file_count": 240,
+    "description": "Chapter 4 junior guidance, explicit UI/API verification and stale HTTP response fix; backend foundation unchanged."
   },
   "payload": {
     "file_count": 247,
@@ -33,8 +36,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 10472,
-        "sha256": "59746a23a0a8ed9914b06bb27047e52fda16a8f26e9278c60712e8a8c0dc92d2"
+        "bytes": 10873,
+        "sha256": "3bbc8ece818c465fbd0ebb181d748c85efbce32bfa87073fc555679a3ba70440"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -308,8 +311,8 @@
       },
       {
         "path": "practice-workspace/ch04/AGENTS.md",
-        "bytes": 5228,
-        "sha256": "d36f7898e234c1087bd98d23e9395a5071d730195022b349eda6e21b874b2780"
+        "bytes": 5500,
+        "sha256": "c674b91354ec2a30a72c0ceee0e5998199b7c6e92fa4fb87ff745c3b4606fd18"
       },
       {
         "path": "practice-workspace/ch04/README.md",
@@ -373,8 +376,8 @@
       },
       {
         "path": "practice-workspace/ch04/frontend/app.js",
-        "bytes": 7603,
-        "sha256": "4b2f4ddc5346ea87b03ccb8d844193b7c04ac82fc9ba7feb36cd08cb0dd30369"
+        "bytes": 7717,
+        "sha256": "1c0e9b6887e9dcbea68b3b9e9f8f6eb15c87a81b18b233d8ac67d573f6a31596"
       },
       {
         "path": "practice-workspace/ch04/frontend/approval-action.js",
@@ -418,23 +421,23 @@
       },
       {
         "path": "practice-workspace/ch04/lessons/02_role.md",
-        "bytes": 8074,
-        "sha256": "a70a7d65a7f9812e71433abe4a1cdfb2c563bab74e500f5d22bd01725f24d4cd"
+        "bytes": 9029,
+        "sha256": "34b7b44769da16d40f38a5162522c001c6601d61b44740e28dea76dbb7f09ff5"
       },
       {
         "path": "practice-workspace/ch04/lessons/03_state.md",
-        "bytes": 9622,
-        "sha256": "362ae78917de6d03f890cb36aca79d63a32894ac5606e549233b678264847688"
+        "bytes": 9644,
+        "sha256": "6e5357350370028768be2f37f2af028134ad95247317ce8af5daf0f195653b7e"
       },
       {
         "path": "practice-workspace/ch04/lessons/04_company.md",
-        "bytes": 18086,
-        "sha256": "e3d7be07806ad3a30e2bbca60190655f6dbfed7ebca67e895f22e47a8c415592"
+        "bytes": 18846,
+        "sha256": "dd639b9892b739e1361ab833bb0dd4b2d3e609593a10d711a221c5927c2fabfe"
       },
       {
         "path": "practice-workspace/ch04/observation-baseline.json",
         "bytes": 4190,
-        "sha256": "50f6a6a33b13bd72e93c0b8541683edfdf855cace31a059684b6c147d41d2e50"
+        "sha256": "01c479c4bf4145c33bd4d4266fd5a5f5cac311ff9213ad16cd0028ab376c44a5"
       },
       {
         "path": "practice-workspace/ch04/package-lock.json",
