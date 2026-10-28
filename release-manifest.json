@@ -1,13 +1,13 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.43",
-  "release_status": "published",
-  "built_at_utc": "2026-10-28T03:26:45.557128+00:00",
+  "release_id": "foundation-kit-v1.3.44",
+  "release_status": "release_payload",
+  "built_at_utc": "2026-10-28T10:35:40.648801+00:00",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
-  "base_release": "foundation-kit-v1.3.42",
-  "base_source_commit": "0f3e9c110a5aec192a211a07646d15d9f50e630e",
-  "base_archive_sha256": "5810b479f2a85d8dc0cd95036f2f2bb4a454b3e31fe9881167ea2f27fb99c2d2",
-  "source_snapshot": "Release tag foundation-kit-v1.3.43 on release/ch04-v1.3.43; based on the published v1.3.42 payload.",
+  "base_release": "foundation-kit-v1.3.43",
+  "base_source_commit": "0763db16a38a0431618064e454c68da364907137",
+  "base_archive_sha256": "53250e18d0a255764fe7971f329fe35dbed99e6aaac5653a88659cd217725671",
+  "source_snapshot": "Isolated release/ch05-v1.3.44 payload based on verified v1.3.43; Chapter 5 guidance only.",
   "inventory_excludes": [
     "release-manifest.json"
   ],
@@ -15,16 +15,13 @@
     "added": [],
     "removed": [],
     "changed": [
-      "README.md",
-      "practice-workspace/ch04/AGENTS.md",
-      "practice-workspace/ch04/frontend/app.js",
-      "practice-workspace/ch04/lessons/02_role.md",
-      "practice-workspace/ch04/lessons/03_state.md",
-      "practice-workspace/ch04/lessons/04_company.md",
-      "practice-workspace/ch04/observation-baseline.json"
+      "practice-workspace/ch05/AGENTS.md",
+      "practice-workspace/ch05/README.md",
+      "practice-workspace/ch05/sql/README.md",
+      "README.md"
     ],
-    "preserved_baseline_file_count": 240,
-    "description": "Chapter 4 junior guidance, explicit UI/API verification and stale HTTP response fix; backend foundation unchanged."
+    "preserved_baseline_file_count": 243,
+    "description": "Separate business-meeting, generation, execution, review and reporting for each Chapter 5 exercise; reference SQL and other chapters unchanged."
   },
   "payload": {
     "file_count": 247,
@@ -36,8 +33,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 10873,
-        "sha256": "3bbc8ece818c465fbd0ebb181d748c85efbce32bfa87073fc555679a3ba70440"
+        "bytes": 11419,
+        "sha256": "97e46e9511f360288e7853652af8af4cb5161dbad53bb941371df0ab3727cd57"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -486,13 +483,13 @@
       },
       {
         "path": "practice-workspace/ch05/AGENTS.md",
-        "bytes": 4753,
-        "sha256": "6cb5d819861dfddf634bfbd218f73297304a7467383ef178d9fd85c68583abb8"
+        "bytes": 6025,
+        "sha256": "e911fbd5610b309bf6126afbba65f8ae655e353b3a9aff0b40b10d2d6d1cc4a6"
       },
       {
         "path": "practice-workspace/ch05/README.md",
-        "bytes": 2731,
-        "sha256": "1baf35044ab953e3bb8898077176dbef3efeff7e609512129f3f5a4320c3d282"
+        "bytes": 3376,
+        "sha256": "2caabaff434b864f6804b7daa36c3cc996eccb79c1f2b69f60061d5291303275"
       },
       {
         "path": "practice-workspace/ch05/reference/01_current_and_history.sql",
@@ -511,8 +508,8 @@
       },
       {
         "path": "practice-workspace/ch05/sql/README.md",
-        "bytes": 8036,
-        "sha256": "3b0bc2bedf5a53793c432e64237598f2820fada48de89afb30fcded81ed9bc69"
+        "bytes": 9070,
+        "sha256": "7041681a6709f146b88baca6be409a146843a081b8662548846c2cb52aa9f9b3"
       },
       {
         "path": "practice-workspace/ch06/.env.tools.example",
@@ -1265,10 +1262,5 @@
         "sha256": "e9a2ef79cbbdced223770a382aab9cc5eaea2334b9545effb2305cd449351725"
       }
     ]
-  },
-  "verification": {
-    "starter_policy": "All three learner work files match their _starter copies.",
-    "business_rules": "24 API cases on temporary copies after learner completion; not UI, concurrency or storage-failure verification.",
-    "results": "See release-validation.json attached to this Release."
   }
 }
