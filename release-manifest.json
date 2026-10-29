@@ -1,50 +1,21 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.48",
+  "release_id": "foundation-kit-v1.3.49",
   "release_status": "release_payload",
-  "built_at_utc": "2026-10-28T16:24:26.084404+00:00",
-  "base_release": "foundation-kit-v1.3.47",
-  "base_source_commit": "835db24feb66c0aca871122ce6715642e4387b5a",
-  "base_archive_sha256": "64879d89419de854a7a33f911afda79d80638ddf865d18385576c834f7292e55",
+  "built_at_utc": "2026-10-29T11:03:40.189054+00:00",
+  "base_release": "foundation-kit-v1.3.48",
+  "base_source_commit": "764559080eb82d690087510d8218dff18b44805a",
+  "base_archive_sha256": "8719cb22729f253e9d0f7108a1aa30d65f27e7198561310155ff863ff25616f1",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
-    "added": [
-      "practice-workspace/ch07/understanding/.gitignore",
-      "practice-workspace/ch07/understanding/_starter/sale_example.py",
-      "practice-workspace/ch07/understanding/_starter/test_examples.py",
-      "practice-workspace/ch07/understanding/_starter/transaction_example.py",
-      "practice-workspace/ch07/understanding/frontend/app.js",
-      "practice-workspace/ch07/understanding/frontend/index.html",
-      "practice-workspace/ch07/understanding/frontend/style.css",
-      "practice-workspace/ch07/understanding/lab_contracts.py",
-      "practice-workspace/ch07/understanding/lab_store.py",
-      "practice-workspace/ch07/understanding/observation-baseline.json",
-      "practice-workspace/ch07/understanding/reference/README.md",
-      "practice-workspace/ch07/understanding/reference/legacy_memory/sale_example.py",
-      "practice-workspace/ch07/understanding/reference/legacy_memory/test_examples.py",
-      "practice-workspace/ch07/understanding/reference/legacy_memory/transaction_example.py",
-      "practice-workspace/ch07/understanding/sale_example.py",
-      "practice-workspace/ch07/understanding/start_lab.ps1",
-      "practice-workspace/ch07/understanding/test_examples.py",
-      "practice-workspace/ch07/understanding/transaction_example.py",
-      "practice-workspace/ch07/understanding/verify_observation.py",
-      "practice-workspace/ch07/understanding/verify_web.py",
-      "practice-workspace/ch07/understanding/web_server.py"
-    ],
+    "added": [],
     "changed": [
       "README.md",
-      "practice-workspace/ch07/AGENTS.md",
-      "practice-workspace/ch07/README.md",
-      "practice-workspace/ch07/understanding/AGENTS.md",
-      "practice-workspace/ch07/understanding/README.md",
-      "practice-workspace/ch07/understanding/reference/sale_example.py",
-      "practice-workspace/ch07/understanding/reference/test_examples.py",
-      "practice-workspace/ch07/understanding/reference/transaction_example.py",
-      "tools/reset_practice_chapter.ps1",
-      "tools/verify_practice_chapter.ps1"
+      "practice-workspace/ch06/AGENTS.md",
+      "practice-workspace/ch06/README.md"
     ],
     "removed": []
   },
@@ -58,8 +29,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 12392,
-        "sha256": "d944ddb0368bf2101b9c829817c185b443ca80fc4e5d2a98f139a41c0e2b441b"
+        "bytes": 13169,
+        "sha256": "59a41d960b66638f8d728633c2c07cb2fdd377fef6a6927359583217fe132d4e"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -693,13 +664,13 @@
       },
       {
         "path": "practice-workspace/ch06/AGENTS.md",
-        "bytes": 2753,
-        "sha256": "23afeaff0281159a448c8142b288f979c1867888465acda5b5fa53678a20c415"
+        "bytes": 8173,
+        "sha256": "fafc6ec14ecec18042adc025d32fd6b1ba9f5e3cafb2c0281b8c45c3ea1a278a"
       },
       {
         "path": "practice-workspace/ch06/README.md",
-        "bytes": 1549,
-        "sha256": "d296b8bd2c802e57ba2afdab8ac65ec22af9be9a32670b8eb14b31717c5717c8"
+        "bytes": 1796,
+        "sha256": "6d3800db89fe28b0b5260e053a355945378b2e19b6a0e7e8dd29ab7f7c5e01cd"
       },
       {
         "path": "practice-workspace/ch07/AGENTS.md",
