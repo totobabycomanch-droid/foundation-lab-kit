@@ -15,9 +15,16 @@ function show(r){
   else trace(r.trace,$('trace'));
   if(r.snapshot){const s=r.snapshot;$('observed').textContent=`요청 ${r.request_id}의 새 연결 조회`;$('stock-a').textContent=s.stock.find(p=>p.prod_code==='A001')?.qty??'—';$('stock-b').textContent=s.stock.find(p=>p.prod_code==='B001')?.qty??'—';$('sale-count').textContent=s.sales_count;$('sale-no').textContent=r.sale_no??'—';$('sales').replaceChildren();for(const row of s.sales){const tr=text('tr','',$('sales'));for(const key of ['id','prod_code','qty','request_key'])text('td',row[key],tr);}$('empty-sales').textContent=s.sales.length?'':'아직 판매 기록이 없습니다.';$('failure-state').textContent=s.failure_enabled?'저장 실패 장치: 켜짐':'저장 실패 장치: 꺼짐';}
 }
+function showResetReady(){
+  $('request').textContent='판매 사례를 초기화했습니다. 새 판매 요청을 보내세요.';
+  $('error').textContent='';
+  $('trace').replaceChildren();
+  $('sql-details').open=false;
+  $('report-details').open=false;
+}
 async function send(action,fields={}){
   if(busy)return;busy=true;document.querySelectorAll('button,input,select').forEach(e=>e.disabled=true);$('copy-status').textContent='';$('request').textContent='요청 처리 중입니다.';$('trace').replaceChildren();
-  try{const body={session,...fields};const r=await fetch('/api/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});const data=await r.json();if(data.status_code!==r.status||!Array.isArray(data.trace))throw Error('unexpected response');if(data.session){session=data.session;sessionStorage.setItem('ch07-session',session);}show(data);if(action==='reset'&&r.ok){observations=observations.filter(o=>o.action==='compare');last=null;activeKey=crypto.randomUUID();remember();}observations.push({action,input:body,response:data});$('report').value=JSON.stringify(observations,null,2);return data;}
+  try{const body={session,...fields};const r=await fetch('/api/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});const data=await r.json();if(data.status_code!==r.status||!Array.isArray(data.trace))throw Error('unexpected response');if(data.session){session=data.session;sessionStorage.setItem('ch07-session',session);}show(data);if(action==='reset'&&r.ok){observations=observations.filter(o=>o.action==='compare');last=null;activeKey=crypto.randomUUID();remember();showResetReady();}observations.push({action,input:body,response:data});$('report').value=JSON.stringify(observations,null,2);return data;}
   catch{$('error').textContent='서버 연결을 확인하세요. 결과 확인 전 새 키로 같은 판매를 보내지 마세요.';$('request').textContent='결과 미확인';$('observed').textContent='현재 표시값은 이전 조회입니다. 판매 상태를 다시 조회하세요.';$('trace').replaceChildren();}
   finally{busy=false;document.querySelectorAll('button,input,select').forEach(e=>e.disabled=false);}
 }

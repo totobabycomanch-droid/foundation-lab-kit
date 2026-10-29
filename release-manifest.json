@@ -1,11 +1,11 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.49",
+  "release_id": "foundation-kit-v1.3.50",
   "release_status": "release_payload",
-  "built_at_utc": "2026-10-29T11:03:40.189054+00:00",
-  "base_release": "foundation-kit-v1.3.48",
-  "base_source_commit": "764559080eb82d690087510d8218dff18b44805a",
-  "base_archive_sha256": "8719cb22729f253e9d0f7108a1aa30d65f27e7198561310155ff863ff25616f1",
+  "built_at_utc": "2026-10-29T14:51:23.098304+00:00",
+  "base_release": "foundation-kit-v1.3.49",
+  "base_source_commit": "3594415c7f1e02e8cb954caceb2a992f58088610",
+  "base_archive_sha256": "13f42259bedae9f46db425c82464d7d74014f03c867577b4555c38ae2e19d86c",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
@@ -14,8 +14,10 @@
     "added": [],
     "changed": [
       "README.md",
-      "practice-workspace/ch06/AGENTS.md",
-      "practice-workspace/ch06/README.md"
+      "practice-workspace/ch07/understanding/README.md",
+      "practice-workspace/ch07/understanding/frontend/app.js",
+      "practice-workspace/ch07/understanding/frontend/index.html",
+      "practice-workspace/ch07/understanding/observation-baseline.json"
     ],
     "removed": []
   },
@@ -29,8 +31,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 13169,
-        "sha256": "59a41d960b66638f8d728633c2c07cb2fdd377fef6a6927359583217fe132d4e"
+        "bytes": 13607,
+        "sha256": "6040b5885a65d4e6fcc81b8c8eed95e92a91620a69d207e33a687ada006aa769"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -714,8 +716,8 @@
       },
       {
         "path": "practice-workspace/ch07/understanding/README.md",
-        "bytes": 3740,
-        "sha256": "7799710592001bf48737dc9792c58aa38d8f917587bce14449db73fa95579714"
+        "bytes": 4000,
+        "sha256": "e078cd7b38d8e6b6951f0050bf229da0f25dd02d4853746db2d9ebc1301b029c"
       },
       {
         "path": "practice-workspace/ch07/understanding/_starter/sale_example.py",
@@ -734,13 +736,13 @@
       },
       {
         "path": "practice-workspace/ch07/understanding/frontend/app.js",
-        "bytes": 6466,
-        "sha256": "fd1597f9cd4f42db2612f3f72669a30bf5235f13695aeea06864d5a33a6f2957"
+        "bytes": 6743,
+        "sha256": "36c08f7f48c4299ef126f5f0125caf68d906da300924b84e1165a89aee7673f5"
       },
       {
         "path": "practice-workspace/ch07/understanding/frontend/index.html",
-        "bytes": 4778,
-        "sha256": "7cb4debf839a078c3cca74ba5e9f0d919d0b6124c60d9b9b42bb25c18d2d4a79"
+        "bytes": 4795,
+        "sha256": "b7e28904c550557801dd6ee145b4eb362148ffaf769f8d95a69e11fc012686da"
       },
       {
         "path": "practice-workspace/ch07/understanding/frontend/style.css",
@@ -760,7 +762,7 @@
       {
         "path": "practice-workspace/ch07/understanding/observation-baseline.json",
         "bytes": 1125,
-        "sha256": "0606c5c90815de2ce842608f4c891c26e812373e201a122330b339f5561b8b93"
+        "sha256": "6413fe26abaf3e7e8d922730dfa6628e074d18e0daf33cd5dc5f5768f7da17c7"
       },
       {
         "path": "practice-workspace/ch07/understanding/reference/README.md",

@@ -15,7 +15,7 @@
 <h3>저장 후 DB에서 다시 읽은 판매 상태</h3><button id="refresh" type="button">판매 상태 다시 조회</button><p id="observed"></p><div class="cards"><p>A001 현재고<strong id="stock-a">—</strong></p><p>B001 현재고<strong id="stock-b">—</strong></p><p>판매 건수<strong id="sale-count">—</strong></p><p>이번 판매번호<strong id="sale-no">—</strong></p></div>
 <p id="empty-sales"></p><div class="table-scroll"><table><caption>실제 판매 기록</caption><thead><tr><th>판매번호</th><th>상품</th><th>수량</th><th>요청 키</th></tr></thead><tbody id="sales"></tbody></table></div></section>
 <section><h2>이번 요청의 결과와 실제 실행 근거</h2><p id="request" role="status"></p><p id="error" role="alert"></p>
-<details><summary>이번 요청의 실제 SQL 상세</summary><p>SQLite 실행 콜백의 실제 SQL입니다. 실행됨과 확정됨은 다릅니다. ‘미완료 거래 정리’는 제공 서버의 안전 정리이므로 학습자의 취소 성공으로 보지 않습니다.</p><div id="trace"></div></details>
+<details id="sql-details"><summary>이번 요청의 실제 SQL 상세</summary><p>SQLite 실행 콜백의 실제 SQL입니다. 실행됨과 확정됨은 다릅니다. ‘미완료 거래 정리’는 제공 서버의 안전 정리이므로 학습자의 취소 성공으로 보지 않습니다.</p><div id="trace"></div></details>
 <button id="copy" type="button">AI 검증용 실행 결과 복사</button><p id="copy-status" role="status"></p><details id="report-details"><summary>복사할 실제 실행 결과 보기</summary><textarea id="report" rows="10" readonly aria-label="실제 실행 결과"></textarea></details>
 <p>이 탭에서 수집한 내역만 복사합니다. 새로고침은 판매 DB와 마지막 요청을 보존하지만 복사할 관찰 내역은 다시 시작합니다. 판매 사례 초기화는 이 탭의 기존 판매 관찰 내역을 비웁니다.</p></section>
 </main><script type="module" src="/frontend/app.js"></script></body></html>
