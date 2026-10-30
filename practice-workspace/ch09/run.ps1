@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true, Position = 0)]
-    [ValidateSet("check", "demo", "shell", "test", "verify", "fault", "reset")]
+    [ValidateSet("check", "web", "verify-web", "demo", "shell", "test", "verify", "fault", "reset")]
     [string]$Action,
     [switch]$Apply,
     [string]$PythonExecutable = "python"
@@ -38,6 +38,12 @@ try {
         $pushed = $true
     }
     switch ($Action) {
+        "web" { & $PythonExecutable -B (Join-Path $PSScriptRoot "web_server.py") }
+        "verify-web" {
+            & $PythonExecutable -B (Join-Path $PSScriptRoot "verify_observation.py")
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            & $PythonExecutable -B (Join-Path $PSScriptRoot "checks/test_web.py")
+        }
         "check" { & (Join-Path $toolsRoot "verify_practice_chapter.ps1") -Chapter ch09 }
         "demo" { & $PythonExecutable -B main.py }
         "shell" { & $PythonExecutable -B -i }

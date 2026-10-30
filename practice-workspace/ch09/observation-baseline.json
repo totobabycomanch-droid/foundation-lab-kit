@@ -1,0 +1,10 @@
+{
+  "web_server.py": "bb64c9a1e2f972e5cc90bcfbe48d14f7fba731307b7b22087d6c32772737f3f5",
+  "frontend/index.html": "13cc5d5391b1378e1dac8c80405d3e36cf8a9ab280fa96172af3ad3fe2e60b10",
+  "frontend/app.js": "0b2a93974b3eed4695f5e417ff4503bebc11efc63654de85fefa15b939a90b13",
+  "frontend/style.css": "b99b01d68c0c05f1ee0ca397198e6367c6bd2ca6f6f837c37dbec21f51637536",
+  "checks/test_web.py": "94db6317880bb15c2d9c8d67342ea893f8066e25c5dabe9a902009887731f7d8",
+  "checks/test_order_rules.py": "47d953a9021a1352bab7d8be0cbb921684dc64030102ef053271334345d61dff",
+  "verify_observation.py": "d21dd40b0e74219d5cc0b026b0d632eef139a6867f22b020da2749c1a7c2b93c",
+  "run.ps1": "9dd17acd2cd65c82ad4d1dc4a8b0b443ae1a8ade09ef8c71089891e848f1f436"
+}
