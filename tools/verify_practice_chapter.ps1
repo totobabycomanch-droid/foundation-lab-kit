@@ -150,11 +150,14 @@ if ($Chapter -eq 'ch07' -and (Test-Path -LiteralPath (Join-Path $chapterRoot 'un
 }
 
 if ($Chapter -eq "ch08") {
+    foreach ($relativePath in @('understanding/start_lab.ps1','understanding/web_server.py','understanding/verify_web.py','understanding/frontend/index.html','understanding/frontend/app.js','understanding/frontend/style.css','understanding/_starter/order_example.py','understanding/_starter/test_order_example.py','understanding/order_example.py','understanding/test_order_example.py')) {
+        Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath)) "ch08/$relativePath"
+    }
     foreach ($relativePath in @("AGENTS.md", "understanding/AGENTS.md")) {
         $path = Join-Path $chapterRoot $relativePath
         if (Test-Path -LiteralPath $path) {
             $text = Get-Content -Raw -Encoding UTF8 -LiteralPath $path
-            Write-Check ($text.Contains("common-rules-version: chapter8-v6")) "$relativePath rules version"
+            Write-Check ($text.Contains("common-rules-version: chapter8-v7")) "$relativePath rules version"
             foreach ($marker in @("approval-required", "secrets-protected", "evidence-scoped")) {
                 Write-Check ($text.Contains($marker)) "$relativePath marker: $marker"
             }

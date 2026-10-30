@@ -48,6 +48,14 @@ if ($Chapter -eq 'ch07' -and $ch07Web) {
     )
 }
 
+if ($Chapter -eq 'ch08' -and (Test-Path -LiteralPath (Join-Path $chapterRoot 'understanding/_starter/order_example.py'))) {
+    $removeTargets['ch08'] = @()
+    $restoreTargets['ch08'] = @(
+        @('understanding/_starter/order_example.py','understanding/order_example.py'),
+        @('understanding/_starter/test_order_example.py','understanding/test_order_example.py')
+    )
+}
+
 function Resolve-SafePath([string]$RelativePath) {
     $candidate = [System.IO.Path]::GetFullPath((Join-Path $chapterRoot $RelativePath))
     $prefix = $chapterRoot.TrimEnd([System.IO.Path]::DirectorySeparatorChar) + [System.IO.Path]::DirectorySeparatorChar

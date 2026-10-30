@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chapter 8 · 발주 검증과 계산</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body><main>
+<header><p class="eyebrow">Chapter 8 · 발주 코드 이해하기</p><h1>요청은 바꾸고, 계산 기준은 확인합니다</h1><p>결과를 먼저 예상하고 실행하세요. 화면은 Python 업무 함수의 실제 반환값을 보여 줍니다.</p></header>
+<form id="order-form" novalidate>
+<fieldset><legend>1. 사용자가 보낼 품목</legend>
+<div class="fields"><label>상품코드<input id="product" value="A001" autocomplete="off"></label><label>수량<input id="quantity" type="number" step="any" value="5"></label></div>
+<label class="check"><input id="include-price" type="checkbox">요청에 단가 추가하기</label>
+<label>요청 단가(원)<input id="request-price" type="number" step="any" value="1" disabled></label>
+</fieldset>
+<fieldset><legend>2. 실습용 서버 기준값</legend>
+<p>아래 단가는 품목 요청과 별도로 계산 함수에 전달됩니다. DB 조회나 실제 가격 변경 기능은 아닙니다.</p>
+<div class="fields"><label>서버 단가(원)<input id="server-price" type="number" step="any" value="1000"></label><label>VAT 구분<select id="vat"><option value="2">10% 별도 가산</option><option value="1">미적용</option></select></label></div>
+</fieldset>
+<div class="actions"><button id="run" type="submit">검증·계산 실행</button><button id="reset-lab" type="button" class="secondary">입력과 관찰 초기화</button></div>
+</form>
+<section aria-labelledby="result-title"><h2 id="result-title">이번 실행의 실제 결과</h2>
+<p id="status" role="status" aria-live="polite">아직 실행하지 않았습니다.</p>
+<div id="summary" class="summary" hidden></div>
+<details id="details"><summary>실제 입력·반환값·오류 상세</summary><pre id="evidence">실행 뒤 실제 호출 순서와 결과가 표시됩니다.</pre></details>
+</section>
+<section><h2>관찰 결과로 AI와 확인하기</h2><p>입력과 결과를 비교한 뒤 복사하세요. 새로고침하면 이 탭의 관찰 내역은 사라집니다.</p>
+<button id="copy" type="button" class="secondary" disabled>AI 검증용 실행 결과 복사</button><p id="copy-status" role="status"></p>
+<label id="copy-fallback" hidden>복사가 차단되면 아래 내용을 선택해 복사하세요.<textarea id="copy-text" readonly rows="8"></textarea></label>
+</section>
+<footer>확인 범위: 품목 검증·서버 기준 계산·로컬 화면 연결. 실제 ERP API·DB 저장·롤백·동시 요청은 Day 16에서 이어갑니다.</footer>
+</main></body></html>

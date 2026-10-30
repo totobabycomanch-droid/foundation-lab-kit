@@ -1,28 +1,48 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.50",
+  "release_id": "foundation-kit-v1.3.51",
   "release_status": "release_payload",
-  "built_at_utc": "2026-10-29T14:51:23.098304+00:00",
-  "base_release": "foundation-kit-v1.3.49",
-  "base_source_commit": "3594415c7f1e02e8cb954caceb2a992f58088610",
-  "base_archive_sha256": "13f42259bedae9f46db425c82464d7d74014f03c867577b4555c38ae2e19d86c",
+  "built_at_utc": "2026-10-30T02:14:15.093775+00:00",
+  "base_release": "foundation-kit-v1.3.50",
+  "base_source_commit": "8766c64ada2b9e54b62e1761a25325651649ec89",
+  "base_archive_sha256": "d5def446f6764a545b34fb5f34a58675053484f0e8dcc938d3e9e2e8184c1de3",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
-    "added": [],
+    "added": [
+      "practice-workspace/ch08/understanding/_starter/order_example.py",
+      "practice-workspace/ch08/understanding/_starter/test_order_example.py",
+      "practice-workspace/ch08/understanding/frontend/app.js",
+      "practice-workspace/ch08/understanding/frontend/index.html",
+      "practice-workspace/ch08/understanding/frontend/style.css",
+      "practice-workspace/ch08/understanding/order_example.py",
+      "practice-workspace/ch08/understanding/start_lab.ps1",
+      "practice-workspace/ch08/understanding/test_order_example.py",
+      "practice-workspace/ch08/understanding/verify_web.py",
+      "practice-workspace/ch08/understanding/web_server.py"
+    ],
     "changed": [
       "README.md",
-      "practice-workspace/ch07/understanding/README.md",
-      "practice-workspace/ch07/understanding/frontend/app.js",
-      "practice-workspace/ch07/understanding/frontend/index.html",
-      "practice-workspace/ch07/understanding/observation-baseline.json"
+      "practice-workspace/README.md",
+      "practice-workspace/ch08/AGENTS.md",
+      "practice-workspace/ch08/README.md",
+      "practice-workspace/ch08/ai_build_rules.md",
+      "practice-workspace/ch08/ai_review_rules.md",
+      "practice-workspace/ch08/chapter8_order_spec.md",
+      "practice-workspace/ch08/understanding/AGENTS.md",
+      "practice-workspace/ch08/understanding/README.md",
+      "tools/README.md",
+      "tools/reset_practice_chapter.ps1",
+      "tools/verify_ch08_core.ps1",
+      "tools/verify_foundation_kit.ps1",
+      "tools/verify_practice_chapter.ps1"
     ],
     "removed": []
   },
   "payload": {
-    "file_count": 298,
+    "file_count": 308,
     "files": [
       {
         "path": ".gitignore",
@@ -31,8 +51,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 13607,
-        "sha256": "6040b5885a65d4e6fcc81b8c8eed95e92a91620a69d207e33a687ada006aa769"
+        "bytes": 14454,
+        "sha256": "99c039507a821a75554637079049c3154e4d951a09096a1cc90b059e78247b50"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -166,8 +186,8 @@
       },
       {
         "path": "practice-workspace/README.md",
-        "bytes": 1456,
-        "sha256": "2dfb85b9b0b378c5a51fb3e50188f9bdc94ba6fdca92563950d584856ebfa4b4"
+        "bytes": 1880,
+        "sha256": "a684a5b1a80297d6fb0f9a4f3bf6ecc473dbb3086a9267402dbeae9072957624"
       },
       {
         "path": "practice-workspace/ch03/AGENTS.md",
@@ -836,28 +856,28 @@
       },
       {
         "path": "practice-workspace/ch08/AGENTS.md",
-        "bytes": 2091,
-        "sha256": "5d22dca5353a39c3276ce01b6696b51f4e6aa37fec6f68ae167cc747bf936969"
+        "bytes": 4007,
+        "sha256": "c15cb67730fbf97a1f1bb93f3713ae1ca1a5ad3edd3b3f4c3307ba5cf244eeff"
       },
       {
         "path": "practice-workspace/ch08/README.md",
-        "bytes": 2750,
-        "sha256": "0a4135e67601b894be8376ddee033ae09d9da0e17e2c880bda503d663dc47b3b"
+        "bytes": 1133,
+        "sha256": "be70c5bf0156153266496e67386e223fb9854f8499a9a2e014511784f79107e6"
       },
       {
         "path": "practice-workspace/ch08/ai_build_rules.md",
-        "bytes": 4914,
-        "sha256": "ccca9102c79ad4ca8ebb883de717749de292c2cf464c1ade0631706c1fbb4acb"
+        "bytes": 6416,
+        "sha256": "5f7a4065a03db461bdf1b7bbf61d4da931df9a6e2cad7037fbb913ad74a41697"
       },
       {
         "path": "practice-workspace/ch08/ai_review_rules.md",
-        "bytes": 5148,
-        "sha256": "87cd73f3aeff0b4ac44d18ed32e8fb2c3ac3034f4cebb1c236efea9d15311fa3"
+        "bytes": 7108,
+        "sha256": "3943ee33c9d1be2b6d720a6a1e7b8f34be5e01fc4463da7e2090c4625288e98b"
       },
       {
         "path": "practice-workspace/ch08/chapter8_order_spec.md",
-        "bytes": 6897,
-        "sha256": "2d3c651225ba91fb86e1d1c3379d5ff5e67a6150265bd6c76e0135183746eee9"
+        "bytes": 6786,
+        "sha256": "35807d0253adacc0a4b8ea9a3c301dbfc45bb30d91bdedcc94b10ed181f90f3d"
       },
       {
         "path": "practice-workspace/ch08/legacy-api/README.md",
@@ -1021,18 +1041,48 @@
       },
       {
         "path": "practice-workspace/ch08/understanding/AGENTS.md",
-        "bytes": 2889,
-        "sha256": "0b80a020acf4bea59591d911fe12374ca5d782dfbf83a02da9237cf471566dde"
+        "bytes": 4124,
+        "sha256": "5f8665c23bc139ee5c3b50dc8ca5d068a92db710a48ae9e5abc914b540847a02"
       },
       {
         "path": "practice-workspace/ch08/understanding/README.md",
-        "bytes": 4651,
-        "sha256": "6edf329abf36343e7eb4a86b1703c00ffe6c29542441a5ccb8464b39aa4698b0"
+        "bytes": 4378,
+        "sha256": "d223a16234f9ddabb439ab685f4ba7893524027352b73680ba23781c40cfbe53"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/_starter/order_example.py",
+        "bytes": 577,
+        "sha256": "61073bd778723921c9c7069724afac1084278dcf6a3790eef45fc3e7f8474df1"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/_starter/test_order_example.py",
+        "bytes": 324,
+        "sha256": "8a5ea19cec10d597beb2b03846552219c110f27bf1782517c49f8e4c259b4762"
       },
       {
         "path": "practice-workspace/ch08/understanding/checks/test_order_rules.py",
         "bytes": 4644,
         "sha256": "125c8b624bc4e2c74db46b5527164b8ecce900d5184f0aa1c0989f4e16462853"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/frontend/app.js",
+        "bytes": 3911,
+        "sha256": "762b64cb14118dac4bbf34822db0b81b1020f52d0006cd925056ad889096cda7"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/frontend/index.html",
+        "bytes": 2795,
+        "sha256": "3854cdc8853a913000e42f07371ba2abdfc6b87d4b618bbe5fc4ba0c20664948"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/frontend/style.css",
+        "bytes": 1829,
+        "sha256": "e7d339724cd4783a37046e46f9c7a786189b9bd70b07bbe65964d479a22f6b15"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/order_example.py",
+        "bytes": 577,
+        "sha256": "61073bd778723921c9c7069724afac1084278dcf6a3790eef45fc3e7f8474df1"
       },
       {
         "path": "practice-workspace/ch08/understanding/reference/order_example.py",
@@ -1043,6 +1093,26 @@
         "path": "practice-workspace/ch08/understanding/reference/test_order_example.py",
         "bytes": 8140,
         "sha256": "7ead38877266bf5caeeb513ce7d76cf1934ca3fb4d0e633b2e9782456bf321b8"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/start_lab.ps1",
+        "bytes": 575,
+        "sha256": "b8209165f271dc50be25cbbce2f3d94d3cd0497db2592824577fdd851480a423"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/test_order_example.py",
+        "bytes": 324,
+        "sha256": "8a5ea19cec10d597beb2b03846552219c110f27bf1782517c49f8e4c259b4762"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/verify_web.py",
+        "bytes": 6689,
+        "sha256": "681679a772227800da71f53bd687a4086fb58b8ac9c834c9f045696471ff28fc"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/web_server.py",
+        "bytes": 7103,
+        "sha256": "627a5e2570708f799f9947181e6f6d4451d69e811b443e3a3b98aedd3543b024"
       },
       {
         "path": "practice-workspace/ch09/AGENTS.md",
@@ -1476,13 +1546,13 @@
       },
       {
         "path": "tools/README.md",
-        "bytes": 5524,
-        "sha256": "1784bc1dff5503c9597c46bd3ccf2f7905e66b4e756bc8f44767559765523438"
+        "bytes": 6039,
+        "sha256": "32d18ce8141294c9da43bdb3f5cde34fe7f329432e9fe073fb1fb6e058299d97"
       },
       {
         "path": "tools/reset_practice_chapter.ps1",
-        "bytes": 3690,
-        "sha256": "b7a050af71b355f8ecc2d666852e150237acee2c9b99ff6d27e750e9ce308461"
+        "bytes": 4080,
+        "sha256": "511fa15de62751d4f8b045131d8d48ee725ce447dec271308f1238f382e4bd52"
       },
       {
         "path": "tools/verify_ch07_core.ps1",
@@ -1491,8 +1561,8 @@
       },
       {
         "path": "tools/verify_ch08_core.ps1",
-        "bytes": 1442,
-        "sha256": "855e05bc1d6fe3b60400a22a3b7cbba1a9cfcd8439392e2b72050da8cfbd01e3"
+        "bytes": 2040,
+        "sha256": "79d7bf52ab4f3bdfbfbefa06dc8edef1f376fc0e3e360a4981327ad3c0cd7957"
       },
       {
         "path": "tools/verify_ch08_legacy_api.ps1",
@@ -1506,14 +1576,18 @@
       },
       {
         "path": "tools/verify_foundation_kit.ps1",
-        "bytes": 9473,
-        "sha256": "ae5b7bc788d3db7b16c9d513be65246447790f2150cb0e470e257687ab543510"
+        "bytes": 10126,
+        "sha256": "da89cc579d0ca2df9740873b1b9eb64ce5cedbee0014e4847adc12684887f30b"
       },
       {
         "path": "tools/verify_practice_chapter.ps1",
-        "bytes": 13052,
-        "sha256": "79cf6c0978371d31d5065c108d8b90af872e6131ae332e3d0932cdbf350f28a9"
+        "bytes": 13555,
+        "sha256": "b80ae77f89cefdd713be7f1bb8e7cd6a3f1785ff9181e01bcb1c9138452126fe"
       }
     ]
-  }
+  },
+  "limits": [
+    "Actual browser server-stop/restart recovery remains Not Run; HTTP-level restart was verified.",
+    "Learner AI generation and independent junior retest were not performed."
+  ]
 }
