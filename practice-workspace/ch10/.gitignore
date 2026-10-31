@@ -1,0 +1,3 @@
+erp-mini/.env
+erp-mini/.venv/
+**/__pycache__/

@@ -1,3 +1,16 @@
+-- Chapter 10 전용 DB에서만 실행합니다. 기존 동명 업무 테이블과 의존 객체가 삭제됩니다.
+BEGIN;
+DO $ch10$
+BEGIN
+    IF to_regclass('foundation_lab_marker') IS NULL THEN
+        RAISE EXCEPTION 'Chapter 10 marker missing; schema initialization stopped';
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM foundation_lab_marker WHERE lab_id='chapter10') THEN
+        RAISE EXCEPTION 'Chapter 10 marker missing; schema initialization stopped';
+    END IF;
+END
+$ch10$;
+
 -- 기존 테이블이 존재할 경우 삭제 (외래 키 참조 관계를 고려하여 역순/CASCADE 삭제)
 DROP TABLE IF EXISTS order_state_history CASCADE;
 DROP TABLE IF EXISTS order_events CASCADE;
@@ -81,3 +94,5 @@ CREATE TABLE order_state_history (
     to_status TEXT NOT NULL,
     changed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+COMMIT;

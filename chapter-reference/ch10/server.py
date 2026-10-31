@@ -1,7 +1,7 @@
 # server.py
 from contextlib import closing
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 import uuid
 from db import get_connection
@@ -10,11 +10,11 @@ app = FastAPI()
 
 class OrderItem(BaseModel):
     product_id: str
-    quantity: int
+    quantity: int = Field(gt=0)
 
 class OrderRequest(BaseModel):
     corp_id: str
-    items: List[OrderItem]
+    items: List[OrderItem] = Field(min_length=1)
 
 @app.post("/orders")
 def create_order(req: OrderRequest):
@@ -108,8 +108,8 @@ def create_order(req: OrderRequest):
         # 가격 없음·재고 부족 같은 업무 오류: 롤백 후 400 응답을 그대로 전달
         conn.rollback()
         raise
-    except Exception as e:
+    except Exception:
         conn.rollback() # 예외 발생 시 트랜잭션 전체 롤백 (All-or-Nothing 보장)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="주문 저장에 실패했습니다.") from None
     finally:
         conn.close()

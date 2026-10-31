@@ -1,41 +1,50 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.52",
+  "release_id": "foundation-kit-v1.3.53",
   "release_status": "release_payload",
-  "built_at_utc": "2026-10-30T12:01:31.017477+00:00",
-  "base_release": "foundation-kit-v1.3.51",
-  "base_source_commit": "1d7180ef2627feb985a6fd4da53bd80dba107f38",
-  "base_archive_sha256": "a848654e4709bb4f98122bddf4810e7fd54114c8ff4061b69b82f768b11a9f6f",
+  "built_at_utc": "2026-10-31T02:10:52.037495+00:00",
+  "base_release": "foundation-kit-v1.3.52",
+  "base_source_commit": "2ca5e352e1997ce03082503446eccf4b8b4930be",
+  "base_archive_sha256": "5b3bb0b321bad0cf7a1b8b0e16f5d33f52e7d525062ab3dd6a4ce9ec8b6a1d9d",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
-    "added": [
-      "practice-workspace/ch09/checks/test_web.py",
-      "practice-workspace/ch09/frontend/app.js",
-      "practice-workspace/ch09/frontend/index.html",
-      "practice-workspace/ch09/frontend/style.css",
-      "practice-workspace/ch09/observation-baseline.json",
-      "practice-workspace/ch09/verify_observation.py",
-      "practice-workspace/ch09/web_server.py"
-    ],
     "changed": [
+      "chapter-reference/ch10/schema.sql",
+      "chapter-reference/ch10/server.py",
+      "practice-workspace/ch10/AGENTS.md",
+      "practice-workspace/ch10/erp-mini/_starter/schema.sql",
+      "practice-workspace/ch10/erp-mini/_starter/server.py",
+      "practice-workspace/ch10/erp-mini/AGENTS.md",
+      "practice-workspace/ch10/erp-mini/README.md",
+      "practice-workspace/ch10/erp-mini/requirements.txt",
+      "practice-workspace/ch10/erp-mini/schema.sql",
+      "practice-workspace/ch10/erp-mini/server.py",
       "README.md",
-      "practice-workspace/README.md",
-      "practice-workspace/ch09/AGENTS.md",
-      "practice-workspace/ch09/README.md",
-      "practice-workspace/ch09/erp-mini/AGENTS.md",
-      "practice-workspace/ch09/run.ps1",
-      "tools/README.md",
-      "tools/verify_ch09_core.ps1",
-      "tools/verify_foundation_kit.ps1",
+      "tools/reset_practice_chapter.ps1",
       "tools/verify_practice_chapter.ps1"
+    ],
+    "added": [
+      "chapter-reference/ch10/test_orders.py",
+      "practice-workspace/ch10/.gitignore",
+      "practice-workspace/ch10/erp-mini/_starter/test_orders.py",
+      "practice-workspace/ch10/erp-mini/frontend/app.js",
+      "practice-workspace/ch10/erp-mini/frontend/index.html",
+      "practice-workspace/ch10/erp-mini/frontend/style.css",
+      "practice-workspace/ch10/erp-mini/lab_app.py",
+      "practice-workspace/ch10/erp-mini/lab_store.py",
+      "practice-workspace/ch10/erp-mini/sql/10_seed.sql",
+      "practice-workspace/ch10/erp-mini/test_orders.py",
+      "practice-workspace/ch10/erp-mini/verify_core.py",
+      "practice-workspace/ch10/README.md",
+      "practice-workspace/ch10/start_lab.ps1"
     ],
     "removed": []
   },
   "payload": {
-    "file_count": 315,
+    "file_count": 328,
     "files": [
       {
         "path": ".gitignore",
@@ -43,14 +52,9 @@
         "sha256": "bb96e3e597367193308a6b23cb6d9bc5b361babec02eb0cd8eb763449ae9f9f6"
       },
       {
-        "path": "README.md",
-        "bytes": 15721,
-        "sha256": "e4c2bdbc31ab63963d6c59350835d350e4fbec88e075c439153d1fba859dbfaf"
-      },
-      {
         "path": "chapter-reference/ch10/schema.sql",
-        "bytes": 3647,
-        "sha256": "a63d65aabcd119e8139f1a846641bfec54714190d445e7a306c0f675f2514f43"
+        "bytes": 4145,
+        "sha256": "ca746f84311837a6c17e9ef92ef96f9c7047ce66e1406b4cc4fb09cce72dd44a"
       },
       {
         "path": "chapter-reference/ch10/seed.sql",
@@ -59,8 +63,13 @@
       },
       {
         "path": "chapter-reference/ch10/server.py",
-        "bytes": 4819,
-        "sha256": "3ff6e04fdcec4f35e085c75b7018bf6262d21e0c417c66977709c166c1a53763"
+        "bytes": 4899,
+        "sha256": "0e32f37a8d919931a7f1e9091b4de4a058c4eb9ef66ceb520b0035e62e44b8ff"
+      },
+      {
+        "path": "chapter-reference/ch10/test_orders.py",
+        "bytes": 3013,
+        "sha256": "071f2eed478af71558b15a1843229262a3020bc161571ec0d86e63df01ab9dbd"
       },
       {
         "path": "chapter-reference/ch11/App.vue",
@@ -68,24 +77,24 @@
         "sha256": "05051f17a8db9c44bb1565bb0d95a8d9ddbcad8276f569c7821c02a4ab33fcdf"
       },
       {
-        "path": "chapter-reference/ch11/ApproveOrder.vue",
-        "bytes": 4584,
-        "sha256": "5e7cba7a24ca2810925feaf3f642f5090744ae46d511501b06080d3825891410"
-      },
-      {
-        "path": "chapter-reference/ch11/README.md",
-        "bytes": 3321,
-        "sha256": "b4d5e092b6d4fef335c93a015dad2f807d696466648798aa68d649796e824dd3"
-      },
-      {
         "path": "chapter-reference/ch11/approve_order.sql",
         "bytes": 3339,
         "sha256": "8ab57a09a137bdf7340e974f451e5b4da7f2107745611da1b3927d58f81bd343"
       },
       {
+        "path": "chapter-reference/ch11/ApproveOrder.vue",
+        "bytes": 4584,
+        "sha256": "5e7cba7a24ca2810925feaf3f642f5090744ae46d511501b06080d3825891410"
+      },
+      {
         "path": "chapter-reference/ch11/main.py",
         "bytes": 1969,
         "sha256": "419f2ec3a49adb2fde6954bd6b7d03034f3174ec7f3f4741c0f05bb563f521a7"
+      },
+      {
+        "path": "chapter-reference/ch11/README.md",
+        "bytes": 3321,
+        "sha256": "b4d5e092b6d4fef335c93a015dad2f807d696466648798aa68d649796e824dd3"
       },
       {
         "path": "docs/01A_foundation_lab_setup.md",
@@ -96,11 +105,6 @@
         "path": "docs/11_chapter11.md",
         "bytes": 108810,
         "sha256": "de69690832671feafcd7046b61c9b80b1750989ef154f7bfb5e732deab682dad"
-      },
-      {
-        "path": "docs/README.md",
-        "bytes": 786,
-        "sha256": "fcb38b4dd1b7cc1dea87ac0b22552905a5dd5ecbc2ed5af64de299ad75220f76"
       },
       {
         "path": "docs/images2/11_chapter11_approve_stock_error.png",
@@ -173,24 +177,14 @@
         "sha256": "7c2d37a12665446fae261f011e0efc9ed7ec03e686f9b7651625bf13bbcf5373"
       },
       {
+        "path": "docs/README.md",
+        "bytes": 786,
+        "sha256": "fcb38b4dd1b7cc1dea87ac0b22552905a5dd5ecbc2ed5af64de299ad75220f76"
+      },
+      {
         "path": "practice-workspace/AGENTS.md",
         "bytes": 2600,
         "sha256": "f56cf83a326696c6ae3f7a78dcb410099f000969c2beb05aa5dc2f8c155a783d"
-      },
-      {
-        "path": "practice-workspace/README.md",
-        "bytes": 3059,
-        "sha256": "c0a4ddffb273463df8ca278260a1d31f17820e77bae1c9198217e2e15c28ea19"
-      },
-      {
-        "path": "practice-workspace/ch03/AGENTS.md",
-        "bytes": 9234,
-        "sha256": "4682cfbe8f84cf2123a41b61f1e1417ad53c01fac101298354453386989558f7"
-      },
-      {
-        "path": "practice-workspace/ch03/README.md",
-        "bytes": 7007,
-        "sha256": "bc6de5f7a593872f5bbf48ee252d3fa826190dbc8b6d8366e53a83c7722f8596"
       },
       {
         "path": "practice-workspace/ch03/_starter/backend/company_read.py",
@@ -211,6 +205,11 @@
         "path": "practice-workspace/ch03/_starter/frontend/order-form.js",
         "bytes": 127,
         "sha256": "02c192ede98b0dfdd7d0c0cbb64b76fa39ff6856590b0186d9c62b78231fdc46"
+      },
+      {
+        "path": "practice-workspace/ch03/AGENTS.md",
+        "bytes": 9234,
+        "sha256": "4682cfbe8f84cf2123a41b61f1e1417ad53c01fac101298354453386989558f7"
       },
       {
         "path": "practice-workspace/ch03/backend/__init__.py",
@@ -298,6 +297,11 @@
         "sha256": "d34e9b7836c7aff038884bcd9949d77b5224d3a5681d2651affb2a05b6468264"
       },
       {
+        "path": "practice-workspace/ch03/README.md",
+        "bytes": 7007,
+        "sha256": "bc6de5f7a593872f5bbf48ee252d3fa826190dbc8b6d8366e53a83c7722f8596"
+      },
+      {
         "path": "practice-workspace/ch03/requirements.txt",
         "bytes": 33,
         "sha256": "d31c786a6d0856b755aefa2e506b894017aefb68d8bab745b1f27e6ac3ae3bbc"
@@ -318,16 +322,6 @@
         "sha256": "5fdb7a51fcaef4061f5de30a792205b1dd6a8418b002ef39ed4319da06c6da9d"
       },
       {
-        "path": "practice-workspace/ch04/AGENTS.md",
-        "bytes": 5500,
-        "sha256": "c674b91354ec2a30a72c0ceee0e5998199b7c6e92fa4fb87ff745c3b4606fd18"
-      },
-      {
-        "path": "practice-workspace/ch04/README.md",
-        "bytes": 6027,
-        "sha256": "c5998f7f654b7988c7de1b8776ea880a42b1766ddd186757cf59d290134092e5"
-      },
-      {
         "path": "practice-workspace/ch04/_starter/backend/approval_rules.py",
         "bytes": 658,
         "sha256": "699630982cca5568b33db66759b36f0303ad34ac36cc8dd6a238189fbce2b71b"
@@ -341,6 +335,11 @@
         "path": "practice-workspace/ch04/_starter/frontend/approval-action.js",
         "bytes": 294,
         "sha256": "acd6419b093e646ed9b8d4bbc2363ecded76d82a33b959052498c78482a2543f"
+      },
+      {
+        "path": "practice-workspace/ch04/AGENTS.md",
+        "bytes": 5500,
+        "sha256": "c674b91354ec2a30a72c0ceee0e5998199b7c6e92fa4fb87ff745c3b4606fd18"
       },
       {
         "path": "practice-workspace/ch04/backend/__init__.py",
@@ -458,6 +457,11 @@
         "sha256": "2a5b0af19bc7113ee03f7d99b1f7a19e94ff32523afc080cd202a5513ab0d892"
       },
       {
+        "path": "practice-workspace/ch04/README.md",
+        "bytes": 6027,
+        "sha256": "c5998f7f654b7988c7de1b8776ea880a42b1766ddd186757cf59d290134092e5"
+      },
+      {
         "path": "practice-workspace/ch04/requirements.txt",
         "bytes": 33,
         "sha256": "d31c786a6d0856b755aefa2e506b894017aefb68d8bab745b1f27e6ac3ae3bbc"
@@ -498,16 +502,6 @@
         "sha256": "c62cc474753c85fcb4818d9a1764473c69d43ac22c5328539c5b4798fed95d3f"
       },
       {
-        "path": "practice-workspace/ch05/AGENTS.md",
-        "bytes": 8769,
-        "sha256": "92a945f941a19f9b7c20787ddf24ed3ac988766357a35df7e6378ad73a4b5c17"
-      },
-      {
-        "path": "practice-workspace/ch05/README.md",
-        "bytes": 3372,
-        "sha256": "1270ea0a130f41cd55b9fc890e7672bf18ab1792881af5242dea82bb2550776b"
-      },
-      {
         "path": "practice-workspace/ch05/_starter/backend/movement_rules.py",
         "bytes": 599,
         "sha256": "062f75ab09331789bd052d3e4985d9a2e38754ea8f956431b0c5389e2d9f4c76"
@@ -526,6 +520,11 @@
         "path": "practice-workspace/ch05/_starter/backend/relationship_write.py",
         "bytes": 653,
         "sha256": "cbcf26c49f269f4a66efa8aea9ff76b8edfd6190674c8d83bc29f32055ddf3fa"
+      },
+      {
+        "path": "practice-workspace/ch05/AGENTS.md",
+        "bytes": 8769,
+        "sha256": "92a945f941a19f9b7c20787ddf24ed3ac988766357a35df7e6378ad73a4b5c17"
       },
       {
         "path": "practice-workspace/ch05/backend/__init__.py",
@@ -598,6 +597,11 @@
         "sha256": "3451a431ee633da23f09385b1c087d4236f2b3346dfb73e9b2447b0150eef2c7"
       },
       {
+        "path": "practice-workspace/ch05/README.md",
+        "bytes": 3372,
+        "sha256": "1270ea0a130f41cd55b9fc890e7672bf18ab1792881af5242dea82bb2550776b"
+      },
+      {
         "path": "practice-workspace/ch05/reference/01_current_and_history.sql",
         "bytes": 4920,
         "sha256": "4d6d1085af4d7136fee0242640eb12e01b88bdca5e53e7c5099b0cca81f6279d"
@@ -613,11 +617,6 @@
         "sha256": "53323ae807ef8ec3f65876da26665fee3d3f8144c2eb2e48b8a61359d1d062c2"
       },
       {
-        "path": "practice-workspace/ch05/reference/web/README.md",
-        "bytes": 1022,
-        "sha256": "58cda07b512f6f42191c6e5dcecf9fe6393daee7e48b3f29994a715d872a0c73"
-      },
-      {
         "path": "practice-workspace/ch05/reference/web/movement_rules.py",
         "bytes": 627,
         "sha256": "8b5f412f81f076a5b672c2d1573713547efe13b0ab7046cba44e24d9e5cbf5c5"
@@ -626,6 +625,11 @@
         "path": "practice-workspace/ch05/reference/web/movement_write.py",
         "bytes": 725,
         "sha256": "9470d3b9badbdba34bfaf28e0de1fc628877f27c8dc177ce9efd64e7ced31965"
+      },
+      {
+        "path": "practice-workspace/ch05/reference/web/README.md",
+        "bytes": 1022,
+        "sha256": "58cda07b512f6f42191c6e5dcecf9fe6393daee7e48b3f29994a715d872a0c73"
       },
       {
         "path": "practice-workspace/ch05/reference/web/relationship_read.py",
@@ -693,11 +697,6 @@
         "sha256": "92569b8b1ef9e6a52f1da34ee153573dda09610e84c6342e79b664f5ae51ddc1"
       },
       {
-        "path": "practice-workspace/ch07/README.md",
-        "bytes": 1008,
-        "sha256": "f8935f6d70d8d2fc3ec3aeaa25b4556fca4a5c8e312cb6711424c3c6f06799e7"
-      },
-      {
         "path": "practice-workspace/ch07/legacy-api/AGENTS.md",
         "bytes": 407,
         "sha256": "f4e95462c4b909563d81df233dd50e8e294667ee588a2b00bb7e296e88c6b5c1"
@@ -713,6 +712,11 @@
         "sha256": "7d12a63c6c5308d7bc2576facb713ddb34a3b3cb9fbcae2abb4f2695f30a1678"
       },
       {
+        "path": "practice-workspace/ch07/README.md",
+        "bytes": 1008,
+        "sha256": "f8935f6d70d8d2fc3ec3aeaa25b4556fca4a5c8e312cb6711424c3c6f06799e7"
+      },
+      {
         "path": "practice-workspace/ch07/requirements.txt",
         "bytes": 73,
         "sha256": "7d12a63c6c5308d7bc2576facb713ddb34a3b3cb9fbcae2abb4f2695f30a1678"
@@ -721,16 +725,6 @@
         "path": "practice-workspace/ch07/understanding/.gitignore",
         "bytes": 25,
         "sha256": "e4e9ff53b667f1adb9e41d4a9bf7f9f6f7159ddb3f47eca816fbd2ecc9a07bc5"
-      },
-      {
-        "path": "practice-workspace/ch07/understanding/AGENTS.md",
-        "bytes": 6000,
-        "sha256": "ed9e3a69b0e34a497eec70eac87a6beff63e7817261fa4e9f292a22ff7385a9c"
-      },
-      {
-        "path": "practice-workspace/ch07/understanding/README.md",
-        "bytes": 4000,
-        "sha256": "e078cd7b38d8e6b6951f0050bf229da0f25dd02d4853746db2d9ebc1301b029c"
       },
       {
         "path": "practice-workspace/ch07/understanding/_starter/sale_example.py",
@@ -746,6 +740,11 @@
         "path": "practice-workspace/ch07/understanding/_starter/transaction_example.py",
         "bytes": 838,
         "sha256": "61690e6792d5072957477a0606bad0a35dc554371121914db4042113d2231cda"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/AGENTS.md",
+        "bytes": 6000,
+        "sha256": "ed9e3a69b0e34a497eec70eac87a6beff63e7817261fa4e9f292a22ff7385a9c"
       },
       {
         "path": "practice-workspace/ch07/understanding/frontend/app.js",
@@ -778,9 +777,9 @@
         "sha256": "6413fe26abaf3e7e8d922730dfa6628e074d18e0daf33cd5dc5f5768f7da17c7"
       },
       {
-        "path": "practice-workspace/ch07/understanding/reference/README.md",
-        "bytes": 778,
-        "sha256": "9a74b29724a1f7fb71b50f75c384d834c993f96a883557c0f0e94f66122f3a18"
+        "path": "practice-workspace/ch07/understanding/README.md",
+        "bytes": 4000,
+        "sha256": "e078cd7b38d8e6b6951f0050bf229da0f25dd02d4853746db2d9ebc1301b029c"
       },
       {
         "path": "practice-workspace/ch07/understanding/reference/legacy_memory/sale_example.py",
@@ -796,6 +795,11 @@
         "path": "practice-workspace/ch07/understanding/reference/legacy_memory/transaction_example.py",
         "bytes": 1403,
         "sha256": "5b368c2fc8d5eebdca559659b52bc72521cd6412ea8be8c021780a5f7336aa8e"
+      },
+      {
+        "path": "practice-workspace/ch07/understanding/reference/README.md",
+        "bytes": 778,
+        "sha256": "9a74b29724a1f7fb71b50f75c384d834c993f96a883557c0f0e94f66122f3a18"
       },
       {
         "path": "practice-workspace/ch07/understanding/reference/sale_example.py",
@@ -853,11 +857,6 @@
         "sha256": "c15cb67730fbf97a1f1bb93f3713ae1ca1a5ad3edd3b3f4c3307ba5cf244eeff"
       },
       {
-        "path": "practice-workspace/ch08/README.md",
-        "bytes": 1133,
-        "sha256": "be70c5bf0156153266496e67386e223fb9854f8499a9a2e014511784f79107e6"
-      },
-      {
         "path": "practice-workspace/ch08/ai_build_rules.md",
         "bytes": 6416,
         "sha256": "5f7a4065a03db461bdf1b7bbf61d4da931df9a6e2cad7037fbb913ad74a41697"
@@ -871,11 +870,6 @@
         "path": "practice-workspace/ch08/chapter8_order_spec.md",
         "bytes": 6786,
         "sha256": "35807d0253adacc0a4b8ea9a3c301dbfc45bb30d91bdedcc94b10ed181f90f3d"
-      },
-      {
-        "path": "practice-workspace/ch08/legacy-api/README.md",
-        "bytes": 8952,
-        "sha256": "8d9e0575e89845fa7e2b705a25ad24ddbec51a4bb75be1bd980f3c962460b728"
       },
       {
         "path": "practice-workspace/ch08/legacy-api/ai_build_rules.md",
@@ -893,14 +887,14 @@
         "sha256": "68ded5241bd5976525bf14a053d23571df67c57d792f3cd6d50afbf5955269af"
       },
       {
+        "path": "practice-workspace/ch08/legacy-api/README.md",
+        "bytes": 8952,
+        "sha256": "8d9e0575e89845fa7e2b705a25ad24ddbec51a4bb75be1bd980f3c962460b728"
+      },
+      {
         "path": "practice-workspace/ch08/project/.env.example",
         "bytes": 103,
         "sha256": "05d268bb7ec3d95eb6d5c11a3119e7cc02bac1c4843eea4721d50ebea8ac3fb8"
-      },
-      {
-        "path": "practice-workspace/ch08/project/AGENTS.md",
-        "bytes": 5930,
-        "sha256": "04827ce3174885c1f0b3a378d15c84deebb4671a077977c5a81bf5707b6b85d2"
       },
       {
         "path": "practice-workspace/ch08/project/_starter/database.py",
@@ -911,6 +905,11 @@
         "path": "practice-workspace/ch08/project/_starter/models.py",
         "bytes": 2692,
         "sha256": "3812095fe109e364204a99bc241a3f863ece09026ea4512d80a25e4bb170c152"
+      },
+      {
+        "path": "practice-workspace/ch08/project/AGENTS.md",
+        "bytes": 5930,
+        "sha256": "04827ce3174885c1f0b3a378d15c84deebb4671a077977c5a81bf5707b6b85d2"
       },
       {
         "path": "practice-workspace/ch08/project/database.py",
@@ -951,6 +950,11 @@
         "path": "practice-workspace/ch08/project/tests/__init__.py",
         "bytes": 2,
         "sha256": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+      },
+      {
+        "path": "practice-workspace/ch08/README.md",
+        "bytes": 1133,
+        "sha256": "be70c5bf0156153266496e67386e223fb9854f8499a9a2e014511784f79107e6"
       },
       {
         "path": "practice-workspace/ch08/reference/8.2/services/franchise_order.py",
@@ -1033,16 +1037,6 @@
         "sha256": "b1a34a45770306a6da41aaef0c2c56c204c7a74f09704bb87ea6dd682a987a92"
       },
       {
-        "path": "practice-workspace/ch08/understanding/AGENTS.md",
-        "bytes": 4124,
-        "sha256": "5f8665c23bc139ee5c3b50dc8ca5d068a92db710a48ae9e5abc914b540847a02"
-      },
-      {
-        "path": "practice-workspace/ch08/understanding/README.md",
-        "bytes": 4378,
-        "sha256": "d223a16234f9ddabb439ab685f4ba7893524027352b73680ba23781c40cfbe53"
-      },
-      {
         "path": "practice-workspace/ch08/understanding/_starter/order_example.py",
         "bytes": 577,
         "sha256": "61073bd778723921c9c7069724afac1084278dcf6a3790eef45fc3e7f8474df1"
@@ -1051,6 +1045,11 @@
         "path": "practice-workspace/ch08/understanding/_starter/test_order_example.py",
         "bytes": 324,
         "sha256": "8a5ea19cec10d597beb2b03846552219c110f27bf1782517c49f8e4c259b4762"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/AGENTS.md",
+        "bytes": 4124,
+        "sha256": "5f8665c23bc139ee5c3b50dc8ca5d068a92db710a48ae9e5abc914b540847a02"
       },
       {
         "path": "practice-workspace/ch08/understanding/checks/test_order_rules.py",
@@ -1076,6 +1075,11 @@
         "path": "practice-workspace/ch08/understanding/order_example.py",
         "bytes": 577,
         "sha256": "61073bd778723921c9c7069724afac1084278dcf6a3790eef45fc3e7f8474df1"
+      },
+      {
+        "path": "practice-workspace/ch08/understanding/README.md",
+        "bytes": 4378,
+        "sha256": "d223a16234f9ddabb439ab685f4ba7893524027352b73680ba23781c40cfbe53"
       },
       {
         "path": "practice-workspace/ch08/understanding/reference/order_example.py",
@@ -1111,11 +1115,6 @@
         "path": "practice-workspace/ch09/AGENTS.md",
         "bytes": 2284,
         "sha256": "8c46efab875e6e68347e93c25275781642b3bc8845be52c7d4078e4225bd54f8"
-      },
-      {
-        "path": "practice-workspace/ch09/README.md",
-        "bytes": 2829,
-        "sha256": "eb850035df6102b3e8b1443440c5800063a005be85092689da7f4672685c0a96"
       },
       {
         "path": "practice-workspace/ch09/checks/test_order_rules.py",
@@ -1178,14 +1177,19 @@
         "sha256": "96971b7c3cfff066abce41d1919655f30b634732c1f412f6db9b8750a6b4e42c"
       },
       {
-        "path": "practice-workspace/ch09/reference/README.md",
-        "bytes": 1667,
-        "sha256": "fd50d0e6f62cd92c5791e6166c657c7b5400eac35e0aceff0db984105e5f3e08"
+        "path": "practice-workspace/ch09/README.md",
+        "bytes": 2829,
+        "sha256": "eb850035df6102b3e8b1443440c5800063a005be85092689da7f4672685c0a96"
       },
       {
         "path": "practice-workspace/ch09/reference/order.py",
         "bytes": 1427,
         "sha256": "f562826552fbe25ff017875ea539424e378b7fc1f5892172c3c6fbc1c3888a85"
+      },
+      {
+        "path": "practice-workspace/ch09/reference/README.md",
+        "bytes": 1667,
+        "sha256": "fd50d0e6f62cd92c5791e6166c657c7b5400eac35e0aceff0db984105e5f3e08"
       },
       {
         "path": "practice-workspace/ch09/reference/test_order.py",
@@ -1208,24 +1212,19 @@
         "sha256": "bb64c9a1e2f972e5cc90bcfbe48d14f7fba731307b7b22087d6c32772737f3f5"
       },
       {
+        "path": "practice-workspace/ch10/.gitignore",
+        "bytes": 46,
+        "sha256": "dddf7ee99007828d6c79ddbe5bd7d59d5e725a09d25cb46a9a2cbdb03424a9d8"
+      },
+      {
         "path": "practice-workspace/ch10/AGENTS.md",
-        "bytes": 392,
-        "sha256": "364295c7053f63b13dbc385926206148b10e3c611a55ca0bbd92af4d6a1f849a"
+        "bytes": 742,
+        "sha256": "7167fda6ea63f2919e59c8387077dce532e84939a41d44273f024aefabbc929a"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/.env.example",
         "bytes": 77,
         "sha256": "607efbad25d7ea0f0ed7a859b404e60bdc440eb626ef13e871e64416c9385a76"
-      },
-      {
-        "path": "practice-workspace/ch10/erp-mini/AGENTS.md",
-        "bytes": 658,
-        "sha256": "9126955f50f830107fae7808158fe3ce012e22a2d39c651390726a5d305901dc"
-      },
-      {
-        "path": "practice-workspace/ch10/erp-mini/README.md",
-        "bytes": 241,
-        "sha256": "daca15183e27e3f378bab625a7e357ffcdc1f8ca16a6c0cd7952f8bce49b69e7"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/_starter/db.py",
@@ -1234,13 +1233,23 @@
       },
       {
         "path": "practice-workspace/ch10/erp-mini/_starter/schema.sql",
-        "bytes": 148,
-        "sha256": "ad243388245a743b8000e415eca7f9f8bd93a9a51a3c25fd57309390a6920959"
+        "bytes": 4145,
+        "sha256": "ca746f84311837a6c17e9ef92ef96f9c7047ce66e1406b4cc4fb09cce72dd44a"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/_starter/server.py",
-        "bytes": 138,
-        "sha256": "e1ed87439720ec52c4d5b5497769742e0114ffc8e2d61cff79a85004c79d6386"
+        "bytes": 788,
+        "sha256": "dd6f3b4c787728926f8b6454d30eebdaf9298766f7d9104d40bea0cd845ee61e"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/_starter/test_orders.py",
+        "bytes": 333,
+        "sha256": "b14436972d11bbb0001b81b15c5e8e7d98bcbdf9bb83da730ab30dca1193d377"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/AGENTS.md",
+        "bytes": 1601,
+        "sha256": "93525d087e584e38d9837875a9c9eefab433e3ee0e0e2d9f078145304d179a9c"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/db.py",
@@ -1248,19 +1257,49 @@
         "sha256": "e84266aff1096d4cec030248645c0a7b7d3c15d5079d244cded5d219ef04ace5"
       },
       {
+        "path": "practice-workspace/ch10/erp-mini/frontend/app.js",
+        "bytes": 4932,
+        "sha256": "5b0d4410e754bb708a94d489d9422f3d4f331e2bc9b6a463fff457e1adf727cf"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/frontend/index.html",
+        "bytes": 3408,
+        "sha256": "0b40d0c72d896ec3f3a4d93feb9f4c44a9505e9bad9e6f5ea3e760bd4213a6e8"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/frontend/style.css",
+        "bytes": 1507,
+        "sha256": "09bba91a86cb8892e176a5fc91f0b1b6bb52ad79902563cbe606b61eebf75584"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/lab_app.py",
+        "bytes": 3680,
+        "sha256": "d98b80f2f558abca5a5d03a80e79e9777863493d279d06c25516077006d04d6c"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/lab_store.py",
+        "bytes": 5299,
+        "sha256": "520d92b9da5f83d036490012e91a8657b399e5bcac326be4b53880e07b6a8b1b"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/README.md",
+        "bytes": 5993,
+        "sha256": "9de2262f4cb6a1a02c769744f1514d3f70e8ace9b20a855275a9a732c2f91fe2"
+      },
+      {
         "path": "practice-workspace/ch10/erp-mini/requirements.txt",
-        "bytes": 92,
-        "sha256": "92f729168600e4d5731b9e42ddbc9a565fb3dffc90681da3f62e59910478c47b"
+        "bytes": 128,
+        "sha256": "3f85998609fd005fe1d45d21d0e3dfb8b85671729fb110c4881dd1fab6ebecae"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/schema.sql",
-        "bytes": 148,
-        "sha256": "ad243388245a743b8000e415eca7f9f8bd93a9a51a3c25fd57309390a6920959"
+        "bytes": 4145,
+        "sha256": "ca746f84311837a6c17e9ef92ef96f9c7047ce66e1406b4cc4fb09cce72dd44a"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/server.py",
-        "bytes": 138,
-        "sha256": "e1ed87439720ec52c4d5b5497769742e0114ffc8e2d61cff79a85004c79d6386"
+        "bytes": 788,
+        "sha256": "dd6f3b4c787728926f8b6454d30eebdaf9298766f7d9104d40bea0cd845ee61e"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/sql/00_initialize_lab.sql",
@@ -1268,9 +1307,34 @@
         "sha256": "c8df332207aec589dd73ab97b969cbb07e35de2f1ef98645fcabb8a1de2a451e"
       },
       {
+        "path": "practice-workspace/ch10/erp-mini/sql/10_seed.sql",
+        "bytes": 1886,
+        "sha256": "1d56b30275f45a60e991d3f65ba6641c194dae2d2ee3c5da56e1b7869518f769"
+      },
+      {
         "path": "practice-workspace/ch10/erp-mini/sql/99_reset_lab.sql",
         "bytes": 986,
         "sha256": "816ad00aeef17ff8f818142b338e884f29115e4b46c9605213cd4a678f696558"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/test_orders.py",
+        "bytes": 333,
+        "sha256": "b14436972d11bbb0001b81b15c5e8e7d98bcbdf9bb83da730ab30dca1193d377"
+      },
+      {
+        "path": "practice-workspace/ch10/erp-mini/verify_core.py",
+        "bytes": 7519,
+        "sha256": "b3b21328e43fad0e7e31a7c9ecc90f01913a129eb91cb2e59a6f5740f8b78e37"
+      },
+      {
+        "path": "practice-workspace/ch10/README.md",
+        "bytes": 5993,
+        "sha256": "9de2262f4cb6a1a02c769744f1514d3f70e8ace9b20a855275a9a732c2f91fe2"
+      },
+      {
+        "path": "practice-workspace/ch10/start_lab.ps1",
+        "bytes": 445,
+        "sha256": "c437f71218a53b34e4527d28289367b1e694e80daf7306d7908c0c0eee7b0dc3"
       },
       {
         "path": "practice-workspace/ch11/AGENTS.md",
@@ -1278,24 +1342,24 @@
         "sha256": "a53b0487501227f77eb613c239622295a1b56ed626dbda1af170bbbd1d5094b0"
       },
       {
-        "path": "practice-workspace/ch11/README.md",
-        "bytes": 793,
-        "sha256": "922676cfca659ac28410c24c162eb0e44e945f1e7052de40fb002784902fc1b0"
-      },
-      {
         "path": "practice-workspace/ch11/observation_record.md",
         "bytes": 2014,
         "sha256": "5467b496752d6bf7b99546e7d67eb9729dfb12fac805d1286f5df174fb11955d"
       },
       {
-        "path": "practice-workspace/ch11/workspace/AGENTS.md",
-        "bytes": 350,
-        "sha256": "428c4aa167e92bf69718c07250c33749a74476da4daf1ec5885610cb09f2b195"
+        "path": "practice-workspace/ch11/README.md",
+        "bytes": 793,
+        "sha256": "922676cfca659ac28410c24c162eb0e44e945f1e7052de40fb002784902fc1b0"
       },
       {
         "path": "practice-workspace/ch11/workspace/_starter/App.vue",
         "bytes": 175,
         "sha256": "cf6e8944ce7eefd4ffc0e2bcc5ee27ebc8b75d5cfa74f4d26be99b8f86565523"
+      },
+      {
+        "path": "practice-workspace/ch11/workspace/AGENTS.md",
+        "bytes": 350,
+        "sha256": "428c4aa167e92bf69718c07250c33749a74476da4daf1ec5885610cb09f2b195"
       },
       {
         "path": "practice-workspace/ch11/workspace/erp-project/.env.example",
@@ -1363,14 +1427,19 @@
         "sha256": "f3ad770652f75f454738e4c0fa7d99e40316b4c27b3f6f4b47e82219c939f967"
       },
       {
+        "path": "practice-workspace/README.md",
+        "bytes": 3059,
+        "sha256": "c0a4ddffb273463df8ca278260a1d31f17820e77bae1c9198217e2e15c28ea19"
+      },
+      {
+        "path": "README.md",
+        "bytes": 16531,
+        "sha256": "14ff3df7f85ffb26f58df0fb7e440cb55ad0866216ddf6445dff65d0d6213ea6"
+      },
+      {
         "path": "reference-app/AGENTS.md",
         "bytes": 827,
         "sha256": "6ff4ca8a29497f4ca1e703315ba026eefd2a278c6bef54cd3312525f897ff14f"
-      },
-      {
-        "path": "reference-app/README.md",
-        "bytes": 845,
-        "sha256": "e0635e0dff07dc4c29a776415c706e409d9ac3685d85b4dc32cae18e56e0f7d2"
       },
       {
         "path": "reference-app/backend/app/__init__.py",
@@ -1548,14 +1617,14 @@
         "sha256": "15cca10a84b3ad9180b78421fde69c96febc3ded31828a39f4e23083f747f148"
       },
       {
+        "path": "reference-app/README.md",
+        "bytes": 845,
+        "sha256": "e0635e0dff07dc4c29a776415c706e409d9ac3685d85b4dc32cae18e56e0f7d2"
+      },
+      {
         "path": "reference-app/review-workspace/ch03/AGENTS.md",
         "bytes": 875,
         "sha256": "2dbeaf7e5d32affcd42463e8f27672a49c175c00bb1b1fab53c66f9c5058e69d"
-      },
-      {
-        "path": "reference-app/review-workspace/ch03/README.md",
-        "bytes": 1107,
-        "sha256": "8f20babdc7e8a61c0426f9bfd9ca9f480258bd25e316d4f343d6aab7f60a1142"
       },
       {
         "path": "reference-app/review-workspace/ch03/ai-verdict-template.md",
@@ -1573,14 +1642,19 @@
         "sha256": "847ddaf4606da0fce09347b4aabe0aee13448ec07bf9ec842ef832bfe6aaafc1"
       },
       {
+        "path": "reference-app/review-workspace/ch03/README.md",
+        "bytes": 1107,
+        "sha256": "8f20babdc7e8a61c0426f9bfd9ca9f480258bd25e316d4f343d6aab7f60a1142"
+      },
+      {
         "path": "tools/README.md",
         "bytes": 7195,
         "sha256": "50bedc3caae9299de919ce1b29d8a98caa58f666d78ae631ebf0edf106227f33"
       },
       {
         "path": "tools/reset_practice_chapter.ps1",
-        "bytes": 4080,
-        "sha256": "511fa15de62751d4f8b045131d8d48ee725ce447dec271308f1238f382e4bd52"
+        "bytes": 4155,
+        "sha256": "758ccea3de6878c9741553a285968533155f7946320616908c7a9c5b7101701b"
       },
       {
         "path": "tools/verify_ch07_core.ps1",
@@ -1609,8 +1683,8 @@
       },
       {
         "path": "tools/verify_practice_chapter.ps1",
-        "bytes": 13712,
-        "sha256": "4461fa868a8f9bca4dbd001139d6184c5254bf21bbb9aa5719a7a799e0f6ff6a"
+        "bytes": 14181,
+        "sha256": "b18d64c8cf9da4783e291e8f2e5ea9ae6403bb7274a850122f47a9129000291f"
       }
     ]
   }

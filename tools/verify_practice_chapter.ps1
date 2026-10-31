@@ -68,7 +68,10 @@ if ($Chapter -in @("ch03", "ch04")) {
 }
 
 if ($Chapter -eq "ch10") {
-    foreach ($fileName in @("schema.sql", "server.py", "seed.sql")) {
+    foreach ($relativePath in @('README.md', 'start_lab.ps1', 'erp-mini/lab_app.py', 'erp-mini/lab_store.py', 'erp-mini/verify_core.py', 'erp-mini/test_orders.py', 'erp-mini/_starter/test_orders.py', 'erp-mini/sql/10_seed.sql', 'erp-mini/frontend/index.html', 'erp-mini/frontend/app.js', 'erp-mini/frontend/style.css')) {
+        Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath) -PathType Leaf) "ch10/$relativePath"
+    }
+    foreach ($fileName in @("schema.sql", "server.py", "seed.sql", "test_orders.py")) {
         $relativePath = "chapter-reference/ch10/$fileName"
         Write-Check (Test-Path -LiteralPath (Join-Path $kitRoot $relativePath) -PathType Leaf) $relativePath
     }

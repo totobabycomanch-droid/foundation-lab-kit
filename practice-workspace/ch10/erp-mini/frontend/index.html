@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 10 주문 기록 실험</title><link rel="stylesheet" href="/assets/style.css"><script src="/assets/app.js" defer></script></head>
+<body><main aria-labelledby="title"><header><p>Chapter 10 · PostgreSQL</p><h1 id="title">주문이 끝난 뒤 무엇이 남을까요?</h1>
+<p>주문 당시 단가, 재고 변동과 실패 뒤 저장값을 직접 비교합니다. 이 화면은 전용 실습 DB의 순차 실행만 다룹니다.</p></header>
+<section><h2>1. 주문을 보냅니다</h2><p>두 품목 정상 주문 → 두 번째 품목 저장 실패 → 가격 변경과 새 주문 순서로 진행합니다.</p>
+<form id="order-form"><div class="fields"><label for="ramen">신라면 수량<input id="ramen" type="number" min="1" max="100" value="2" required></label>
+<label for="cola">코카콜라 수량<input id="cola" type="number" min="1" max="100" value="1" required></label></div>
+<button type="submit">두 품목 정상 주문</button><button id="fail" type="button">두 번째 품목 저장 실패 실험</button></form>
+<p>실패 실험도 위의 양수 수량으로 실행합니다. 실패 요청은 재고를 유지해야 합니다. 성공 주문은 누를 때마다 새 주문입니다.</p>
+<button id="refresh" type="button">DB 결과 다시 조회</button></section>
+<section><h2>2. 현재 가격과 과거 주문을 비교합니다</h2><p>기존 주문을 확인한 뒤 가격을 바꾸고 신라면만 한 번 주문하세요. 마지막에 현재 가격을 원복합니다.</p>
+<div class="buttons"><button id="price-up">현재 가격 6000으로 변경</button><button id="single">신라면 1개 새 주문</button><button id="price-restore">현재 가격 5000으로 원복</button></div>
+<p>현재 신라면 가격: <strong id="current-price">미조회</strong>원</p></section>
+<div id="work" aria-busy="false"><p id="status" role="status">DB를 조회합니다.</p><p id="error" role="alert"></p>
+<section><h2>실제 DB 저장 결과</h2><p id="source">미조회</p><p id="counts"></p>
+<div class="table-scroll"><table><caption>상품별 현재 재고</caption><thead><tr><th>상품</th><th>재고</th></tr></thead><tbody id="stock"></tbody></table></div>
+<div class="table-scroll"><table><caption>DB에 저장된 주문 상세</caption><thead><tr><th>주문번호</th><th>상태</th><th>상품</th><th>수량</th><th>주문 당시 단가</th></tr></thead><tbody id="orders"></tbody></table></div></section>
+<section><h2>이번 주문 요청의 전후 비교</h2><p id="comparison">아직 주문 요청을 보내지 않았습니다.</p>
+<details id="trace-details"><summary>실제 SQL·확정·취소 확인</summary><pre id="trace">아직 실행 근거가 없습니다.</pre></details></section></div>
+<section><h2>AI와 확인하고 업무 보고하기</h2><p>복사한 결과를 검증 프롬프트에 붙이고 실제 코드·DB 관찰값과 대조하세요. 실행하지 않은 항목은 미확인으로 남깁니다.</p>
+<button id="copy">AI 검증용 실행 결과 복사</button><p id="copy-status" role="status"></p>
+<details id="report-details"><summary>실행 결과 직접 복사</summary><label for="report">이 탭의 관찰 기록</label><textarea id="report" rows="12" readonly></textarea></details></section>
+</main></body></html>

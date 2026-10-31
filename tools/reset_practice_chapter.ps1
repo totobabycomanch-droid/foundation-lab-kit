@@ -34,7 +34,8 @@ $restoreTargets = @{
     ch10 = @(
         @("erp-mini/_starter/db.py", "erp-mini/db.py"),
         @("erp-mini/_starter/schema.sql", "erp-mini/schema.sql"),
-        @("erp-mini/_starter/server.py", "erp-mini/server.py")
+        @("erp-mini/_starter/server.py", "erp-mini/server.py"),
+        @("erp-mini/_starter/test_orders.py", "erp-mini/test_orders.py")
     )
     ch11 = ,@("workspace/_starter/App.vue", "workspace/frontend-project/src/App.vue")
 }

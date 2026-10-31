@@ -1,4 +1,13 @@
-# Foundation Lab Kit v1.3.51
+# Foundation Lab Kit v1.3.53
+
+## Chapter 10 주문 기록 화면 실습
+
+`practice-workspace/ch10/`에서 주문 업무와 테스트를 AI와 완성하고 실제 PostgreSQL 결과를 화면으로 비교합니다.
+`start_lab.ps1`의 기본 주소는 http://127.0.0.1:8310입니다. 별도 전용 DB와 가상환경 준비는 ch10/README.md를 따릅니다.
+정상 저장·실제 중간 DB 오류·가격 변경과 원복을 확인합니다. 제공 화면이 업무 저장·롤백을 대신하지 않습니다.
+시작본은 501 미구현이며 참고 정답은 chapter-reference/ch10/에 분리했습니다. 새 폴더에 풀고 기존 결과에 덮어쓰지 마세요.
+이 릴리스의 실제 PostgreSQL·HTTP 검사는 통과했습니다. 사용자 브라우저 직접 조작과 실제 주니어 재실습은 미확인입니다.
+
 
 ## Chapter 8 화면에서 검증·계산 확인
 
