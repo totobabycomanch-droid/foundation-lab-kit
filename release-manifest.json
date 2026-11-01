@@ -1,11 +1,11 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.55",
+  "release_id": "foundation-kit-v1.3.56",
   "release_status": "release_payload",
-  "built_at_utc": "2026-11-01T13:07:50.299522+00:00",
-  "base_release": "foundation-kit-v1.3.54",
-  "base_source_commit": "52a0462f3951ebfc9b50f24d9374e205ac8ae9df",
-  "base_archive_sha256": "6049e8f2ba2bc15b7b5ea50b987b2a1ac33b78cebf384b047b4d33f9384e8c30",
+  "built_at_utc": "2026-11-01T14:52:00.457375+00:00",
+  "base_release": "foundation-kit-v1.3.55",
+  "base_source_commit": "f255b9897bd29453441cb4732d7e3da4bac74e4d",
+  "base_archive_sha256": "a8ed0c0cb9918eac1dda60b7c7216df49036fb6fc349ae996bd9fe5936b25568",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
@@ -13,9 +13,7 @@
   "scope": {
     "changed": [
       "README.md",
-      "practice-workspace/ch10/AGENTS.md",
-      "practice-workspace/ch10/README.md",
-      "practice-workspace/ch10/erp-mini/README.md"
+      "practice-workspace/ch10/AGENTS.md"
     ],
     "added": [],
     "removed": []
@@ -30,8 +28,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 18050,
-        "sha256": "28c51721d1d922926c802f8a509ed9c3c98680ccc4eeb9902a725480092954e2"
+        "bytes": 18581,
+        "sha256": "0e9df56b0c63ab033f0ecf2fa40dbe40165435aa7ee0cdcdfe0a5f909b87df4d"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -1205,8 +1203,8 @@
       },
       {
         "path": "practice-workspace/ch10/AGENTS.md",
-        "bytes": 3480,
-        "sha256": "14e103e404280118460ab7a60ca3f487d98084bded25086a51fb2804e28b2be0"
+        "bytes": 4569,
+        "sha256": "6c115824d46bfc7e93d862c685aa79faad28a8ee07378ed907a3f8008d4b6eb7"
       },
       {
         "path": "practice-workspace/ch10/README.md",
@@ -1666,8 +1664,8 @@
     ]
   },
   "limits": [
-    "Documentation-only update; runtime and dependencies are byte-identical to public v1.3.54.",
-    "Database regression results belong to v1.3.54; not rerun for this documentation-only release.",
+    "Documentation-only update; runtime and dependencies are byte-identical to public v1.3.55.",
+    "Database regression results belong to v1.3.54; runtime was unchanged in v1.3.55 and is not rerun for this documentation-only release.",
     "Independent junior rerun, fresh AI generation and Supabase connection remain Not Run.",
     "Online supplements and EPUB are not published by this kit release."
   ]
