@@ -1,11 +1,11 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.54",
+  "release_id": "foundation-kit-v1.3.55",
   "release_status": "release_payload",
-  "built_at_utc": "2026-11-01T09:07:49.430054+00:00",
-  "base_release": "foundation-kit-v1.3.53",
-  "base_source_commit": "c132d25203797a796376aaab68a5230a8c8b84e3",
-  "base_archive_sha256": "bfed86be12fc653c21e7c9b73d8eabc49ed4a702fff428d8bcc60e27b5e4bf4d",
+  "built_at_utc": "2026-11-01T13:07:50.299522+00:00",
+  "base_release": "foundation-kit-v1.3.54",
+  "base_source_commit": "52a0462f3951ebfc9b50f24d9374e205ac8ae9df",
+  "base_archive_sha256": "6049e8f2ba2bc15b7b5ea50b987b2a1ac33b78cebf384b047b4d33f9384e8c30",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
@@ -13,12 +13,9 @@
   "scope": {
     "changed": [
       "README.md",
+      "practice-workspace/ch10/AGENTS.md",
       "practice-workspace/ch10/README.md",
-      "practice-workspace/ch10/erp-mini/AGENTS.md",
-      "practice-workspace/ch10/erp-mini/README.md",
-      "practice-workspace/ch10/erp-mini/lab_store.py",
-      "practice-workspace/ch10/erp-mini/requirements.txt",
-      "practice-workspace/ch10/erp-mini/verify_core.py"
+      "practice-workspace/ch10/erp-mini/README.md"
     ],
     "added": [],
     "removed": []
@@ -33,8 +30,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 17328,
-        "sha256": "8069d157a5d99f00141b47817a577a7c621ec0b1e83e869a3fe043b9e719bcca"
+        "bytes": 18050,
+        "sha256": "28c51721d1d922926c802f8a509ed9c3c98680ccc4eeb9902a725480092954e2"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -1208,13 +1205,13 @@
       },
       {
         "path": "practice-workspace/ch10/AGENTS.md",
-        "bytes": 742,
-        "sha256": "7167fda6ea63f2919e59c8387077dce532e84939a41d44273f024aefabbc929a"
+        "bytes": 3480,
+        "sha256": "14e103e404280118460ab7a60ca3f487d98084bded25086a51fb2804e28b2be0"
       },
       {
         "path": "practice-workspace/ch10/README.md",
-        "bytes": 7066,
-        "sha256": "3753ef3bfa53d3f0fecee30558d1dcf64898a906b39d0f20872f321b99406c3e"
+        "bytes": 7463,
+        "sha256": "3f402fc16491b354f3ab9f622ec8dd163b2d8e2f01306e598a5b5efbab5ad5f8"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/.env.example",
@@ -1228,8 +1225,8 @@
       },
       {
         "path": "practice-workspace/ch10/erp-mini/README.md",
-        "bytes": 7066,
-        "sha256": "3753ef3bfa53d3f0fecee30558d1dcf64898a906b39d0f20872f321b99406c3e"
+        "bytes": 7463,
+        "sha256": "3f402fc16491b354f3ab9f622ec8dd163b2d8e2f01306e598a5b5efbab5ad5f8"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/_starter/db.py",
@@ -1669,8 +1666,9 @@
     ]
   },
   "limits": [
-    "Actual learner AI generation, independent junior rerun and Supabase connection remain Not Run.",
-    "Online supplements and EPUB links retain their existing public versions; this kit does not publish manuscripts.",
-    "SQL isolation covers the provided connection contract, not arbitrary Python execution."
+    "Documentation-only update; runtime and dependencies are byte-identical to public v1.3.54.",
+    "Database regression results belong to v1.3.54; not rerun for this documentation-only release.",
+    "Independent junior rerun, fresh AI generation and Supabase connection remain Not Run.",
+    "Online supplements and EPUB are not published by this kit release."
   ]
 }

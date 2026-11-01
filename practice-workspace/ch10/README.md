@@ -5,11 +5,11 @@
 
 ## 준비와 실행
 
-1. erp-mini/.venv를 만들고 requirements.txt를 설치합니다.
+1. Python 3.12를 준비합니다. erp-mini에서 `py -3.12 -m venv .venv`로 가상환경을 만들고 `.\.venv\Scripts\python.exe --version`이 Python 3.12.x인지 확인한 뒤 `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`로 설치합니다.
 2. 폐기 가능한 전용 DB에서 sql/00_initialize_lab.sql, schema.sql, sql/10_seed.sql을 순서대로 실행합니다.
    schema.sql은 표식을 검사한 뒤 동명 테이블과 의존 객체를 삭제합니다. 보존할 데이터가 있는 DB에는 실행하지 않습니다.
 3. .env.example을 .env로 복사하고 DATABASE_URL을 직접 설정합니다. AI에 내용을 전달하지 않습니다.
-4. ch10 폴더에서 ./start_lab.ps1을 실행하고 http://127.0.0.1:8310을 엽니다.
+4. ch10 폴더의 PowerShell에서 `powershell -NoProfile -ExecutionPolicy Bypass -File .\start_lab.ps1`을 실행하고 http://127.0.0.1:8310을 엽니다. 실행 정책은 이 서버 프로세스에만 적용됩니다.
    또는 erp-mini에서 .venv/Scripts/python.exe -m uvicorn lab_app:app --host 127.0.0.1 --port 8310 --reload를 실행합니다.
 
 처음에는 /orders가 501 미구현으로 안내합니다. server.py와 test_orders.py를 AI와 완성합니다.
@@ -38,10 +38,10 @@
 
 1. 초기 재고 100·100, 신라면 현재가 5000을 확인합니다.
 2. 두 품목 정상 주문(신라면2·코카콜라1) 후 98·99, 상세 단가5000·12000과 관련 기록을 확인합니다.
-3. 같은 양수 입력으로 두 번째 품목 저장 실패 실험을 누릅니다.
-4. 실제 SQL에서 첫 상세·원장 INSERT 뒤 SELECT 1/0의 DB 오류22012와 ROLLBACK을 확인합니다.
-5. 새 연결 조회의 모든 관련 건수·재고가 실패 직전과 같은지 확인합니다.
-6. 현재가6000 → 신라면1 새 주문 → 현재가5000 원복 후 기존/새 주문 단가5000·6000을 확인합니다.
+3. 현재가6000 → 신라면1 새 주문 → 현재가5000 원복 후 기존/새 주문 단가5000·6000과 재고97·99를 확인합니다.
+4. 신라면2·코카콜라1 입력으로 두 번째 품목 저장 실패 실험을 누릅니다.
+5. 실제 SQL에서 첫 상세·원장 INSERT 뒤 SELECT 1/0의 DB 오류22012와 ROLLBACK을 확인합니다.
+6. 새 연결 조회에서 주문2·상세3·원장6·이벤트2·초기 이력2와 재고97·99가 실패 전후 같은지 확인합니다.
 7. 실행 결과를 복사해 AI와 검사하고, 단가 복사와 확정/취소 코드를 직접 확인한 뒤 업무 보고합니다.
 
 실패 장치는 lab_store.ObservedCursor가 두 번째 order_items INSERT 직전에 실제 DB 오류를 내는 방식입니다.
