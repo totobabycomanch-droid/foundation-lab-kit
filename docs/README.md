@@ -9,3 +9,7 @@
 - [기초 실습 환경 준비](01A_foundation_lab_setup.md)
 - [Chapter 11](11_chapter11.md)
 - [Day ERP 저장소](https://github.com/totobabycomanch-droid/franchise-erp)
+
+- [공통 부록: Supabase 전용 실습 프로젝트 준비](supplements/supabase_project_setup.md)
+
+공통 부록의 Chapter 10 복귀 링크는 키트에 포함된 실습 안내로 연결됩니다. 전자책에서는 10장의 전용 DB 준비 단계로 돌아갑니다.

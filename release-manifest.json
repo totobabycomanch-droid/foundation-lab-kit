@@ -1,25 +1,32 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.56",
+  "release_id": "foundation-kit-v1.3.57",
   "release_status": "release_payload",
-  "built_at_utc": "2026-11-01T14:52:00.457375+00:00",
-  "base_release": "foundation-kit-v1.3.55",
-  "base_source_commit": "f255b9897bd29453441cb4732d7e3da4bac74e4d",
-  "base_archive_sha256": "a8ed0c0cb9918eac1dda60b7c7216df49036fb6fc349ae996bd9fe5936b25568",
+  "built_at_utc": "2026-11-02T09:57:00.191345+00:00",
+  "base_release": "foundation-kit-v1.3.56",
+  "base_source_commit": "1a680a7ce2226636e050f4e639f0c0fdb8ae3b8c",
+  "base_archive_sha256": "f076d4e80ec880eaae8689edbbef1026aa639ea013cd4fc1eb0eb558181037d4",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
+    "added": [
+      "docs/supplements/supabase_project_setup.md"
+    ],
     "changed": [
       "README.md",
-      "practice-workspace/ch10/AGENTS.md"
+      "chapter-reference/ch11/ApproveOrder.vue",
+      "chapter-reference/ch11/README.md",
+      "docs/11_chapter11.md",
+      "docs/README.md",
+      "practice-workspace/ch10/README.md",
+      "practice-workspace/ch11/README.md"
     ],
-    "added": [],
     "removed": []
   },
   "payload": {
-    "file_count": 328,
+    "file_count": 329,
     "files": [
       {
         "path": ".gitignore",
@@ -28,8 +35,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 18581,
-        "sha256": "0e9df56b0c63ab033f0ecf2fa40dbe40165435aa7ee0cdcdfe0a5f909b87df4d"
+        "bytes": 19777,
+        "sha256": "a873e253998d147d1d1e764495196511bb0d355e007ad00b76cffc507ca6cc05"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -58,13 +65,13 @@
       },
       {
         "path": "chapter-reference/ch11/ApproveOrder.vue",
-        "bytes": 4584,
-        "sha256": "5e7cba7a24ca2810925feaf3f642f5090744ae46d511501b06080d3825891410"
+        "bytes": 4596,
+        "sha256": "650a36e3fc5ae66ca06b5fc48ecf90a13459715c255afa9f0a35f28aa4122c02"
       },
       {
         "path": "chapter-reference/ch11/README.md",
-        "bytes": 3321,
-        "sha256": "b4d5e092b6d4fef335c93a015dad2f807d696466648798aa68d649796e824dd3"
+        "bytes": 3619,
+        "sha256": "820c402ad926cc6fadba8aaf89750dfbde3513e3d5340deda07f9af58830fb9d"
       },
       {
         "path": "chapter-reference/ch11/approve_order.sql",
@@ -83,13 +90,13 @@
       },
       {
         "path": "docs/11_chapter11.md",
-        "bytes": 108810,
-        "sha256": "de69690832671feafcd7046b61c9b80b1750989ef154f7bfb5e732deab682dad"
+        "bytes": 123497,
+        "sha256": "40f84b6a78db2be50810be1530496caafe3ebe38997162b18fb9a282ae5262dd"
       },
       {
         "path": "docs/README.md",
-        "bytes": 786,
-        "sha256": "fcb38b4dd1b7cc1dea87ac0b22552905a5dd5ecbc2ed5af64de299ad75220f76"
+        "bytes": 1060,
+        "sha256": "fec5efb36d02c4198c883e3a3dc1a7a9232f404efa2215d5dd13c6b7ba719bb1"
       },
       {
         "path": "docs/images2/11_chapter11_approve_stock_error.png",
@@ -160,6 +167,11 @@
         "path": "docs/images2/setup-powershell-profile-dropdown.png",
         "bytes": 90494,
         "sha256": "7c2d37a12665446fae261f011e0efc9ed7ec03e686f9b7651625bf13bbcf5373"
+      },
+      {
+        "path": "docs/supplements/supabase_project_setup.md",
+        "bytes": 13548,
+        "sha256": "a96e17e364bfe0bfa4b4bd57900e3d4f8ca514c387aa7b906bff79ef486f7ecb"
       },
       {
         "path": "practice-workspace/AGENTS.md",
@@ -1208,8 +1220,8 @@
       },
       {
         "path": "practice-workspace/ch10/README.md",
-        "bytes": 7463,
-        "sha256": "3f402fc16491b354f3ab9f622ec8dd163b2d8e2f01306e598a5b5efbab5ad5f8"
+        "bytes": 7784,
+        "sha256": "37c17147d945f3a38a4dca63069d390525f198b9597808af3d93d45b6cd5d551"
       },
       {
         "path": "practice-workspace/ch10/erp-mini/.env.example",
@@ -1328,8 +1340,8 @@
       },
       {
         "path": "practice-workspace/ch11/README.md",
-        "bytes": 793,
-        "sha256": "922676cfca659ac28410c24c162eb0e44e945f1e7052de40fb002784902fc1b0"
+        "bytes": 1114,
+        "sha256": "639cae6a8134baf674b524aa5ff1199a6488c10b545f2e6bb9bf5f023748e1bb"
       },
       {
         "path": "practice-workspace/ch11/observation_record.md",
@@ -1662,11 +1674,5 @@
         "sha256": "b18d64c8cf9da4783e291e8f2e5ea9ae6403bb7274a850122f47a9129000291f"
       }
     ]
-  },
-  "limits": [
-    "Documentation-only update; runtime and dependencies are byte-identical to public v1.3.55.",
-    "Database regression results belong to v1.3.54; runtime was unchanged in v1.3.55 and is not rerun for this documentation-only release.",
-    "Independent junior rerun, fresh AI generation and Supabase connection remain Not Run.",
-    "Online supplements and EPUB are not published by this kit release."
-  ]
+  }
 }

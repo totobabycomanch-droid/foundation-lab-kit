@@ -10,3 +10,9 @@ VS Code에서 이 ch11 폴더를 엽니다. [최신 원고](../../docs/11_chapte
 - PowerShell 실행 정책으로 활성화가 차단돼도 원고의 venv Python 직접 실행 명령을 사용할 수 있습니다.
 
 시작 폴더에는 완성 API·화면을 넣지 않습니다. AI 조사·생성 후 실행 결과를 직접 관찰해 기록하세요.
+
+
+## Supabase 전용 프로젝트 준비
+
+[공통 부록](../../docs/supplements/supabase_project_setup.md)에서 프로젝트 생성·Session pooler 주소·비밀번호 인코딩을 확인합니다.
+장별 전용 DB를 사용하고, 준비 뒤 이 안내와 전자책의 해당 환경 설정 단계로 돌아갑니다.

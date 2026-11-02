@@ -70,7 +70,7 @@ export default {
         }
       } catch (error) {
         // 에러 메시지를 alert 창 대신 화면 컴포넌트 내부에 바인딩하여 안전하게 전파
-        this.errorMessage = error.response?.data?.detail || '서버에 연결할 수 없습니다. 연결 상태를 확인하고 다시 시도하세요.';
+        this.errorMessage = error.response?.data?.detail || '응답을 받지 못했습니다. 다시 요청하기 전에 DB에서 처리 결과를 확인하세요.';
       } finally {
         // 로딩만 해제합니다. 성공 뒤에는 isPaid로 버튼 잠금을 유지합니다.
         this.isLoading = false;
