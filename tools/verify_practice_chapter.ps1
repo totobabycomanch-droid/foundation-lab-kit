@@ -177,9 +177,28 @@ if ($Chapter -eq "ch08") {
 }
 
 if ($Chapter -eq "ch11") {
+    foreach ($relativePath in @("AGENTS.md", "workspace/AGENTS.md", "workspace/erp-project/AGENTS.md", "workspace/frontend-project/AGENTS.md", "workspace/erp-project/api/__init__.py", "workspace/erp-project/.env.example", "workspace/frontend-project/package-lock.json")) {
+        Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath) -PathType Leaf) "ch11/$relativePath"
+    }
     foreach ($fileName in @("approve_order.sql", "main.py", "ApproveOrder.vue", "App.vue", "README.md")) {
         $relativePath = "chapter-reference/ch11/$fileName"
         Write-Check (Test-Path -LiteralPath (Join-Path $kitRoot $relativePath) -PathType Leaf) $relativePath
+    }
+    $ch11DocsRoot = Join-Path $kitRoot "docs"
+    $manifestPath = Join-Path $kitRoot "release-manifest.json"
+    if (!(Test-Path -LiteralPath $ch11DocsRoot) -and (Test-Path -LiteralPath $manifestPath)) {
+        $workingManifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        if ($workingManifest.release_status -eq "working_copy") {
+            $ch11DocsRoot = Join-Path (Split-Path -Parent $kitRoot) "docs"
+        }
+    }
+    foreach ($relativePath in @("11_chapter11.md", "supplements/ch11_environment_setup.md", "supplements/ch11_review.md", "supplements/supabase_project_setup.md")) {
+        Write-Check (Test-Path -LiteralPath (Join-Path $ch11DocsRoot $relativePath) -PathType Leaf) "ch11 reader document: $relativePath"
+    }
+    $recordPath = Join-Path $chapterRoot "observation_record.md"
+    if (Test-Path -LiteralPath $recordPath) {
+        $recordText = Get-Content -LiteralPath $recordPath -Raw -Encoding UTF8
+        Write-Check ($recordText.Contains("이해한 이유·확인한 코드") -and $recordText.Contains("통신 오류") -and $recordText.Contains("잘못된 UUID")) "ch11 observation table includes code evidence and separate error cases"
     }
 }
 

@@ -13,3 +13,9 @@
 - [공통 부록: Supabase 전용 실습 프로젝트 준비](supplements/supabase_project_setup.md)
 
 공통 부록의 Chapter 10 복귀 링크는 키트에 포함된 실습 안내로 연결됩니다. 전자책에서는 10장의 전용 DB 준비 단계로 돌아갑니다.
+
+- [Chapter 11 환경 준비](supplements/ch11_environment_setup.md)
+- [Chapter 11 선택 복습](supplements/ch11_review.md)
+
+Chapter 11 본문의 절 번호와 기존 앵커는 유지했습니다. 환경·선택 자료로 이동한 내용은 본문의 링크로 엽니다.
+이 ZIP에는 전자책의 다른 장·Day 원고·ERP 저장소 전체가 포함되지 않습니다. 해당 링크는 전자책과 Day 저장소에서 확인합니다.

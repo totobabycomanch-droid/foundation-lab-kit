@@ -1,32 +1,39 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.57",
+  "release_id": "foundation-kit-v1.3.58",
   "release_status": "release_payload",
-  "built_at_utc": "2026-11-02T09:57:00.191345+00:00",
-  "base_release": "foundation-kit-v1.3.56",
-  "base_source_commit": "1a680a7ce2226636e050f4e639f0c0fdb8ae3b8c",
-  "base_archive_sha256": "f076d4e80ec880eaae8689edbbef1026aa639ea013cd4fc1eb0eb558181037d4",
+  "built_at_utc": "2026-11-03T03:15:23.775538+00:00",
+  "base_release": "foundation-kit-v1.3.57",
+  "base_source_commit": "cdac07276d7e08cad55a5d1f27149ca9392d0c39",
+  "base_archive_sha256": "041df8c96510572470935ec299dd24733ca74f349eff6be87dab92c3a63105e2",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
     "added": [
-      "docs/supplements/supabase_project_setup.md"
+      "docs/supplements/ch11_environment_setup.md",
+      "docs/supplements/ch11_review.md"
     ],
     "changed": [
       "README.md",
-      "chapter-reference/ch11/ApproveOrder.vue",
       "chapter-reference/ch11/README.md",
       "docs/11_chapter11.md",
       "docs/README.md",
-      "practice-workspace/ch10/README.md",
-      "practice-workspace/ch11/README.md"
+      "docs/supplements/supabase_project_setup.md",
+      "practice-workspace/ch11/AGENTS.md",
+      "practice-workspace/ch11/README.md",
+      "practice-workspace/ch11/observation_record.md",
+      "practice-workspace/ch11/workspace/AGENTS.md",
+      "practice-workspace/ch11/workspace/erp-project/AGENTS.md",
+      "practice-workspace/ch11/workspace/frontend-project/AGENTS.md",
+      "tools/verify_foundation_kit.ps1",
+      "tools/verify_practice_chapter.ps1"
     ],
     "removed": []
   },
   "payload": {
-    "file_count": 329,
+    "file_count": 331,
     "files": [
       {
         "path": ".gitignore",
@@ -35,8 +42,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 19777,
-        "sha256": "a873e253998d147d1d1e764495196511bb0d355e007ad00b76cffc507ca6cc05"
+        "bytes": 21273,
+        "sha256": "f4ba8cd8732d6fb0ca5627edce2fe5ae5f10edddf99b354cab988d146efe3b77"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -70,8 +77,8 @@
       },
       {
         "path": "chapter-reference/ch11/README.md",
-        "bytes": 3619,
-        "sha256": "820c402ad926cc6fadba8aaf89750dfbde3513e3d5340deda07f9af58830fb9d"
+        "bytes": 3832,
+        "sha256": "cc9beb508f671367d240b081a1d44bc72ecb74851d7d2bb7fa934c9035f016c6"
       },
       {
         "path": "chapter-reference/ch11/approve_order.sql",
@@ -90,13 +97,13 @@
       },
       {
         "path": "docs/11_chapter11.md",
-        "bytes": 123497,
-        "sha256": "40f84b6a78db2be50810be1530496caafe3ebe38997162b18fb9a282ae5262dd"
+        "bytes": 75851,
+        "sha256": "87beb265bbeaf92afd20001ff14f3393b4468a151e25841c944feaacf37bb92a"
       },
       {
         "path": "docs/README.md",
-        "bytes": 1060,
-        "sha256": "fec5efb36d02c4198c883e3a3dc1a7a9232f404efa2215d5dd13c6b7ba719bb1"
+        "bytes": 1504,
+        "sha256": "1a93932d6d3b485b5e21d1d794a7c93086e3d2add59a341181dc904ca91e9d26"
       },
       {
         "path": "docs/images2/11_chapter11_approve_stock_error.png",
@@ -169,9 +176,19 @@
         "sha256": "7c2d37a12665446fae261f011e0efc9ed7ec03e686f9b7651625bf13bbcf5373"
       },
       {
+        "path": "docs/supplements/ch11_environment_setup.md",
+        "bytes": 15672,
+        "sha256": "b875d94dff581b38499efef7618242ac595a643c4d227c07ae7e52580c2ad6bd"
+      },
+      {
+        "path": "docs/supplements/ch11_review.md",
+        "bytes": 26804,
+        "sha256": "77750adf4d4458e2980b169f4da331a9c19007e023a9783e1e9d492ee6fc92f9"
+      },
+      {
         "path": "docs/supplements/supabase_project_setup.md",
-        "bytes": 13548,
-        "sha256": "a96e17e364bfe0bfa4b4bd57900e3d4f8ca514c387aa7b906bff79ef486f7ecb"
+        "bytes": 13594,
+        "sha256": "1aaa72c8eb5777c2ef6d5651d1f806db9a0223179ad9ce7633765650ed0bb69c"
       },
       {
         "path": "practice-workspace/AGENTS.md",
@@ -1335,23 +1352,23 @@
       },
       {
         "path": "practice-workspace/ch11/AGENTS.md",
-        "bytes": 404,
-        "sha256": "a53b0487501227f77eb613c239622295a1b56ed626dbda1af170bbbd1d5094b0"
+        "bytes": 1413,
+        "sha256": "d3c3826886a01d423fb7442e892410af5cc6400da8bd4f2a8b456f170d03cc10"
       },
       {
         "path": "practice-workspace/ch11/README.md",
-        "bytes": 1114,
-        "sha256": "639cae6a8134baf674b524aa5ff1199a6488c10b545f2e6bb9bf5f023748e1bb"
+        "bytes": 1748,
+        "sha256": "0fa94b74689ec5e7b6a68f0c878ec1949cb2514d4b018c84a32fd7079f70a067"
       },
       {
         "path": "practice-workspace/ch11/observation_record.md",
-        "bytes": 2014,
-        "sha256": "5467b496752d6bf7b99546e7d67eb9729dfb12fac805d1286f5df174fb11955d"
+        "bytes": 2434,
+        "sha256": "9b0956fb1287e0ac161354a27435002578de86fe1791da67f647fa0c4855786f"
       },
       {
         "path": "practice-workspace/ch11/workspace/AGENTS.md",
-        "bytes": 350,
-        "sha256": "428c4aa167e92bf69718c07250c33749a74476da4daf1ec5885610cb09f2b195"
+        "bytes": 762,
+        "sha256": "95ace413e86f179cfd0c8992b10f2c4f34bdbf5e9f9efa716560e29402c20ef3"
       },
       {
         "path": "practice-workspace/ch11/workspace/_starter/App.vue",
@@ -1365,8 +1382,8 @@
       },
       {
         "path": "practice-workspace/ch11/workspace/erp-project/AGENTS.md",
-        "bytes": 298,
-        "sha256": "34432d175a786c3ea871c645fdbc6e8837a0b57c2feb9b77e2a4a6036c51aa90"
+        "bytes": 904,
+        "sha256": "6cabfcb29ba57caa4f8b81351c9fe2f6cc6cd6d39651ac8636c1ec1e3af1965f"
       },
       {
         "path": "practice-workspace/ch11/workspace/erp-project/api/__init__.py",
@@ -1380,8 +1397,8 @@
       },
       {
         "path": "practice-workspace/ch11/workspace/frontend-project/AGENTS.md",
-        "bytes": 376,
-        "sha256": "9a18f8a3902feb5bba7a263ac5c649cb9f5cd4fb45cbc8717d620c7d3ce18790"
+        "bytes": 817,
+        "sha256": "abee2ff5a581d06d165e9d650a71d785d212b011c31ba7583a8661daee962470"
       },
       {
         "path": "practice-workspace/ch11/workspace/frontend-project/index.html",
@@ -1665,13 +1682,13 @@
       },
       {
         "path": "tools/verify_foundation_kit.ps1",
-        "bytes": 10526,
-        "sha256": "b874e077e864ddcc9803f9a69fec85533053e94eba2e77e6bc88629061333e6c"
+        "bytes": 11271,
+        "sha256": "f6fd962e24892273d98f080c03d6aa21103fc7264f9ad945b6b6b77efb64a8ed"
       },
       {
         "path": "tools/verify_practice_chapter.ps1",
-        "bytes": 14181,
-        "sha256": "b18d64c8cf9da4783e291e8f2e5ea9ae6403bb7274a850122f47a9129000291f"
+        "bytes": 15812,
+        "sha256": "03882f9a3426e4b2ce4de3ac4227df6c71c82e6a29de5a128c97c677ad96f7f1"
       }
     ]
   }

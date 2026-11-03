@@ -188,6 +188,18 @@ foreach ($relativePath in $requiredPaths) {
     Write-Check (Test-Path -LiteralPath (Join-Path $kitRoot $relativePath)) $relativePath
 }
 
+$ch11DocsRoot = Join-Path $kitRoot "docs"
+$manifestPath = Join-Path $kitRoot "release-manifest.json"
+if (!(Test-Path -LiteralPath $ch11DocsRoot) -and (Test-Path -LiteralPath $manifestPath)) {
+    $workingManifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($workingManifest.release_status -eq "working_copy") {
+        $ch11DocsRoot = Join-Path (Split-Path -Parent $kitRoot) "docs"
+    }
+}
+foreach ($relativePath in @("11_chapter11.md", "supplements/ch11_environment_setup.md", "supplements/ch11_review.md", "supplements/supabase_project_setup.md")) {
+    Write-Check (Test-Path -LiteralPath (Join-Path $ch11DocsRoot $relativePath) -PathType Leaf) "ch11 reader document: $relativePath"
+}
+
 $forbiddenNames = @(".env", "node_modules", "dist", "venv", ".venv", "__pycache__")
 $forbiddenItems = @(Get-ChildItem -LiteralPath $kitRoot -Recurse -Force -ErrorAction SilentlyContinue |
     Where-Object { $forbiddenNames -contains $_.Name -or (!$_.PSIsContainer -and $_.Extension -in @(".db", ".sqlite", ".sqlite3")) })
