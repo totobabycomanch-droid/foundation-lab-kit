@@ -1,39 +1,31 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.58",
+  "release_id": "foundation-kit-v1.3.59",
   "release_status": "release_payload",
-  "built_at_utc": "2026-11-03T03:15:23.775538+00:00",
-  "base_release": "foundation-kit-v1.3.57",
-  "base_source_commit": "cdac07276d7e08cad55a5d1f27149ca9392d0c39",
-  "base_archive_sha256": "041df8c96510572470935ec299dd24733ca74f349eff6be87dab92c3a63105e2",
+  "built_at_utc": "2026-11-03T08:21:54.647004+00:00",
+  "base_release": "foundation-kit-v1.3.58",
+  "base_source_commit": "97f099cef9cfd42253aadfda9cf1e47e03c9de73",
+  "base_archive_sha256": "20388b10bc2949e80b853920a38a29c94e3afead46f0ecdaca8089d5c73a6e50",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
     "added": [
-      "docs/supplements/ch11_environment_setup.md",
-      "docs/supplements/ch11_review.md"
+      "docs/images2/11_chapter11_sql_paid.jpg",
+      "docs/images2/11_chapter11_swagger_uuid_422.jpg"
     ],
     "changed": [
       "README.md",
       "chapter-reference/ch11/README.md",
       "docs/11_chapter11.md",
-      "docs/README.md",
-      "docs/supplements/supabase_project_setup.md",
-      "practice-workspace/ch11/AGENTS.md",
-      "practice-workspace/ch11/README.md",
-      "practice-workspace/ch11/observation_record.md",
-      "practice-workspace/ch11/workspace/AGENTS.md",
-      "practice-workspace/ch11/workspace/erp-project/AGENTS.md",
-      "practice-workspace/ch11/workspace/frontend-project/AGENTS.md",
-      "tools/verify_foundation_kit.ps1",
-      "tools/verify_practice_chapter.ps1"
+      "docs/supplements/ch11_review.md",
+      "practice-workspace/ch11/observation_record.md"
     ],
     "removed": []
   },
   "payload": {
-    "file_count": 331,
+    "file_count": 333,
     "files": [
       {
         "path": ".gitignore",
@@ -42,8 +34,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 21273,
-        "sha256": "f4ba8cd8732d6fb0ca5627edce2fe5ae5f10edddf99b354cab988d146efe3b77"
+        "bytes": 22351,
+        "sha256": "87ffdbdad8bca9b3ac971213674d7a0ee125bd223b54094feb23a653cae2c2c4"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -77,8 +69,8 @@
       },
       {
         "path": "chapter-reference/ch11/README.md",
-        "bytes": 3832,
-        "sha256": "cc9beb508f671367d240b081a1d44bc72ecb74851d7d2bb7fa934c9035f016c6"
+        "bytes": 3885,
+        "sha256": "723f589503f0768c94c953aef7333653e225529117f8c280fa863b9808cadca0"
       },
       {
         "path": "chapter-reference/ch11/approve_order.sql",
@@ -97,8 +89,8 @@
       },
       {
         "path": "docs/11_chapter11.md",
-        "bytes": 75851,
-        "sha256": "87beb265bbeaf92afd20001ff14f3393b4468a151e25841c944feaacf37bb92a"
+        "bytes": 87764,
+        "sha256": "0444454a8cb5ade3e112cb43c235ab12dc3c9c3a6d0952d9092e376f9d06fae6"
       },
       {
         "path": "docs/README.md",
@@ -116,9 +108,19 @@
         "sha256": "8abb1338ed3e2e169f339583827451583361563df7677f5abb03416c69110911"
       },
       {
+        "path": "docs/images2/11_chapter11_sql_paid.jpg",
+        "bytes": 39658,
+        "sha256": "88b34e499935957d7e58b9b04100c6ae68b7370e5da8b6877462f57b6f11ba97"
+      },
+      {
         "path": "docs/images2/11_chapter11_supabase_connect_pooler.png",
         "bytes": 87826,
         "sha256": "5094c747d06ae2233bdefd0a763c2fa043c727b0974b94d6886e7dd86514f9f7"
+      },
+      {
+        "path": "docs/images2/11_chapter11_swagger_uuid_422.jpg",
+        "bytes": 172580,
+        "sha256": "82f6835bf099cbda5c2381eb2cead82440024db6fedda89a6238ca3601b0324d"
       },
       {
         "path": "docs/images2/11_chapter11_venv_terminal.png",
@@ -182,8 +184,8 @@
       },
       {
         "path": "docs/supplements/ch11_review.md",
-        "bytes": 26804,
-        "sha256": "77750adf4d4458e2980b169f4da331a9c19007e023a9783e1e9d492ee6fc92f9"
+        "bytes": 25963,
+        "sha256": "e44e46845ed6b331dfa4ce58c9f0928d5a448062069b06de60819f831ce57949"
       },
       {
         "path": "docs/supplements/supabase_project_setup.md",
@@ -1362,8 +1364,8 @@
       },
       {
         "path": "practice-workspace/ch11/observation_record.md",
-        "bytes": 2434,
-        "sha256": "9b0956fb1287e0ac161354a27435002578de86fe1791da67f647fa0c4855786f"
+        "bytes": 2816,
+        "sha256": "5511fb13f343ed2e19ab67ee87b2d8fff6970e3a40c2da36a602bfb168bcdd21"
       },
       {
         "path": "practice-workspace/ch11/workspace/AGENTS.md",
@@ -1691,5 +1693,9 @@
         "sha256": "03882f9a3426e4b2ce4de3ac4227df6c71c82e6a29de5a128c97c677ad96f7f1"
       }
     ]
-  }
+  },
+  "limits": [
+    "Network panel capture remains deferred by user.",
+    "No new live DB, full browser, or independent junior rehearsal was performed for this release."
+  ]
 }
