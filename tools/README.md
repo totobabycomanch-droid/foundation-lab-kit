@@ -62,7 +62,39 @@ verify_ch08_legacy_api.ps1는 이전 API 실습의 보관 도구이며 새 Chapt
 ./tools/reset_practice_chapter.ps1 -Chapter ch08 -Apply
 ```
 
-Chapter 10·11의 SQL은 폐기 가능한 전용 실습 DB에서 해당 장의 초기화 절차를 따릅니다.
+Chapter 10의 SQL은 폐기 가능한 전용 실습 DB에서 해당 장의 초기화 절차를 따릅니다.
+Chapter 11은 아래의 코드 복원·DB 사례 재준비를 구분합니다.
+
+## Chapter 11 주문 승인 검사
+
+- 시작 구성 확인: `./tools/verify_practice_chapter.ps1 -Chapter ch11`
+- 구현 후 업무 검사: `./tools/verify_ch11_core.ps1`
+- 일부 검사: `./tools/verify_ch11_core.ps1 -Only db` (`http`, `build`도 선택 가능)
+- Python 지정: `-PythonExecutable`에 준비한 가상환경의 실행 파일을 전달합니다.
+
+정적 검사는 실행 도구·두 사례 명세·미완성 시작 화면·참조 파일의 존재를 확인합니다.
+관찰 기록 다섯 절을 요구하거나 실제 DB·화면 동작을 통과로 표시하지 않습니다.
+업무 검사는 `ch11/workspace/erp-project/verify_core.py`를 실행합니다. 제공 검사와 기대값은 수정하지 않습니다.
+macOS·Linux에서는 백엔드의 Python으로 `verify_core.py`를 직접 실행하며 `--only db`, `--only http`, `--only build`를 선택할 수 있습니다.
+
+| 검사 | 확인할 결과 |
+|---|---|
+| DB 정상·부족·재승인 | 함께 저장·거절 시 유지·추가 차감 없음 |
+| DB 중간 실패 | 검사 주문의 원장 기록을 막았을 때 앞선 재고 변경도 취소 |
+| 독자 데이터·검사 데이터 | A·B 전후값 유지·검사 데이터 제거 |
+| HTTP 조회·정상·부족·재승인 | 실제 API 응답과 DB 저장값 일치 |
+| 빌드 | 기존 프론트엔드 빌드 성공 |
+
+DB 검사는 무작위 검사 주문·상품과 임시 제약을 같은 트랜잭션에서 만들고 전체 롤백합니다.
+HTTP 검사는 API가 읽을 수 있도록 별도 검사 데이터를 확정한 뒤, 성공·실패와 관계없이 해당 데이터만 정리합니다.
+API는 실행 도구가 소유한 서버만 사용하고, 필요하면 실행합니다. 다른 프로세스의 포트는 재사용하거나 종료하지 않습니다.
+설정·스키마가 없으면 해당 검사를 `Not Run`으로 남기고 종료 코드는 0이 아닙니다.
+브라우저 직접 확인과 여러 연결의 동시성은 별도 범위이며 자동 통과로 집계하지 않습니다.
+
+`reset_practice_chapter.ps1 -Chapter ch11`은 코드 복원 대상을 보여 줍니다.
+`-Apply`는 알려진 승인 API·컴포넌트를 제거하고 앱 시작 화면만 복원합니다. 실행 중인 관리 서버가 있으면 먼저 종료하도록 중단합니다.
+SQL·DB·연결 설정·독자 기록·제공 검사는 보존합니다. 이 명령은 DB 전체 초기화가 아닙니다.
+복습 데이터만 필요하면 AI에게 `lab.py prepare --case A --reset` 또는 `--case B --reset` 실행을 요청합니다.
 
 ## Chapter 5 SQL 예제
 

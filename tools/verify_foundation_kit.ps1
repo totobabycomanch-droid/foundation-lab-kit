@@ -48,7 +48,14 @@ $requiredPaths = @(
     "chapter-reference/ch11/ApproveOrder.vue",
     "chapter-reference/ch11/App.vue",
     "chapter-reference/ch11/README.md",
-    "practice-workspace/ch11/observation_record.md",
+    "practice-workspace/ch11/README.md",
+    "practice-workspace/ch11/connection_spec.md",
+    "practice-workspace/ch11/workspace/erp-project/lab.py",
+    "practice-workspace/ch11/workspace/erp-project/lab_db.py",
+    "practice-workspace/ch11/workspace/erp-project/lab_servers.py",
+    "practice-workspace/ch11/workspace/erp-project/verify_core.py",
+    "practice-workspace/ch11/workspace/erp-project/sql/view_orders.sql",
+    "tools/verify_ch11_core.ps1",
     "practice-workspace/AGENTS.md",
     "practice-workspace/README.md",
     "practice-workspace/ch03/AGENTS.md",
@@ -200,7 +207,7 @@ foreach ($relativePath in @("11_chapter11.md", "supplements/ch11_environment_set
     Write-Check (Test-Path -LiteralPath (Join-Path $ch11DocsRoot $relativePath) -PathType Leaf) "ch11 reader document: $relativePath"
 }
 
-$forbiddenNames = @(".env", "node_modules", "dist", "venv", ".venv", "__pycache__")
+$forbiddenNames = @(".env", "node_modules", "dist", "venv", ".venv", "__pycache__", ".ch11-runtime")
 $forbiddenItems = @(Get-ChildItem -LiteralPath $kitRoot -Recurse -Force -ErrorAction SilentlyContinue |
     Where-Object { $forbiddenNames -contains $_.Name -or (!$_.PSIsContainer -and $_.Extension -in @(".db", ".sqlite", ".sqlite3")) })
 Write-Check ($forbiddenItems.Count -eq 0) "generated files and real .env files are absent"

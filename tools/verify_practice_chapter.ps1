@@ -43,7 +43,7 @@ $required = @{
     ch08 = @("AGENTS.md", "README.md", "ai_build_rules.md", "ai_review_rules.md", "chapter8_order_spec.md", "understanding/AGENTS.md", "understanding/README.md", "understanding/checks/test_order_rules.py", "understanding/reference/order_example.py", "understanding/reference/test_order_example.py", "../../tools/verify_ch08_core.ps1")
     ch09 = @("web_server.py", "frontend/index.html", "frontend/app.js", "frontend/style.css", "checks/test_web.py", "verify_observation.py", "observation-baseline.json", "AGENTS.md", "README.md", "run.ps1", "erp-mini/AGENTS.md", "erp-mini/domain/__init__.py", "erp-mini/routers/__init__.py", "erp-mini/services/__init__.py", "erp-mini/tests/__init__.py", "checks/test_order_rules.py", "reference/order.py", "reference/test_order.py", "reference/README.md", "../../tools/verify_ch09_core.ps1")
     ch10 = @("AGENTS.md", "erp-mini/AGENTS.md", "erp-mini/README.md", "erp-mini/requirements.txt", "erp-mini/db.py", "erp-mini/schema.sql", "erp-mini/server.py", "erp-mini/_starter/db.py", "erp-mini/_starter/schema.sql", "erp-mini/_starter/server.py", "erp-mini/sql/00_initialize_lab.sql", "erp-mini/sql/99_reset_lab.sql")
-    ch11 = @("observation_record.md", "workspace/erp-project/requirements.txt", "workspace/frontend-project/package.json", "workspace/_starter/App.vue", "workspace/sql/00_initialize_lab.sql", "workspace/sql/99_reset_lab.sql")
+    ch11 = @("README.md", "workspace/erp-project/requirements.txt", "workspace/erp-project/lab.py", "workspace/erp-project/lab_db.py", "workspace/erp-project/lab_servers.py", "workspace/erp-project/verify_core.py", "workspace/erp-project/sql/view_orders.sql", "workspace/frontend-project/package.json", "workspace/_starter/App.vue", "../../tools/verify_ch11_core.ps1")
 }
 
 Write-Check (Test-Path -LiteralPath $chapterRoot -PathType Container) "$Chapter root exists"
@@ -195,15 +195,21 @@ if ($Chapter -eq "ch11") {
     foreach ($relativePath in @("11_chapter11.md", "supplements/ch11_environment_setup.md", "supplements/ch11_review.md", "supplements/supabase_project_setup.md")) {
         Write-Check (Test-Path -LiteralPath (Join-Path $ch11DocsRoot $relativePath) -PathType Leaf) "ch11 reader document: $relativePath"
     }
-    $recordPath = Join-Path $chapterRoot "observation_record.md"
-    if (Test-Path -LiteralPath $recordPath) {
-        $recordText = Get-Content -LiteralPath $recordPath -Raw -Encoding UTF8
-        $coreNoteNames = @('DB 정상 승인', 'DB 중간 실패', 'API 정상 승인', '화면 정상 승인', '재고 부족')
-        $missingOrDuplicateNotes = @($coreNoteNames | Where-Object {
-            [regex]::Matches($recordText, ('(?m)^## ' + [regex]::Escape($_) + '\r?$')).Count -ne 1
-        })
-        Write-Check ($missingOrDuplicateNotes.Count -eq 0) "ch11 observation record includes five experiment sections"
+    $specPath = Join-Path $chapterRoot "connection_spec.md"
+    if (Test-Path -LiteralPath $specPath) {
+        $spec = Get-Content -LiteralPath $specPath -Raw -Encoding UTF8
+        foreach ($marker in @('PROD-100', 'PROD-200', 'GET /orders', 'POST /orders/approve')) {
+            Write-Check ($spec.Contains($marker)) "ch11 specification includes $marker"
+        }
     }
+    $starterPath = Join-Path $chapterRoot "workspace/_starter/App.vue"
+    if (Test-Path -LiteralPath $starterPath) {
+        $starter = Get-Content -LiteralPath $starterPath -Raw -Encoding UTF8
+        Write-Check (-not $starter.Contains('<ApproveOrder') -and -not $starter.Contains('import ')) "ch11 starter has no completed approval component"
+    }
+    Write-Host "INFO    Static checks do not run SQL, HTTP, build, or reader screen tests."
+    Write-Host "INFO    After implementation, run .\tools\verify_ch11_core.ps1. A/B results are preserved."
+
 }
 
 if ($Chapter -in @("ch05", "ch10", "ch11")) {

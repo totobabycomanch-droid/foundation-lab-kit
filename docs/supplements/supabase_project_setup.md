@@ -15,8 +15,8 @@ SQL Editor에서 결과 `1`을 확인하고 Session pooler 주소를 찾았다�
 
 | 읽고 있는 장 | 프로젝트 이름 예시 | 준비 후 돌아갈 곳 |
 |---|---|---|
-| Chapter 10 | `erp-chapter10-lab` | [Step 3 전용 DB 준비로 돌아가기](../../practice-workspace/ch10/README.md) |
-| Chapter 11 | `erp-chapter11-lab` | [Chapter 11 환경 준비 4단계로 돌아가기](../11_chapter11.md#ch11-supabase-project) |
+| Chapter 10 | `erp-chapter10-lab` | [Step 3 전용 DB 준비로 돌아가기](../book_navigation.md#chapter10) |
+| Chapter 11 | `erp-chapter11-lab` | [Chapter 11 연결 준비로 돌아가기](../11_chapter11.md#ch11-supabase-project) |
 
 ## 1. Supabase에 로그인하고 조직 선택하기
 
@@ -121,8 +121,9 @@ Connect에서 복사한 주소에 `[YOUR-PASSWORD]`가 남아 있다면 프로�
 |---|---|---|
 | 연결 도구 | pg8000 | SQLAlchemy·psycopg2 |
 | `.env` 위치 | `ch10/erp-mini/.env` | `ch11/workspace/erp-project/.env` |
-| 주소 시작 부분 | `postgresql://` 그대로 사용 | 본문 지시에 따라 `postgresql+psycopg2://`로 변경 |
-| Python 연결 성공 표시 | `DB connection OK` | `1` |
+| 주소 시작 부분 | `postgresql://` 그대로 사용 | `postgresql://` 또는 `postgresql+psycopg2://` 허용 |
+| 추가 대상 확인 | 해당 장의 연결 검사 | 같은 프로젝트의 `CH11_PROJECT_REF` 설정 |
+| 실제 연결 성공 확인 | `DB connection OK` | AI의 접속·표식 검사 결과에서 `connection: Pass`, `marker: Pass` |
 
 두 장의 `.env`를 복사해서 공유하지 않습니다. 프로젝트별 URI를 각각 사용합니다.
 
@@ -166,10 +167,11 @@ URI에서 `@`, `:`, `/`, `#`, `%` 같은 문자는 주소를 나누는 데 쓰�
 - [ ] 같은 프로젝트의 DB 비밀번호를 보관했고 Session pooler 연결 주소를 찾았다.
 - [ ] 비밀번호와 실제 연결 주소를 AI 대화·Git·화면 캡처에 넣지 않았다.
 
-**10장 독자:** [Step 3 전용 DB 준비로 돌아가기](../../practice-workspace/ch10/README.md)를 눌러 `erp-mini/sql/00_initialize_lab.sql` 실행부터 이어갑니다.
+**10장 독자:** [Step 3 전용 DB 준비로 돌아가기](../book_navigation.md#chapter10)를 눌러 `erp-mini/sql/00_initialize_lab.sql` 실행부터 이어갑니다.
 Step 2의 패키지 설치·서버 확인은 마친 상태입니다. 이어서 Step 3에서 `.env`와 Python 연결을 확인하고 테이블·기초 데이터를 준비합니다.
 
-**11장 독자:** [Chapter 11 환경 준비 4단계로 돌아가기](../11_chapter11.md#ch11-supabase-project)를 눌러 `workspace/erp-project/.env`를 설정하고 `workspace/sql/00_initialize_lab.sql`을 실행합니다.
-5단계에서는 해당 장의 연결 확인 명령으로 Python 접속을 확인합니다.
+**11장 독자:** [Chapter 11 연결 준비로 돌아가기](../11_chapter11.md#ch11-supabase-project)를 눌러 `workspace/erp-project/.env`의 DB 연결 주소와 프로젝트 참조 ID를 설정합니다.
+이후 본문 11.2의 구현 요청으로 AI가 접속 확인·초기 준비·SQL 적용을 수행합니다. 표식 SQL을 별도로 수동 실행하지 않습니다.
+설정 형식 검사와 실제 접속·표식 검사 결과를 구분해 확인합니다.
 
 각 장의 표식 SQL은 서로 다릅니다. 공통 부록을 읽었다고 표식을 대신 만들거나 업무 테이블을 미리 생성하지 않습니다.

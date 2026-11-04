@@ -1,63 +1,114 @@
-# api/main.py
-import os
+"""전용 실습 DB의 주문 승인·현재 상태 조회 API 참조 구현."""
+from functools import lru_cache
 from uuid import UUID
-from fastapi import FastAPI, Depends, HTTPException
+
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from sqlalchemy import create_engine, text
+from sqlalchemy.engine import URL
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
 
-load_dotenv()  # 실행 터미널의 기존 DATABASE_URL을 해제한 뒤 백엔드 .env 로드
+from lab_db import CASES, settings
 
-# 1. 데이터베이스 연결 설정
-engine = create_engine(os.environ["DATABASE_URL"], hide_parameters=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+BUSINESS_ERRORS = {
+    'P1101': '승인 수량은 1 이상이어야 합니다.',
+    'P1102': '주문 정보가 존재하지 않습니다.',
+    'P1103': '요청 상품 또는 수량이 저장된 주문과 다릅니다.',
+    'P1104': '이미 승인된 주문입니다.',
+    'P1105': '상품 정보가 존재하지 않습니다.',
+    'P1106': '재고가 부족합니다.',
+}
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
-# 2. Pydantic 요청 스키마 정의
 class ApproveOrderRequest(BaseModel):
-    """주문 승인 요청 바디 스키마"""
     order_id: UUID
     product_id: str
-    qty: int = Field(ge=1)
+    qty: int = Field(ge=1, strict=True)
 
-# 3. FastAPI 인스턴스 생성 및 CORS 설정
-app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vue 개발 서버 기본 포트
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@lru_cache(maxsize=1)
+def local_session_factory():
+    # 연결값은 도구가 내부 사용합니다. 상속된 다른 DB 환경변수는 사용하지 않습니다.
+    config = settings()
+    url = URL.create('postgresql+psycopg2', username=config['user'], password=config['password'],
+                     host=config['host'], port=config['port'], database=config['dbname'])
+    engine = create_engine(url, hide_parameters=True, pool_pre_ping=True,
+                           connect_args={'sslmode': config['sslmode'], 'connect_timeout': 10,
+                                         'options': '-c statement_timeout=15000 -c lock_timeout=5000'})
+    return sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
-# 4. 주문 승인 API 엔드포인트 정의
-@app.post("/orders/approve")
-def approve_order_api(
-    request: ApproveOrderRequest, 
-    db=Depends(get_db)
-):
+
+def rollback_quietly(session):
     try:
-        # 아키텍처 원칙: 핵심 트랜잭션 및 데이터 정합성 로직은 DB 함수에 위임 (Thin Layer API)
-        # SQLAlchemy 2.0 호환을 위해 text()를 사용해 쿼리를 감싸줍니다.
-        db.execute(
-            text("SELECT approve_order(:id, :pid, :q)"),
-            {
-                "id": request.order_id,
-                "pid": request.product_id,
-                "q": request.qty
-            }
-        )
-        db.commit()  # 트랜잭션 확정
-        return {"status": "success"}
-    except Exception as e:
-        db.rollback()  # 오류 발생 시 롤백
-        raise HTTPException(status_code=400, detail=str(e))
+        session.rollback()
+    except SQLAlchemyError:
+        pass
+
+
+def check_lab(session):
+    identity = session.execute(text('SELECT current_database(), session_user')).one()
+    if identity[0] != 'postgres' or not (identity[1] == 'postgres' or identity[1].startswith('postgres.')):
+        raise HTTPException(status_code=503, detail='전용 실습 DB 연결을 확인해 주세요.')
+    marker = session.execute(text("SELECT 1 FROM public.foundation_lab_marker WHERE lab_id='chapter11'")).first()
+    if marker is None:
+        raise HTTPException(status_code=503, detail='Chapter 11 전용 실습 DB 표식이 없습니다.')
+
+
+def create_app(session_factory=None):
+    app = FastAPI(title='Chapter 11 주문 승인')
+    app.add_middleware(CORSMiddleware, allow_origins=['http://localhost:5173'],
+                       allow_methods=['GET', 'POST'], allow_headers=['Content-Type'])
+
+    def get_db():
+        try:
+            factory = session_factory if session_factory is not None else local_session_factory()
+            session = factory()
+        except Exception:
+            raise HTTPException(status_code=503, detail='로컬 전용 DB 연결 설정을 확인해 주세요.') from None
+        try:
+            yield session
+        finally:
+            try:
+                session.close()
+            except SQLAlchemyError:
+                pass
+
+    @app.get('/orders')
+    def list_orders(db=Depends(get_db)):
+        try:
+            check_lab(db)
+            rows = db.execute(text(
+                'SELECT o.order_id,o.order_name,o.product_id,s.product_name,o.quantity AS qty,'
+                's.quantity AS current_stock,o.status FROM public.orders o '
+                'JOIN public.stock s ON s.product_id=o.product_id '
+                'WHERE o.order_id IN (:a,:b) ORDER BY o.order_id'),
+                {'a': CASES['A'][0], 'b': CASES['B'][0]}).mappings().all()
+            return {'items': [dict(row) for row in rows]}
+        except SQLAlchemyError:
+            rollback_quietly(db)
+            raise HTTPException(status_code=503, detail='주문 상태를 읽지 못했습니다. 다시 조회해 주세요.') from None
+
+    @app.post('/orders/approve')
+    def approve_order(request: ApproveOrderRequest, db=Depends(get_db)):
+        committing = False
+        try:
+            check_lab(db)
+            db.execute(text('SELECT public.approve_order(:id,:pid,:qty)'),
+                       {'id': request.order_id, 'pid': request.product_id, 'qty': request.qty})
+            committing = True
+            db.commit()
+            return {'status': 'success'}
+        except SQLAlchemyError as error:
+            rollback_quietly(db)
+            code = getattr(getattr(error, 'orig', None), 'pgcode', None)
+            if not committing and code in BUSINESS_ERRORS:
+                raise HTTPException(status_code=400, detail=BUSINESS_ERRORS[code]) from None
+            # 커밋 중 장애는 저장 취소를 단정할 수 없습니다.
+            raise HTTPException(status_code=503, detail='처리 결과를 확인하지 못했습니다. 현재 상태를 다시 조회해 주세요.') from None
+
+    return app
+
+
+app = create_app()

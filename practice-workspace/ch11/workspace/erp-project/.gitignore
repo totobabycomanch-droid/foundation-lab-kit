@@ -1,0 +1,6 @@
+# Local configuration and process state must not enter the starter archive.
+.env
+venv/
+.venv/
+__pycache__/
+.ch11-runtime/

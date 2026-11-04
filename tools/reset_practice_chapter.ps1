@@ -66,6 +66,23 @@ function Resolve-SafePath([string]$RelativePath) {
     return $candidate
 }
 
+if ($Chapter -eq 'ch11') {
+    Write-Host "INFO    Code reset only. SQL, database, .env, observations and provided checks are preserved."
+    Write-Host "INFO    For reader data, ask the AI to use lab.py prepare --case A (or B) --reset."
+    if ($Apply) {
+        foreach ($service in @('api', 'web')) {
+            $statePath = Join-Path $chapterRoot "workspace/erp-project/.ch11-runtime/$service.json"
+            if (Test-Path -LiteralPath $statePath -PathType Leaf) {
+                $state = Get-Content -LiteralPath $statePath -Raw -Encoding UTF8 | ConvertFrom-Json
+                $now = ([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds() / 1000.0)
+                if ($state.state -eq 'running' -and ($now - $state.heartbeat) -lt 5) {
+                    throw "Stop the owned ch11 servers with lab.py servers stop before code reset."
+                }
+            }
+        }
+    }
+}
+
 Write-Host "Chapter root: $chapterRoot"
 Write-Host "Remove targets:"
 foreach ($relativePath in $removeTargets[$Chapter]) {
