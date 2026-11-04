@@ -177,7 +177,7 @@ if ($Chapter -eq "ch08") {
 }
 
 if ($Chapter -eq "ch11") {
-    foreach ($relativePath in @("AGENTS.md", "workspace/AGENTS.md", "workspace/erp-project/AGENTS.md", "workspace/frontend-project/AGENTS.md", "workspace/erp-project/api/__init__.py", "workspace/erp-project/.env.example", "workspace/frontend-project/package-lock.json")) {
+    foreach ($relativePath in @("AGENTS.md", "connection_spec.md", "workspace/AGENTS.md", "workspace/erp-project/AGENTS.md", "workspace/frontend-project/AGENTS.md", "workspace/erp-project/api/__init__.py", "workspace/erp-project/.env.example", "workspace/frontend-project/package-lock.json")) {
         Write-Check (Test-Path -LiteralPath (Join-Path $chapterRoot $relativePath) -PathType Leaf) "ch11/$relativePath"
     }
     foreach ($fileName in @("approve_order.sql", "main.py", "ApproveOrder.vue", "App.vue", "README.md")) {
@@ -198,7 +198,11 @@ if ($Chapter -eq "ch11") {
     $recordPath = Join-Path $chapterRoot "observation_record.md"
     if (Test-Path -LiteralPath $recordPath) {
         $recordText = Get-Content -LiteralPath $recordPath -Raw -Encoding UTF8
-        Write-Check ($recordText.Contains("이해한 이유·확인한 코드") -and $recordText.Contains("통신 오류") -and $recordText.Contains("잘못된 UUID")) "ch11 observation table includes code evidence and separate error cases"
+        $coreNoteNames = @('DB 정상 승인', 'DB 중간 실패', 'API 정상 승인', '화면 정상 승인', '재고 부족')
+        $missingOrDuplicateNotes = @($coreNoteNames | Where-Object {
+            [regex]::Matches($recordText, ('(?m)^## ' + [regex]::Escape($_) + '\r?$')).Count -ne 1
+        })
+        Write-Check ($missingOrDuplicateNotes.Count -eq 0) "ch11 observation record includes five experiment sections"
     }
 }
 

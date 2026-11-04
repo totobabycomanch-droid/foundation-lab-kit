@@ -1,31 +1,35 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.59",
+  "release_id": "foundation-kit-v1.3.60",
   "release_status": "release_payload",
-  "built_at_utc": "2026-11-03T08:21:54.647004+00:00",
-  "base_release": "foundation-kit-v1.3.58",
-  "base_source_commit": "97f099cef9cfd42253aadfda9cf1e47e03c9de73",
-  "base_archive_sha256": "20388b10bc2949e80b853920a38a29c94e3afead46f0ecdaca8089d5c73a6e50",
+  "built_at_utc": "2026-11-04T05:21:13.441248+00:00",
+  "base_release": "foundation-kit-v1.3.59",
+  "base_source_commit": "e2d67ac0561ba4cb4178ab9e4f2afc07c3cae9a3",
+  "base_archive_sha256": "df10ce2ce5af2d9d576518bb920b77a46dfa5ab13ad73835b4ba625892f7cb9f",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
     "added": [
-      "docs/images2/11_chapter11_sql_paid.jpg",
-      "docs/images2/11_chapter11_swagger_uuid_422.jpg"
+      "practice-workspace/ch11/connection_spec.md"
     ],
     "changed": [
       "README.md",
-      "chapter-reference/ch11/README.md",
       "docs/11_chapter11.md",
+      "docs/supplements/ch11_environment_setup.md",
       "docs/supplements/ch11_review.md",
-      "practice-workspace/ch11/observation_record.md"
+      "practice-workspace/ch11/AGENTS.md",
+      "practice-workspace/ch11/observation_record.md",
+      "practice-workspace/ch11/workspace/AGENTS.md",
+      "practice-workspace/ch11/workspace/erp-project/AGENTS.md",
+      "practice-workspace/ch11/workspace/frontend-project/AGENTS.md",
+      "tools/verify_practice_chapter.ps1"
     ],
     "removed": []
   },
   "payload": {
-    "file_count": 333,
+    "file_count": 334,
     "files": [
       {
         "path": ".gitignore",
@@ -34,8 +38,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 22351,
-        "sha256": "87ffdbdad8bca9b3ac971213674d7a0ee125bd223b54094feb23a653cae2c2c4"
+        "bytes": 23419,
+        "sha256": "2e7686ad7714409e1f51487470329622516bfc5e1164d615d6f1ca983e73210c"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -89,8 +93,8 @@
       },
       {
         "path": "docs/11_chapter11.md",
-        "bytes": 87764,
-        "sha256": "0444454a8cb5ade3e112cb43c235ab12dc3c9c3a6d0952d9092e376f9d06fae6"
+        "bytes": 54856,
+        "sha256": "4059ad2b40ba2a70c34dc3da44860a04d2d21814b5a60d992a66df0813ff57f8"
       },
       {
         "path": "docs/README.md",
@@ -179,13 +183,13 @@
       },
       {
         "path": "docs/supplements/ch11_environment_setup.md",
-        "bytes": 15672,
-        "sha256": "b875d94dff581b38499efef7618242ac595a643c4d227c07ae7e52580c2ad6bd"
+        "bytes": 33986,
+        "sha256": "fc51b2aba8cf871a21068333a832d09fc1b3bc29bc05a1a358f52614136d13ec"
       },
       {
         "path": "docs/supplements/ch11_review.md",
-        "bytes": 25963,
-        "sha256": "e44e46845ed6b331dfa4ce58c9f0928d5a448062069b06de60819f831ce57949"
+        "bytes": 47563,
+        "sha256": "3939d509d3431cab026bbaa79232d0f68adc0a9c1b89a52930dca5225f3d8639"
       },
       {
         "path": "docs/supplements/supabase_project_setup.md",
@@ -1354,8 +1358,8 @@
       },
       {
         "path": "practice-workspace/ch11/AGENTS.md",
-        "bytes": 1413,
-        "sha256": "d3c3826886a01d423fb7442e892410af5cc6400da8bd4f2a8b456f170d03cc10"
+        "bytes": 3952,
+        "sha256": "8255d10e3618cea6f8a584e4539a9b0569b43dea99da8b42268f7bcdc85c1db4"
       },
       {
         "path": "practice-workspace/ch11/README.md",
@@ -1363,14 +1367,19 @@
         "sha256": "0fa94b74689ec5e7b6a68f0c878ec1949cb2514d4b018c84a32fd7079f70a067"
       },
       {
+        "path": "practice-workspace/ch11/connection_spec.md",
+        "bytes": 8449,
+        "sha256": "3c12d34eea8aacc2468a1ad97baed0a00f396939a9e82eb866e36dd980a6e92a"
+      },
+      {
         "path": "practice-workspace/ch11/observation_record.md",
-        "bytes": 2816,
-        "sha256": "5511fb13f343ed2e19ab67ee87b2d8fff6970e3a40c2da36a602bfb168bcdd21"
+        "bytes": 1794,
+        "sha256": "812f0f4bd4c2c2b22c081a322d5f899fd956025fc1c6335209818de13f381aea"
       },
       {
         "path": "practice-workspace/ch11/workspace/AGENTS.md",
-        "bytes": 762,
-        "sha256": "95ace413e86f179cfd0c8992b10f2c4f34bdbf5e9f9efa716560e29402c20ef3"
+        "bytes": 1455,
+        "sha256": "28c0654f54123977ae6e841925e4b9d024d2630a824776b2b8c54346c40bd029"
       },
       {
         "path": "practice-workspace/ch11/workspace/_starter/App.vue",
@@ -1384,8 +1393,8 @@
       },
       {
         "path": "practice-workspace/ch11/workspace/erp-project/AGENTS.md",
-        "bytes": 904,
-        "sha256": "6cabfcb29ba57caa4f8b81351c9fe2f6cc6cd6d39651ac8636c1ec1e3af1965f"
+        "bytes": 1510,
+        "sha256": "e4cdb981fd90c24ca91ad7e9b161a5db9b6d87823a29dfd1c02aced1c5bf9869"
       },
       {
         "path": "practice-workspace/ch11/workspace/erp-project/api/__init__.py",
@@ -1399,8 +1408,8 @@
       },
       {
         "path": "practice-workspace/ch11/workspace/frontend-project/AGENTS.md",
-        "bytes": 817,
-        "sha256": "abee2ff5a581d06d165e9d650a71d785d212b011c31ba7583a8661daee962470"
+        "bytes": 1155,
+        "sha256": "eaa272790fc4703990f44ae75b9c20e2e909edb3d3f8269433a599f8e7d84fec"
       },
       {
         "path": "practice-workspace/ch11/workspace/frontend-project/index.html",
@@ -1689,13 +1698,9 @@
       },
       {
         "path": "tools/verify_practice_chapter.ps1",
-        "bytes": 15812,
-        "sha256": "03882f9a3426e4b2ce4de3ac4227df6c71c82e6a29de5a128c97c677ad96f7f1"
+        "bytes": 16024,
+        "sha256": "a514f70777309f2da63da0114fdfd7a94db922e78b2a8bcea2ad838e105d2057"
       }
     ]
-  },
-  "limits": [
-    "Network panel capture remains deferred by user.",
-    "No new live DB, full browser, or independent junior rehearsal was performed for this release."
-  ]
+  }
 }
