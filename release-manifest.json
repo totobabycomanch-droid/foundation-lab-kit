@@ -1,30 +1,23 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.60",
+  "release_id": "foundation-kit-v1.3.61",
   "release_status": "release_payload",
-  "built_at_utc": "2026-11-04T05:21:13.441248+00:00",
-  "base_release": "foundation-kit-v1.3.59",
-  "base_source_commit": "e2d67ac0561ba4cb4178ab9e4f2afc07c3cae9a3",
-  "base_archive_sha256": "df10ce2ce5af2d9d576518bb920b77a46dfa5ab13ad73835b4ba625892f7cb9f",
+  "built_at_utc": "2026-11-04T06:52:13.420094+00:00",
+  "base_release": "foundation-kit-v1.3.60",
+  "base_source_commit": "7452e0e4472ab4792764602faf551abca16ddca0",
+  "base_archive_sha256": "02c9939a63a7def95c72ac8a6425e56d971e91144e490eaf13ac8835f6c6cc2a",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "scope": {
-    "added": [
-      "practice-workspace/ch11/connection_spec.md"
-    ],
+    "added": [],
     "changed": [
       "README.md",
       "docs/11_chapter11.md",
       "docs/supplements/ch11_environment_setup.md",
-      "docs/supplements/ch11_review.md",
-      "practice-workspace/ch11/AGENTS.md",
-      "practice-workspace/ch11/observation_record.md",
-      "practice-workspace/ch11/workspace/AGENTS.md",
-      "practice-workspace/ch11/workspace/erp-project/AGENTS.md",
-      "practice-workspace/ch11/workspace/frontend-project/AGENTS.md",
-      "tools/verify_practice_chapter.ps1"
+      "docs/supplements/supabase_project_setup.md",
+      "practice-workspace/ch11/observation_record.md"
     ],
     "removed": []
   },
@@ -38,8 +31,8 @@
       },
       {
         "path": "README.md",
-        "bytes": 23419,
-        "sha256": "2e7686ad7714409e1f51487470329622516bfc5e1164d615d6f1ca983e73210c"
+        "bytes": 24747,
+        "sha256": "9d16a7b87a3fc2cc533220f331e77c4609cb244f4c035090d6c0230a3c2e1477"
       },
       {
         "path": "chapter-reference/ch10/schema.sql",
@@ -93,8 +86,8 @@
       },
       {
         "path": "docs/11_chapter11.md",
-        "bytes": 54856,
-        "sha256": "4059ad2b40ba2a70c34dc3da44860a04d2d21814b5a60d992a66df0813ff57f8"
+        "bytes": 80079,
+        "sha256": "368e3e4ab14a45e93496c7324a6ef14e38ec6f0fdeeeef35bc74d4f11c5c4a04"
       },
       {
         "path": "docs/README.md",
@@ -183,8 +176,8 @@
       },
       {
         "path": "docs/supplements/ch11_environment_setup.md",
-        "bytes": 33986,
-        "sha256": "fc51b2aba8cf871a21068333a832d09fc1b3bc29bc05a1a358f52614136d13ec"
+        "bytes": 11184,
+        "sha256": "d214d6d125188e60c53d55e3fb90bf20b9026c880b1365a1679f509b6bf7492e"
       },
       {
         "path": "docs/supplements/ch11_review.md",
@@ -193,8 +186,8 @@
       },
       {
         "path": "docs/supplements/supabase_project_setup.md",
-        "bytes": 13594,
-        "sha256": "1aaa72c8eb5777c2ef6d5651d1f806db9a0223179ad9ce7633765650ed0bb69c"
+        "bytes": 13755,
+        "sha256": "3030ec67072c3d3e648e4a7cd22ce7a54f16045775684e593c602bd2d6c8ceeb"
       },
       {
         "path": "practice-workspace/AGENTS.md",
@@ -1373,8 +1366,8 @@
       },
       {
         "path": "practice-workspace/ch11/observation_record.md",
-        "bytes": 1794,
-        "sha256": "812f0f4bd4c2c2b22c081a322d5f899fd956025fc1c6335209818de13f381aea"
+        "bytes": 1803,
+        "sha256": "95a021d7c19935eecf84bd12d79df7310ef4bc939f5945b61760087ca988acdc"
       },
       {
         "path": "practice-workspace/ch11/workspace/AGENTS.md",

@@ -16,7 +16,7 @@ SQL Editor에서 결과 `1`을 확인하고 Session pooler 주소를 찾았다�
 | 읽고 있는 장 | 프로젝트 이름 예시 | 준비 후 돌아갈 곳 |
 |---|---|---|
 | Chapter 10 | `erp-chapter10-lab` | [Step 3 전용 DB 준비로 돌아가기](../../practice-workspace/ch10/README.md) |
-| Chapter 11 | `erp-chapter11-lab` | [Chapter 11 환경 준비 4단계로 돌아가기](ch11_environment_setup.md#ch11-supabase-project) |
+| Chapter 11 | `erp-chapter11-lab` | [Chapter 11 환경 준비 4단계로 돌아가기](../11_chapter11.md#ch11-supabase-project) |
 
 ## 1. Supabase에 로그인하고 조직 선택하기
 
@@ -169,7 +169,7 @@ URI에서 `@`, `:`, `/`, `#`, `%` 같은 문자는 주소를 나누는 데 쓰�
 **10장 독자:** [Step 3 전용 DB 준비로 돌아가기](../../practice-workspace/ch10/README.md)를 눌러 `erp-mini/sql/00_initialize_lab.sql` 실행부터 이어갑니다.
 Step 2의 패키지 설치·서버 확인은 마친 상태입니다. 이어서 Step 3에서 `.env`와 Python 연결을 확인하고 테이블·기초 데이터를 준비합니다.
 
-**11장 독자:** [Chapter 11 환경 준비 4단계로 돌아가기](ch11_environment_setup.md#ch11-supabase-project)를 눌러 `workspace/erp-project/.env`를 설정하고 `workspace/sql/00_initialize_lab.sql`을 실행합니다.
+**11장 독자:** [Chapter 11 환경 준비 4단계로 돌아가기](../11_chapter11.md#ch11-supabase-project)를 눌러 `workspace/erp-project/.env`를 설정하고 `workspace/sql/00_initialize_lab.sql`을 실행합니다.
 5단계에서는 해당 장의 연결 확인 명령으로 Python 접속을 확인합니다.
 
 각 장의 표식 SQL은 서로 다릅니다. 공통 부록을 읽었다고 표식을 대신 만들거나 업무 테이블을 미리 생성하지 않습니다.

@@ -45,25 +45,433 @@ Vue 화면에는 고정 주문 정보와 승인 결과가 표시됩니다. 실�
 
 ## 11.0-ENV 실습 시작 전 환경 구축 (Chapter 11 Supabase 전용)
 
+<a id="ch11-environment"></a>
+
 VS Code에서 기초 실습 키트의 `practice-workspace/ch11/`만 엽니다. `workspace/erp-project/`는
 백엔드, `workspace/frontend-project/`는 프론트엔드입니다. Chapter 10의 `erp-mini/`는 복사하지 않습니다.
 이 폴더와 DB는 Chapter 11 전용이며, Day 00에서는 별도 저장소를 새 폴더에 준비합니다.
 
-처음 준비한다면 [Chapter 11 환경 준비](supplements/ch11_environment_setup.md)의 1~6단계를 완료한 뒤 돌아오세요.
-시작 파일 확인, 패키지 설치, Supabase 전용 프로젝트와 연결값 설정, DB 연결 확인을 순서대로 안내합니다.
-이미 준비했다면 설치를 반복하지 말고 아래 완료 기준만 확인합니다.
+Node.js와 npm은 Chapter 6에서 준비한 환경을 사용합니다.
 
-**준비 완료 기준**
+> [!NOTE]
+> **운영체제별 버전 확인**
+>
+> Windows PowerShell에서는 `node --version`과 `npm.cmd --version`으로 버전을 확인합니다.
+> `npm` 실행 시 `npm.ps1`이 차단됐다는 오류가 나면 실행 정책을 바꾸지 말고 `npm.cmd`를 사용하세요.
+>
+> macOS·Linux에서는 `node --version`과 `npm --version`을 사용합니다.
+> 버전을 확인할 수 없다면 [Node.js 준비 절](06_chapter6.md#nodejs-ready)에서 해결한 뒤 돌아오세요.
 
-- [ ] 시작 파일 검사에서 `ch11 static verification passed.`와 세 `Test-Path`의 `True`를 확인했다.
-- [ ] 프론트엔드의 `npm ci`와 Python 3.12 가상환경의 패키지 설치가 성공했다.
-- [ ] 백엔드 `venv`의 Python 버전·경로를 확인하고 `workspace/erp-project/.env`에 전용 DB 연결값을 설정했다.
-- [ ] Chapter 11 전용 DB에서 `workspace/sql/00_initialize_lab.sql`의 표식 등록을 마쳤다.
-- [ ] [DB 연결 확인](supplements/ch11_environment_setup.md#ch11-db-check)에서 `1`이 출력됐고, 두 서버의 포트 `8000`·`5173`을 사용할 수 있다.
+이번 준비는 **시작 파일 확인 → 실행 도구 설치 → 전용 DB 연결** 순서로 진행합니다.
+1~3단계를 마치면 로컬 실행 준비가 끝나고, 4~5단계를 마치면 DB까지 연결됩니다.
+두 서버를 켜거나 주문 승인 결과를 확인하는 일은 뒤의 실습에서 진행합니다.
+이미 설치와 연결을 마쳤다면 반복하지 말고 [6단계의 준비 완료 기준](#ch11-environment-ready)으로 이동합니다.
 
-실제 `.env`와 비밀값은 AI 대화·Git·화면 캡처에 포함하지 않습니다.
-연결 확인의 `1`은 DB와 통신했다는 뜻입니다. 주문 테이블·승인 함수는 11.2에서 만듭니다.
-두 서버 실행도 뒤의 API·화면 실습에서 진행합니다.
+### 1단계. 실습에 필요한 시작 파일과 폴더 확인
+
+키트에 실습을 시작하는 데 필요한 파일과 폴더가 들어 있는지 확인합니다.
+PowerShell에서 키트의 최상위 폴더로 이동한 뒤 아래 명령을 실행하세요.
+키트를 다른 위치에 압축 해제했다면 첫 줄의 경로를 자신의 위치로 바꿉니다.
+
+```powershell
+Set-Location C:\erp-book\foundation-lab-kit
+powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\verify_practice_chapter.ps1 -Chapter ch11
+Set-Location practice-workspace/ch11
+
+Test-Path AGENTS.md
+Test-Path workspace/erp-project/api/__init__.py
+Test-Path workspace/erp-project/.env.example
+```
+
+검사 명령은 이 PowerShell 프로세스에서만 스크립트 실행을 허용하며, PC의 실행 정책은 영구 변경하지 않습니다.
+
+**출력 예시:** 앞부분의 파일별 검사 결과는 생략했습니다. 마지막 부분을 아래와 비교하세요.
+
+```text
+NOT RUN database execution requires a dedicated disposable lab database
+INFO    Preview reset targets with: .\tools\reset_practice_chapter.ps1 -Chapter ch11
+ch11 static verification passed.
+True
+True
+True
+```
+
+**다음으로 넘어갈 기준:** `ch11 static verification passed.`와 마지막 세 줄의 `True`를 확인합니다.
+`NOT RUN`은 DB 실행 검사를 아직 하지 않았다는 안내입니다. 지금은 시작 파일을 확인하는 단계이므로 정상이며,
+도구는 DB에 자동 접속하지 않습니다. `INFO`에 표시된 초기화 명령도 지금은 실행하지 않습니다.
+
+세 `Test-Path` 결과 중 하나라도 `False`라면 키트를 새 폴더에 다시
+압축 해제해 시작 파일을 확인합니다. 기존 작업이 있는 폴더에 덮어쓰지 않습니다.
+
+### 2단계. 프론트엔드 의존성 설치
+
+현재 위치가 `C:\erp-book\foundation-lab-kit\practice-workspace\ch11`인지 확인합니다.
+키트를 다른 위치에 압축 해제했다면 해당 위치의 `practice-workspace/ch11` 폴더에서 시작하세요.
+아래 명령은 `workspace/frontend-project` 폴더로 이동한 뒤, 화면 실행에 필요한 패키지를 설치합니다.
+제공된 `package.json`과 잠금 파일을 사용하며 새 Vite 프로젝트를 만들지 않습니다.
+
+```powershell
+Set-Location workspace/frontend-project
+npm.cmd ci
+```
+
+**출력 예시:** 패키지 수와 설치 시간은 환경에 따라 다릅니다. 아래 `…`는 달라지는 값이나 생략한 내용을 뜻합니다.
+
+```text
+added … packages, and audited … packages in …s
+…
+npm notice New major version of npm available! …
+```
+
+**다음으로 넘어갈 기준:** `npm error` 없이 설치가 끝나고 PowerShell 입력창이 다시 나타나는지 확인합니다.
+`npm notice`는 npm의 새 버전을 알리는 안내이며 설치 오류가 아닙니다. 표시되지 않아도 정상입니다.
+지금은 npm을 업데이트하지 않고 다음 단계로 진행하세요.
+
+<a id="ch11-python-setup"></a>
+
+### 3단계. 백엔드 가상환경과 의존성 설치
+
+이 실습은 **Python 3.12 준비 → 가상환경 생성 → 활성화 → 버전과 경로 확인 → 패키지 설치** 순서로 진행합니다.
+PC에 Python 3.15가 설치돼 있어도 삭제하지 않습니다. Python 3.12를 함께 설치하고, 이 장의 가상환경을 만들 때 지정합니다.
+아래 명령은 새 PowerShell 창에서 순서대로 실행하세요. 키트 설치 위치가 다르면 첫 명령의 경로를 바꿉니다.
+
+**(1) 백엔드 폴더로 이동하고 Python 3.12 준비**
+
+```powershell
+Set-Location C:\erp-book\foundation-lab-kit\practice-workspace\ch11\workspace\erp-project
+```
+
+6장에서 사용한 Python Install Manager로 3.12를 준비합니다. 이미 설치돼 있으면 다시 사용할 수 있습니다.
+다음 두 명령을 한 줄씩 실행하고, 첫 명령이 오류 없이 끝난 뒤 두 번째 명령으로 버전을 확인합니다.
+
+```powershell
+pymanager install 3.12
+pymanager exec -V:3.12 --version
+```
+
+**확인할 결과:** `Python 3.12.x`가 출력되면 (2)로 진행합니다. 마지막 숫자는 설치 시점에 따라 다릅니다.
+
+**(2) Python 3.12로 Chapter 11 가상환경 생성**
+
+먼저 `Test-Path .\venv`를 실행합니다. `False`라면 아래 생성 명령으로 진행합니다.
+`True`라면 새로 만들지 말고 [기존 가상환경 확인](supplements/ch11_environment_setup.md#ch11-existing-venv)을 따라 버전을 확인하세요.
+Python 3.12 환경이면 생성 명령을 생략하고 (3)부터 이어갑니다.
+
+현재 위치가 `workspace\erp-project`인 같은 PowerShell에서 실행합니다.
+
+**가상환경 생성 명령**
+
+```powershell
+pymanager exec -V:3.12 -m venv venv
+```
+
+**확인할 결과:** 오류 없이 PowerShell 입력창이 다시 나타나면 생성이 끝난 것입니다.
+별도의 성공 메시지는 나오지 않을 수 있습니다. 6장의 `.venv`와 달리 이 장의 폴더 이름은 `venv`입니다.
+
+**(3) 현재 터미널에서 가상환경 활성화**
+
+활성화는 이 터미널의 `python` 명령이 가상환경 안의 Python을 사용하도록 실행 경로를 바꾸는 작업입니다.
+같은 백엔드 폴더에서 아래 명령을 한 줄씩 실행합니다. 첫 명령에서 확인 질문이 나오면 내용을 확인하고 `Y`를 입력하세요.
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+.\venv\Scripts\Activate.ps1
+```
+
+첫 명령은 로컬 스크립트를 실행할 수 있도록 **현재 PowerShell 창에만** 정책을 설정합니다.
+창을 닫으면 설정도 사라집니다. `RemoteSigned`는 로컬에서 만든 스크립트의 실행을 허용하고,
+인터넷에서 내려받은 스크립트에는 서명을 요구합니다. 자세한 범위는
+[PowerShell 공식 안내](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies)를 참고하세요.
+
+**확인할 결과:** 활성화 명령이 오류 없이 끝나면 (4)로 진행합니다.
+터미널 앞에 `(venv)`가 표시될 수 있지만, 실제로 선택된 Python은 다음 순서에서 확인합니다.
+
+![가상환경 활성화 터미널 예시](images2/11_chapter11_venv_terminal.png)
+
+**(4) 활성화된 Python의 버전과 경로 확인**
+
+같은 PowerShell 창에서 실행합니다.
+
+```powershell
+python --version
+python -c "import sys; print(sys.executable)"
+```
+
+**출력 예시:** 키트 설치 위치에 따라 경로의 앞부분은 달라집니다.
+
+```text
+Python 3.12.x
+C:\erp-book\foundation-lab-kit\practice-workspace\ch11\workspace\erp-project\venv\Scripts\python.exe
+```
+
+**다음으로 넘어갈 기준:** `Python 3.12.x`와 현재 백엔드 폴더의 `venv\Scripts\python.exe` 경로를 확인합니다.
+3.15가 나오거나 경로에 현재 프로젝트의 `venv`가 없으면 패키지를 설치하지 말고 (3)의 활성화 결과부터 다시 확인합니다.
+
+**(5) 확인한 가상환경에 필요한 패키지 설치**
+
+(4)를 통과한 같은 PowerShell 창과 백엔드 폴더에서 실행합니다.
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+`python -m pip`는 방금 확인한 Python으로 패키지 설치 도구를 실행한다는 뜻입니다.
+`requirements.txt`에는 FastAPI, Uvicorn, SQLAlchemy, psycopg2-binary, python-dotenv가 들어 있습니다.
+
+**확인할 결과:** 설치가 오류 없이 끝나고 PowerShell 입력창이 다시 나타나면 됩니다.
+마지막의 pip 새 버전 안내는 설치 오류가 아닙니다.
+
+설치나 활성화가 막히면 [Python 설치·활성화 도움말](supplements/ch11_environment_setup.md#ch11-python-help)에서 해당 증상만 확인합니다.
+
+> [!NOTE]
+> **macOS·Linux에서 진행한다면**
+>
+> Python 3.12를 준비한 뒤 같은 백엔드 폴더에서 `python3.12 -m venv venv`로 만들고,
+> `source venv/bin/activate`로 활성화합니다. (4)에서 버전과 `venv/bin/python` 경로를 확인한 뒤 (5)의 설치 명령을 실행합니다.
+> 이후 본문의 `& .\venv\Scripts\python.exe`는 `./venv/bin/python`으로 바꿉니다.
+> 기존 가상환경은 버전과 경로를 확인하고 사용하며, Windows의 실행 정책 명령은 실행하지 않습니다.
+
+**여기까지의 완료 기준:** 시작 파일 확인, `npm ci`, Python 3.12 가상환경의 패키지 설치를 모두 마쳤습니다.
+활성화는 현재 터미널에만 적용되므로 새 터미널에서는 다시 실행합니다.
+
+<a id="ch11-supabase-project"></a>
+
+### 4단계. Supabase 연결 정보 설정
+
+먼저 Chapter 11 전용 Supabase 프로젝트를 준비합니다. Supabase는 PostgreSQL DB와 관리 화면을 함께 제공합니다.
+이미 `erp-chapter11-lab` 같은 이름의 전용 프로젝트를 만들었다면 이름을 확인한 뒤 아래 **SQL Editor에서 조회하기**부터 진행합니다.
+5장이나 10장의 DB와 섞지 않으며, 별도의 `CREATE DATABASE` 명령은 실행하지 않습니다.
+
+#### 로그인하고 조직 선택하기
+
+1. [Supabase 대시보드](https://supabase.com/dashboard)를 엽니다.
+2. 처음 사용하는 독자는 화면의 가입 안내에 따라 계정을 만듭니다. GitHub 로그인이나 이메일 등 화면에서 제공하는 방식을 사용하고, 인증을 완료합니다.
+3. 로그인 후 프로젝트 목록으로 이동합니다. 조직 선택 또는 생성 화면이 먼저 나오면 사용할 개인 실습 조직을 선택합니다.
+4. 조직이 없다면 **New organization**에서 실습용 조직을 만듭니다. 이름은 `erp-book-lab`처럼 용도를 알아볼 수 있게 정합니다.
+   무료 실습을 진행한다면 조직 생성 화면에서 **Free** 플랜인지 확인합니다. 이미 개인 실습용 조직이 있다면 다시 만들지 않아도 됩니다.
+
+조직(Organization)은 프로젝트를 묶어 관리하는 공간입니다. 아직 이 조직을 골랐다는 것만으로 DB가 만들어진 것은 아닙니다.
+다음 단계에서 Chapter 11에 사용할 프로젝트를 만듭니다.
+
+**이 단계 완료:** 사용할 조직을 선택했고, 그 조직의 프로젝트 목록을 열 수 있습니다.
+
+#### Chapter 11 전용 프로젝트 만들기
+
+프로젝트 목록에서 **New project**를 선택합니다. 생성 화면에서 다음 항목을 확인합니다.
+
+| 화면의 항목 | 입력하거나 확인할 내용 |
+|---|---|
+| Organization | 앞에서 선택한 개인 실습용 조직 |
+| Project name / Name | `erp-chapter11-lab` |
+| Database password | 이 프로젝트의 DB 접속에 사용할 길고 고유한 비밀번호 |
+| Region | 현재 위치에서 가까운 지역. 선택 가능한 지역 중 하나를 고릅니다. |
+
+DB 비밀번호는 Supabase 로그인 비밀번호와 별개입니다. 비밀번호를 자동 생성했다면 프로젝트를 만들기 전에 비밀번호 관리 도구에 보관합니다.
+메모에는 장별 프로젝트 이름을 함께 적어 두세요. DB 비밀번호를 AI 대화나 실습 결과 파일에 넣지 않습니다.
+
+선택한 조직·프로젝트 이름·지역을 다시 읽고 **Create new project**로 생성을 완료합니다.
+생성 중에는 기다렸다가 해당 프로젝트의 관리 화면을 엽니다. 화면에서 준비 중이라고 표시되는 동안 SQL을 실행하지 않습니다.
+버튼 위치나 문구가 달라도 ‘새 프로젝트 생성’, ‘DB 비밀번호’, ‘지역’에 해당하는 항목을 찾아 확인합니다.
+
+**이 단계 완료:** Chapter 11의 프로젝트 이름이 보이고, 그 프로젝트의 **SQL Editor**와 **Connect**를 열 수 있습니다.
+다른 장이나 실제 업무용 프로젝트가 열려 있다면 다음 단계로 진행하지 않습니다.
+
+프로젝트 생성이 제한되면 [공통 부록의 생성 한도 안내](supplements/supabase_project_setup.md#supabase-project-limit)를 확인합니다.
+
+#### SQL Editor에서 조회하기
+
+1. 화면 상단의 프로젝트 이름이 `erp-chapter11-lab`인지 확인합니다.
+2. **SQL Editor**를 열고 **New Query**로 새 쿼리를 만듭니다. SQL을 입력하는 편집 영역과 결과 영역을 구분하세요.
+3. 아래 SQL을 편집 영역에 붙여 넣습니다. 코드 블록의 시작·끝에 있는 백틱은 복사하지 않습니다.
+
+```sql
+SELECT 1 AS connection_check;
+```
+
+4. **Run**을 누릅니다. 여러 SQL 중 일부를 선택한 상태라면 선택한 부분만 실행될 수 있으므로, 이번에는 위 한 문장만 둡니다.
+5. 결과 표에서 다음과 같은 값을 확인합니다.
+
+| connection_check |
+|---:|
+| 1 |
+
+이 결과는 브라우저의 SQL Editor에서 DB 조회가 실행됐다는 뜻입니다. 아직 내 PC의 Python 연결을 확인한 것은 아닙니다.
+테이블 생성이나 실습 데이터 입력도 하지 않았습니다. 주문 테이블과 승인 함수는 11.2에서 만듭니다.
+
+본문에서 SQL 파일 실행을 안내하면 아래 순서로 진행합니다. 삭제를 포함하는 SQL이면 본문의 삭제 대상 확인부터 마칩니다.
+
+1. VS Code에서 실행할 `.sql` 파일을 엽니다.
+2. 파일의 내용을 **전체 복사**합니다.
+3. Supabase SQL Editor에서 **New Query로 새 쿼리 탭**을 엽니다. SQL 파일 하나마다 새 탭을 사용합니다.
+4. 복사한 SQL을 새 탭에 붙여 넣습니다. 이전 SQL이 남아 있는 탭에 이어 붙이지 않습니다.
+5. 현재 프로젝트가 **Chapter 11 전용 프로젝트**인지 확인합니다.
+6. **Run**을 눌러 실행합니다.
+
+오류가 표시되면 다음 SQL로 넘어가지 않고 해당 장의 도움말을 확인합니다.
+
+**이 단계 완료:** 오류 없이 결과 표의 `1`을 확인했습니다.
+
+SQL Editor 사용이 아직 낯설다면 아래 프롬프트로 필요한 설명을 요청하세요.
+
+> **[학습 프롬프트: SQL Editor 사용법 확인하기]**
+>
+> ```text
+> Supabase의 현재 공식 문서를 검색해 SQL Editor에서 새 쿼리를 만들고,
+> SQL을 실행한 뒤 결과와 오류를 확인하는 방법을 처음 사용하는 사람에게 설명해 주세요.
+> SQL 일부를 선택했을 때 실행 범위가 어떻게 달라지는지도 알려 주세요.
+> 공식 출처와 확인 날짜를 함께 제시하고, 웹 검색이 불가능하면 알려 주세요.
+> ```
+
+#### Session pooler 연결 주소 확인하기
+
+1. 현재 열린 프로젝트가 **Chapter 11 전용 프로젝트**인지 확인합니다.
+2. 화면 상단의 **Connect**를 엽니다.
+3. 연결 방식에서 **Session pooler**를 선택합니다. **Transaction pooler**와 구분하세요.
+4. 연결 주소의 표시 형식을 고르는 항목이 보이면 **URI**를 선택합니다. URI는 `postgresql://`로 시작하는 **한 줄짜리 DB 연결 주소**입니다.
+   이미 이런 주소가 표시돼 있다면 그대로 다음 항목으로 진행하세요.
+5. **Connection string** 영역의 **Shared pooler** 아래에서 `postgresql://`로 시작하는 연결 주소를 찾습니다.
+
+아래에서 `.env` 파일을 준비한 뒤, 이 주소를 **처음부터 끝까지 전체 복사**합니다.
+주소가 가로로 길게 표시되므로 화면에 보이는 부분만 복사하지 않도록 주의하세요.
+**Copy prompt**는 주소가 아닌 AI용 설명을 복사하는 기능이므로 사용하지 않습니다.
+
+![Connect에서 Session pooler와 URI를 선택한 연결 정보 화면](images2/11_chapter11_supabase_connect_pooler.png)
+
+위 그림은 주소를 찾는 위치의 예시입니다. 복사할 때는 자신의 Chapter 11 프로젝트에 표시된 주소를 사용합니다.
+Supabase 로그인 비밀번호와 DB 비밀번호는 다릅니다. `https://`로 시작하는 프로젝트 URL이나 API 키도 이번 연결에 사용하지 않습니다.
+
+**로컬 연결 설정:**
+
+백엔드 터미널에서 다음 명령을 실행합니다. 이미 `.env`를 작성했다면 복사 명령은 생략합니다.
+
+```powershell
+Copy-Item .env.example .env
+```
+
+설정 파일은 `ch11/` 기준 `workspace/erp-project/.env`입니다. VS Code에서 이 파일을 직접 열고 아래 순서로 값을 채웁니다.
+AI에게 실제 파일을 읽히지 않습니다.
+
+1. 파일에서 `DATABASE_URL=`로 시작하는 줄을 찾습니다. 완성할 형태는 다음과 같습니다. 아래 예시의 대문자 값은 자신의 값으로 바꿉니다.
+
+   ```dotenv
+   DATABASE_URL="postgresql+psycopg2://USER:PASSWORD@HOST:PORT/postgres"
+   ```
+
+2. 앞에서 열어 둔 Chapter 11 프로젝트의 **Connection string → Shared pooler**에서
+   `postgresql://`로 시작하는 **연결 주소 전체**를 복사해 `DATABASE_URL`의 따옴표 안에 붙여 넣습니다.
+   사용자명·호스트·포트는 직접 조합하지 않습니다.
+3. 주소 맨 앞의 `postgresql://`만 `postgresql+psycopg2://`로 바꿉니다.
+   설치한 `psycopg2-binary` 드라이버로 연결하겠다는 뜻입니다.
+4. `[YOUR-PASSWORD]`가 남아 있다면 프로젝트 생성 때 정한 **DB 비밀번호**로 바꿉니다.
+   비밀번호에 `@`, `#`, `/` 같은 특수문자가 있으면 바로 아래 방법으로 변환한 값을 넣습니다.
+5. 파일을 저장합니다. 주소가 한 줄이고 `postgresql+psycopg2://`로 시작하는지 확인한 뒤 아래 DB 표식 등록으로 이어갑니다.
+
+**비밀번호에 특수문자가 있을 때:** 백엔드 폴더의 로컬 터미널에서 아래 명령을 직접 실행합니다.
+AI에게 실행을 맡기지 말고, `DB password:`가 나오면 인코딩하지 않은 원래 비밀번호를 입력하세요.
+입력한 글자는 화면에 나타나지 않습니다. 입력 숨김을 지원하지 않는 환경에서는 오류로 중단됩니다.
+
+```powershell
+& .\venv\Scripts\python.exe -c "
+import warnings
+from getpass import getpass, GetPassWarning
+from urllib.parse import quote
+warnings.simplefilter('error', GetPassWarning)
+print(quote(getpass('DB password: '), safe=''))
+"
+```
+
+출력값으로 URI의 **비밀번호 부분만** 바꿉니다. 예를 들어 가짜 비밀번호 `lab@/#`는
+`lab%40%2F%23`으로 바뀝니다. 주소 전체나 이미 인코딩한 값을 다시 변환하지 않습니다.
+인코딩은 암호화가 아니므로 출력값도 비밀정보입니다. 자신의 `.env`에만 옮기고,
+AI 대화·Git·화면 캡처에 포함하지 않습니다. 자세한 동작은 [Python URL 인코딩 안내](https://docs.python.org/3/library/urllib.parse.html#urllib.parse.quote)를 참고하세요.
+
+연결 주소의 각 부분이 어떤 역할을 하는지 궁금하다면 아래 프롬프트로 설명을 요청하세요.
+
+> **[학습 프롬프트: DB 연결 주소 이해하기]**
+>
+> ```text
+> Supabase와 SQLAlchemy의 현재 공식 문서를 검색해, 이 실습의
+> SQLAlchemy 2.x·psycopg2 환경에서 Session pooler로 연결하는 주소 형식을 설명해 주세요.
+> postgresql+psycopg2://의 의미와 사용자명·비밀번호·호스트·포트의 역할,
+> 비밀번호에 특수문자가 있을 때 처리하는 방법을 예시 값으로 알려 주세요.
+> 실제 연결값이나 .env 파일은 요청하지 마세요.
+> 공식 출처와 확인 날짜를 제시하고, 웹 검색이 불가능하면 알려 주세요.
+> ```
+
+실제 `.env`와 비밀값은 AI가 읽거나 출력하지 못하게 하고, 채팅·Git·화면 캡처에도 포함하지 않습니다.
+
+> [!IMPORTANT]
+> **[직접 실행] Chapter 11 전용 DB 표식 등록**
+>
+> 1. Supabase에서 현재 프로젝트가 **Chapter 11 전용 프로젝트**인지 확인합니다. 보존할 데이터가 있는 프로젝트라면 실행하지 말고 접속 대상부터 다시 확인합니다.
+> 2. VS Code에서 `ch11/` 기준 `workspace/sql/00_initialize_lab.sql`을 열고 내용을 **전체 복사**합니다.
+> 3. SQL Editor에서 **New Query로 새 쿼리 탭**을 열고 붙여 넣습니다.
+> 4. 프로젝트 이름을 다시 확인한 뒤 **Run**을 눌러 한 번 실행합니다.
+>
+> **완료 기준:** SQL Editor에 오류 없이 실행이 완료됐다는 결과가 표시됩니다. 조회 SQL이 아니므로 데이터 결과 표가 나오지 않아도 정상입니다.
+> 이 SQL은 업무 테이블을 만들지 않고 전용 실습 DB 표식만 기록합니다. 주문 테이블과 승인 함수는 11.2에서 만듭니다.
+>
+> 장 끝의 객체 제거 SQL은 표식이 없으면 중단되지만, 표식 자체가 DB의 용도를 판별하지는 않습니다.
+> 운영 DB나 Day 프로젝트에 실행하지 않습니다.
+
+<a id="ch11-db-check"></a>
+
+### 5단계. DB 연결 확인
+
+백엔드 터미널(`erp-project/` 폴더)에서 기존 `venv`의 Python으로 연결만 확인합니다.
+
+현재 위치가 `workspace/erp-project`인지 확인하고 아래 블록 전체를 PowerShell에 붙여 넣어 실행합니다.
+첫 줄은 이전 장의 연결값을 사용하지 않도록 현재 터미널의 `DATABASE_URL`을 해제합니다.
+
+```powershell
+Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue
+@'
+import os
+from dotenv import load_dotenv
+from sqlalchemy import create_engine, text
+
+try:
+    load_dotenv(dotenv_path=".env")
+    engine = create_engine(os.environ["DATABASE_URL"], hide_parameters=True,
+                           connect_args={"connect_timeout": 10})
+    with engine.connect() as connection:
+        print(connection.execute(text("SELECT 1")).scalar_one())
+    engine.dispose()
+except Exception as error:
+    print("연결 확인 실패:", type(error).__name__)
+    raise SystemExit(1)
+'@ | & .\venv\Scripts\python.exe -
+```
+
+**확인할 결과:** `1`이 출력되면 연결 성공입니다. 아래 6단계의 완료 기준으로 진행하세요.
+
+연결에 실패했다면 [DB 연결 실패 도움말](supplements/ch11_environment_setup.md#ch11-db-connection-help)에서 오류 종류를 확인합니다.
+실제 연결 주소나 오류 원문은 채팅에 붙이지 않습니다.
+
+**첫 명령으로 연결값을 해제하는 이유**
+
+연결 확인의 첫 명령은 이 장에서 서버를 실행할 때마다 반복됩니다. 이유는 한 가지입니다.
+`load_dotenv()`는 터미널에 이미 `DATABASE_URL`이 있으면 `.env`의 값으로 덮어쓰지 않습니다.
+이전 장에서 같은 이름의 값을 터미널에 설정해 두었다면, `.env`에 Chapter 11 주소를 적어도
+다른 프로젝트에 접속할 수 있습니다. 이 명령은 **현재 터미널의 `DATABASE_URL`만 해제**해
+항상 `.env`를 쓰게 합니다. 사용자·시스템 전역 설정은 바꾸지 않으며, 새 터미널을 열면 다시 실행합니다.
+macOS·Linux에서는 같은 목적으로 `unset DATABASE_URL`을 실행하고, 위 Python 코드를
+`./venv/bin/python`으로 실행합니다.
+
+
+
+<a id="ch11-environment-ready"></a>
+
+### 6단계. 실습 동작 최종 체크리스트
+
+- [ ] `npm ci`와 가상환경의 `pip install`이 성공했다.
+- [ ] 3단계에서 백엔드 `venv`의 Python 실행 경로를 확인했고, `.env`에 자신의 연결값을 입력했다.
+- [ ] 전용 실습 DB에서 표식 SQL을 실행했다.
+- [ ] 5단계의 연결 확인에서 `1`이 출력됐다.
+- [ ] 두 서버의 포트 `8000`·`5173`을 사용할 수 있고 Supabase 프로젝트가 활성 상태다.
+
+**환경 준비 완료:** 파일 검사와 설치, DB 연결 확인까지 마쳤습니다. 두 서버는 뒤의 API·화면 실습에서 실행합니다.
+아직 주문 테이블과 승인 함수가 없는 것이 정상입니다. 이어지는 회의에서 업무 조건을 정하고 11.2에서 첫 승인 결과를 확인하겠습니다.
 
 <a id="ch11-after-environment"></a>
 
@@ -71,9 +479,19 @@ VS Code에서 기초 실습 키트의 `practice-workspace/ch11/`만 엽니다. `
 
 ## 11.1 전체 그림 먼저: 우리가 만들 것
 
-**업무 회의: 주문 승인을 언제 완료로 볼 것인가**
+<a id="ch11-business-conditions"></a>
 
-아래 회의는 학습용 가상 상황입니다. 실제 프로젝트에서 정하지 않은 업무 기준은 담당자에게 확인해야 합니다.
+**처음 전달받은 업무 요청**
+
+> 주문 승인 버튼을 누르면 재고를 차감하고 완료 표시를 해 주세요.
+
+**이 요청에서 무엇이 빠졌을까요?** 바로 구현하기 전에, AI가 임의로 결정하게 될 내용을 생각해 보세요.
+예를 들어 재고가 부족할 때도 승인해야 할까요? 떠오른 의문을 바탕으로 다음 회의를 읽어 봅니다.
+
+**조건을 구체화하는 업무 회의**
+
+담당자의 질문에 개발자가 처리 방식을 제안하며, 짧은 요청을 구현할 수 있는 조건으로 구체화합니다.
+아래는 학습용 가상 회의입니다. 실제 프로젝트에서는 정해지지 않은 업무 기준을 담당자에게 확인하세요.
 
 > **주문 담당자:** 상품 3개를 주문한 건을 승인하려고 합니다. 버튼을 누르면 재고에서도 빠져야 합니다.
 >
@@ -93,6 +511,24 @@ VS Code에서 기초 실습 키트의 `practice-workspace/ch11/`만 엽니다. `
 >
 > **개발자:** 먼저 DB에서 승인 처리를 만들고, API를 거쳐 화면까지 연결하겠습니다. 말씀하신 결과를 하나씩 확인하겠습니다.
 
+**합의한 내용으로 구현 시작하기**
+
+회의에서 재고·원장·주문을 함께 저장하고, 재고가 부족하면 거절하며, 저장 성공을 확인한 뒤 완료로 표시하기로 했습니다.
+VS Code 탐색기에서 지금 연 `ch11/` 폴더 바로 아래의 **`observation_record.md`**를 엽니다.
+이 파일은 이번 장의 합의 내용과 직접 실행한 결과를 남기는 기록장입니다.
+**회의에서 합의한 승인 조건** 항목의 빈칸 세 개를 아래처럼 채웁니다.
+
+```markdown
+- 거절할 요청: 재고가 주문 수량보다 부족하면 승인하지 않는다.
+- 함께 저장할 데이터: 재고 차감, 원장 기록, 주문 승인 완료를 함께 저장한다.
+- 완료로 표시할 시점: DB 저장이 확정되고 API 성공 응답을 받은 뒤 표시한다.
+```
+
+이 세 줄은 회의에서 정한 **구현 기준**입니다. 아직 실행한 결과를 적는 것은 아닙니다.
+이전 키트에서 항목 이름이 **내가 정한 승인 조건**으로 되어 있다면 같은 세 빈칸을 사용하세요.
+`Ctrl+S`로 저장하고 원고 탭으로 돌아옵니다. 기록 파일은 열어 둔 채, 실습을 마칠 때마다 해당 항목을 채우겠습니다.
+이제 이 합의를 기준으로 DB 처리를 만들고 API와 화면을 연결하겠습니다.
+
 **세 약속을 DB·API·화면으로 연결하기**
 
 회의에서 정한 거절 조건·함께 저장할 데이터·완료 시점이 각 층에서 어떻게 이어지는지 봅니다.
@@ -107,23 +543,6 @@ flowchart TD
     DB -->|"함수 결과 또는 예외"| API
     API -->|"커밋 후 성공<br/>롤백 후 오류"| UI
 ```
-
-<a id="ch11-business-conditions"></a>
-
-**[짧은 실습] 회의의 약속을 내 말로 정리하기**
-
-업무 담당자가 아래 한 문장만 전달했다면 어떤 조건이 빠졌을까요? 읽기용 요청이므로 그대로 AI에게 구현을 맡기지 않습니다.
-
-> 주문 승인 버튼을 누르면 재고를 차감하고 완료 표시를 해 주세요.
-
-회의를 바탕으로 다음 세 질문에 자기 말로 답합니다. 파일명이나 SQL 문법은 쓰지 않아도 됩니다.
-
-- **함께 저장할 것:** 재고 차감·원장 기록·주문 완료 중 하나만 빠져도 되는지 생각합니다.
-- **승인하지 않을 때:** 재고가 부족하면 값과 화면이 어떻게 되어야 하는지 정합니다.
-- **완료를 표시할 때:** 버튼을 누른 순간과 저장 성공을 확인한 순간을 구분합니다.
-
-정리한 조건은 [관찰 기록](#ch11-manual-record)의 **내가 정한 승인 조건**에 세 줄로 적습니다.
-뒤의 생성 프롬프트와 비교해 조건을 보완하고, 11.6에서 실제 코드·실행 결과와 대조합니다.
 
 > **실습 3원칙**
 >
@@ -161,8 +580,7 @@ DB 값은 **주문 상태 / 재고 / 원장 건수** 순서로 적습니다.
 - **화면 정상 승인:** 완료 메시지와 버튼 상태, API 응답, 승인 후 DB 값을 적습니다.
 - **재고 부족:** 화면 오류와 버튼 상태, API의 거절 사유, 요청 전후의 DB 값을 적습니다.
 
-예를 들어 DB에서 정상 승인을 직접 확인했다면 `승인 전: CREATED / 10 / 0`, `승인 후: PAID / 7 / 1`,
-`원장 증감량: -3`처럼 적습니다. 실제 값이 다르면 그 값을 적고, 아직 실행하지 않은 칸은 비워 둡니다.
+각 실습의 기록 위치에 작성 예시가 있습니다. 예시와 실제 결과가 다르면 직접 본 값을 적고, 아직 실행하지 않은 칸은 비워 둡니다.
 이전 양식에 기록한 값이 있다면 지우지 말고 해당 항목으로 옮깁니다.
 
 AI에게 아래의 업무 요청을 보내면 키트의 `AGENTS.md`와 연결 명세를 읽고 구현합니다.
@@ -289,6 +707,7 @@ SELECT qty_change FROM stock_ledger WHERE product_id = 'PROD-100';
 ```
 
 한 행에 `-3`이면 재고 3개 차감과 원장 기록이 일치합니다. **DB 정상 승인**의 승인 전·승인 후·원장 증감량을 채웁니다.
+기록 예시: `승인 전: CREATED / 10 / 0`, `승인 후: PAID / 7 / 1`, `원장 증감량: -3`.
 
 ### [실습 공통] 테스트 데이터 초기화 SQL <a id="reset-sql"></a>
 
@@ -364,6 +783,7 @@ ALTER TABLE stock_ledger DROP CONSTRAINT IF EXISTS tmp_block_ledger;
 
 제거 성공과 상태 조회의 `CREATED·10·0`을 확인합니다. 값이 다르면 초기화하기 전에 원인을 확인하세요.
 **DB 중간 실패**의 오류 사유·실패 후 DB 값·임시 제약 제거 결과를 채웁니다.
+기록 예시: `오류 사유: tmp_block_ledger 제약 위반`, `실패 후 DB 값: CREATED / 10 / 0`, `임시 제약 제거 결과: 오류 없이 완료`.
 
 여러 쓰기를 하나의 작업으로 묶어 모두 저장하거나, 실패하면 앞선 변경까지 취소하는 성질을 **원자성**이라고 합니다.
 이번에는 PostgreSQL이 실패한 함수 호출의 앞선 재고 변경을 취소했습니다. API를 거치지 않았으므로 API의 `rollback()`을 실행한 실험은 아닙니다.
@@ -515,6 +935,7 @@ return {"status": "success"}
 요청값을 SQL 문장에 직접 이어 붙이지 않습니다. 성공 응답은 `commit()` 뒤에 반환합니다.
 함수의 `BEGIN~END`는 실행문을 묶는 블록이며 커밋 명령이 아닙니다.
 **API 정상 승인**의 응답 상태 코드와 본문, 승인 후 DB 값을 채웁니다.
+기록 예시: `응답 상태 코드와 본문: 200, {"status":"success"}`, `승인 후 DB 값: PAID / 7 / 1`.
 
 **이번에 확인한 것:** 완료 시점 — API로도 저장 결과를 확인하고, 코드에서 커밋 뒤 성공 응답하는 순서를 찾았습니다.
 
@@ -630,7 +1051,8 @@ API에서도 승인 결과를 확인했습니다. 이제 담당자가 버튼을 
    ![SQL Editor에서 확인한 승인 후 주문 상태와 재고 및 원장 건수](images2/11_chapter11_sql_paid.jpg)
 
    SQL Editor의 Results에서 `order_status=PAID`, `current_stock=7`, `ledger_count=1`을 확인합니다.
-5. **기록:** [관찰 기록](#ch11-manual-record)의 **화면 정상 승인**의 완료 메시지와 버튼 상태, API 응답, 승인 후 DB 값을 채웁니다.
+5. **기록:** `observation_record.md`의 **화면 정상 승인** 항목에 완료 메시지와 버튼 상태, API 응답, 승인 후 DB 값을 채웁니다.
+   기록 예시: `완료 메시지와 버튼 상태: 승인 완료 표시, 버튼 비활성화`, `API 응답: 200, {"status":"success"}`, `승인 후 DB 값: PAID / 7 / 1`.
 
 **내 말로 설명:** “무엇이 함께 저장됐으며, 화면에서 언제 완료를 확인했나요?”에 자신의 관찰값으로 답합니다.
 아래 코드를 읽으며 자신이 본 완료 표시가 어떤 조건에서 나타났는지 연결해 봅니다.
@@ -738,6 +1160,8 @@ SQL Editor에는 **상태 조회 탭**과 **초기화 탭**이 열려 있습니�
 
 **재고 부족**의 화면 오류와 버튼 상태, 응답 상태 코드와 오류 사유, 요청 전후 DB 값을 채웁니다.
 DB가 요청 전과 같은 `CREATED·2·0`이었는지 실제 조회 결과를 적습니다.
+기록 예시: `화면 오류와 버튼 상태: 재고 부족 표시, 버튼 사용 가능`, `응답 상태 코드와 오류 사유: 400, 재고 부족`,
+`요청 전후 DB 값: CREATED / 2 / 0 → CREATED / 2 / 0`.
 SQL 실행본에서 재고 검사가 첫 쓰기보다 앞에 있는지 확인하고, DB 값이 유지된 결과와 연결해 봅니다.
 
 <a id="ch11-check-retry"></a>
