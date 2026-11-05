@@ -110,6 +110,28 @@ def initialize(cur):
                 '(file_name TEXT PRIMARY KEY, sha256 TEXT NOT NULL, applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW())')
 
 
+def clear_database(cur, root=ROOT):
+    """명시적인 완전 초기화에서만 호출한다. 연결 대상은 connection()이 대조한다."""
+    source = (root.parent / 'sql/99_reset_lab.sql').read_text(encoding='utf-8-sig')
+    try:
+        cur.execute(source)
+    except Exception as error:
+        reason = {'P1120': 'chapter11_marker_required', 'P1121': 'chapter11_marker_mismatch',
+                  'P1122': 'unexpected_objects_preserved', 'P1123': 'unexpected_functions_preserved',
+                  '2BP01': 'external_dependencies_preserved'}.get(getattr(error, 'pgcode', None))
+        if reason:
+            raise LabError(reason) from None
+        raise
+    if objects(cur) & {'stock', 'orders', 'stock_ledger', 'foundation_lab_marker', 'ch11_sql_history'}:
+        raise LabError('clear_database_not_complete')
+    cur.execute("SELECT to_regprocedure('public.approve_order(uuid,character varying,integer)'), "
+                "to_regprocedure('public.change_order_quantity(uuid,integer)')")
+    if any(value is not None for value in cur.fetchone()):
+        raise LabError('clear_database_not_complete')
+    return {'database': 'cleared', 'tables_functions_marker_and_history': 'removed',
+            'next': 'run_init_then_implement'}
+
+
 def statements(source):
     """문자열·함수 본문·주석을 제외한 최상위 SQL 토큰을 읽는다."""
     tokens, result, i = [], [], 0

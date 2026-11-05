@@ -1,11 +1,11 @@
 # Chapter 11 — AI와 주문 승인 기능 완성하기
 
-업무 조건을 설명하고 AI에게 구현과 실행을 맡긴 뒤, 화면에서 정상 승인과 재고 부족 결과를 확인합니다.
+업무 조건을 설명하고 AI에게 구현과 자동 검사를 맡긴 뒤, 직접 서버를 실행하고 화면에서 정상 승인과 재고 부족 결과를 확인합니다.
 
 ## 시작 위치
 
 VS Code에서 이 `ch11/` 폴더를 엽니다. AI는 `AGENTS.md`와 `connection_spec.md`, 관련 하위 지침을 먼저 읽습니다.
-백엔드는 `workspace/erp-project/`, 프론트엔드는 `workspace/frontend-project/`입니다.
+백엔드는 `workspace/erp-project/`, 프런트엔드는 `workspace/frontend-project/`입니다.
 Chapter 10 파일을 복사하지 않습니다. Day 00의 ERP 프로젝트는 이후 별도 폴더에서 준비합니다.
 
 ## 역할과 진행 순서
@@ -14,10 +14,10 @@ Chapter 10 파일을 복사하지 않습니다. Day 00의 ERP 프로젝트는 �
 |---|---|---|
 | 준비 | 전용 DB 생성·연결값 로컬 설정 | 환경·연결 확인 |
 | 구현 | 합의한 업무 조건으로 구현 요청 | SQL·API·화면 구현·DB 적용 |
-| 실행 준비 | 미정 업무 조건이 있을 때 결정 | 별도 데이터로 자동 검사·서버 실행 |
+| 실행 준비 | 제공 명령으로 서버 실행·상태 확인 | 별도 데이터로 자동 검사 후 임시 서버 종료 |
 | 정상 확인 | A 수량 1→3 입력·저장 후 승인·화면과 DB 대조 | 필요할 때 오류 조사 |
 | 부족 확인 | B 수량 1→3 입력·저장 후 승인 요청·거절과 데이터 유지 확인 | 필요할 때 오류 조사 |
-| 수정·마무리 | 기대와 실제 차이 설명·결과 판단 | 수정·관련 검사·코드 연결 설명 |
+| 수정·마무리 | 기대와 실제 차이 설명·결과 판단·서버 종료 | 수정·관련 검사·코드 연결 설명 |
 
 ## 확인할 두 사례
 
@@ -47,11 +47,11 @@ AI의 자동 검사는 별도 데이터를 사용하고 독자가 쓸 두 주문
 AI가 화면·API·DB를 조사하고 수정한 뒤 관련 검사를 다시 실행하고 재실습을 준비합니다.
 독자는 문제가 있던 상황을 다시 확인합니다.
 
-## AI가 사용하는 실행 도구
+## 실행 도구
 
 아래 명령은 `workspace/erp-project/`에서 이 프로젝트의 Python으로 실행합니다.
 Windows에서는 준비한 `venv/Scripts/python.exe`, macOS·Linux에서는 `venv/bin/python`을 사용합니다.
-독자가 아래 명령을 모두 수동 실행하는 실습이 아니라 AI가 조사·실행할 도구 목록입니다.
+새 가상환경은 `workspace/erp-project/venv/`에 준비합니다. 서버 실행·상태 확인·종료는 독자가 직접 하고, 나머지 구현·DB 적용·자동 검사 도구는 AI가 사용합니다.
 
 | 명령 | 하는 일 |
 |---|---|
@@ -62,10 +62,11 @@ Windows에서는 준비한 `venv/Scripts/python.exe`, macOS·Linux에서는 `ven
 | `python lab.py prepare` | 없는 A·B를 수량 1로 준비, 기존 실습 결과는 보존 |
 | `python lab.py state` | 두 주문의 상태·현재고·주문별 원장 건수와 증감량 조회 |
 | `python lab.py prepare --case B --reset` | 재실습 요청을 받은 경우에만 B를 시작 상태로 복원 |
-| `python lab.py servers start` | 두 서버 실행과 HTTP 응답 확인 |
+| `python lab.py clear-database --confirm CHAPTER11` | 명시적인 완전 초기화: 실습 테이블·두 함수·표식·SQL 이력 제거, 코드·설정 보존 |
+| `python lab.py servers start` | 독자가 두 서버 실행과 HTTP 응답 확인 |
 | `python lab.py servers status` | 도구가 실행한 서버와 다른 프로세스의 포트 사용 구분 |
 | `python lab.py servers logs` | 연결값을 가린 최근 서버 로그 확인 |
-| `python lab.py servers stop` | 이 도구가 실행하고 현재 관리하는 서버만 종료 |
+| `python lab.py servers stop` | 독자가 이 도구가 관리하는 서버만 종료 |
 | `python lab.py resume` | 서버·SQL 적용 이력·두 주문 상태를 조회, 초기화·서버 재시작은 하지 않음 |
 | `python verify_core.py` | 별도 데이터로 DB·HTTP 업무 검사와 프론트 빌드, A·B 보존 확인 |
 
@@ -87,6 +88,15 @@ DB 이름 `postgres`, 포트 5432의 직접 연결 또는 Session pooler만 받�
 최초 `init`은 기존 업무 객체가 없는 DB에서만 수행합니다. 이미 구현한 DB에서는 `inspect`와 `resume`으로 이어갑니다.
 이전 표식만 있거나 개편 전 테이블이 있는 DB는 자동으로 채택·초기화하지 않습니다.
 기존 `verify_lab.py`의 `direct`·`reset`·`shortage` 쓰기 명령은 차단하고 새 도구로 안내합니다.
+
+## DB를 비우고 처음부터 실습하기
+
+A·B 데이터만 되돌리는 `prepare --reset`과 달리, 완전 초기화는 실습 테이블·함수·표식·SQL 적용 이력까지 지웁니다.
+Chapter 11 전용 DB의 모든 결과를 버리겠다고 명시한 경우에만 관리 서버를 종료한 뒤 `clear-database --confirm CHAPTER11`을 실행합니다.
+전용 대상·표식·삭제 범위가 맞으면 같은 승인을 다시 요구하지 않습니다. 다른 객체나 의존성이 있으면 범위를 넓히지 않고 중단합니다.
+Supabase 관리 스키마와 로컬 파일은 유지합니다. 초기화 직후에는 새 표식이나 데이터를 만들지 않습니다.
+처음부터 구현하려면 새 키트를 별도 폴더에 준비하고 같은 전용 프로젝트의 연결값을 로컬에 설정한 뒤 원고의 구현 프롬프트를 실행합니다.
+기존 개인 코드 폴더는 보존합니다. 완전 초기화 SQL은 `workspace/sql/99_reset_lab.sql` 하나로 관리하며, 명령과 SQL Editor에서 같은 파일을 사용합니다.
 
 ## 현재 제공 상태
 

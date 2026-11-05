@@ -1,14 +1,14 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.64",
+  "release_id": "foundation-kit-v1.3.65",
   "release_status": "release_payload",
-  "base_release": "foundation-kit-v1.3.63",
+  "base_release": "foundation-kit-v1.3.64",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "notes": [
-    "Chapter 11: existing DB reuse, AI reset prompt and manual SQL reset guide.",
-    "Runtime code unchanged from v1.3.63; learner code and credentials excluded."
+    "Chapter 11 manual server lifecycle, A/B diagrams and full dedicated lab reset.",
+    "Learner implementation, secrets and internal QA excluded."
   ]
 }

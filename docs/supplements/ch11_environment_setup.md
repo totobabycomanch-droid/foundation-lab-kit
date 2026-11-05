@@ -4,6 +4,12 @@
 [11.2의 구현 요청](../11_chapter11.md#ch11-api-prepare)을 실행합니다.
 이 문서는 설치·연결 문제, 중단 후 재개, 새 키트에서 기존 DB를 재사용하거나 처음부터 재실습할 때 필요한 항목만 찾아보는 도움말입니다.
 
+| 다시 시작하는 목적 | 사용할 절차 |
+|---|---|
+| 현재 결과를 보존하고 이어가기 | [중단 후 재개](#ch11-resume) |
+| 기능 구현은 유지하고 A·B만 다시 확인하기 | [사례 재준비](#ch11-prepare-case) |
+| DB 구조와 함수도 비우고 구현부터 다시 하기 | [완전 초기화](#ch11-clear-database) |
+
 ## 누가 무엇을 준비하나요?
 
 | 독자 | AI |
@@ -11,7 +17,7 @@
 | VS Code에서 키트의 `practice-workspace/ch11/` 열기 | 규칙과 연결 명세·현재 파일 조사 |
 | Python 3.12·Node.js 실행 기반 준비 | 프로젝트 가상환경·기존 의존성 설치 확인 |
 | 새 전용 Supabase 프로젝트 생성·로컬 `.env` 설정 | 대상 대조·접속 확인·SQL 작성과 적용 |
-| 업무 조건 결정·화면과 저장 결과 판단 | 별도 테스트 데이터로 검사·관리 서버 실행 |
+| 업무 조건 결정·서버 실행·종료·화면과 저장 결과 판단 | 별도 테스트 데이터로 자동 검사 |
 
 AI는 실제 `.env`를 열거나 출력하지 않습니다. 제공 도구·API·검사 프로세스가 로컬 연결값을 사용하는 것은 허용됩니다.
 연결값이나 오류 전문을 대화에 붙여 넣을 필요는 없습니다.
@@ -34,7 +40,7 @@ Node.js·npm을 찾을 수 없다면 [6장의 Node.js 준비](../book_navigation
 ```
 
 Windows에서 가상환경 활성화가 차단돼도 시스템 실행 정책을 바꿀 필요는 없습니다.
-AI가 `venv/Scripts/python.exe`를 직접 지정해 실행할 수 있습니다.
+이 장의 가상환경은 `workspace/erp-project/venv/`에 준비하며, `venv/Scripts/python.exe`를 직접 지정해 실행할 수 있습니다.
 `npm.ps1` 실행이 차단되면 `npm.cmd`를 사용합니다.
 macOS·Linux에서는 해당 가상환경의 `venv/bin/python`을 사용합니다.
 
@@ -106,7 +112,8 @@ DB 이름 `postgres`, 포트 `5432`, TLS 암호화 연결을 사용합니다.
 
 ```text
 프로젝트 규칙을 읽고 현재 SQL 적용 이력·DB의 두 주문·서버 상태를 조사해 중단한 실습을 이어서 진행해 주세요.
-기존 코드와 관찰 결과를 보존하고, 필요한 설치·적용·서버 실행만 수행해 주세요.
+기존 코드와 관찰 결과를 보존하고 필요한 설치·적용·자동 검사만 수행해 주세요.
+화면 테스트용 서버 실행·종료는 제가 직접 하겠습니다. 검사에 필요한 임시 서버는 검사 후 종료해 주세요.
 이미 승인된 주문은 다시 승인하거나 자동 초기화하지 말고 현재 상태와 화면 주소를 알려 주세요.
 ```
 
@@ -163,7 +170,7 @@ AI가 이 결과로 남은 작업을 판단합니다. A가 이미 `PAID`·재고
 & .\venv\Scripts\python.exe lab.py resume
 ```
 
-서버를 종료할 때는 AI에게 관리 서버만 종료하도록 요청합니다. 도구가 관리하는 두 서버를 직접 종료하려면 다음을 실행합니다.
+서버 실행·종료는 독자가 직접 합니다. 도구가 관리하는 두 서버를 종료하려면 다음을 실행합니다.
 
 ```powershell
 & .\venv\Scripts\python.exe lab.py servers stop
@@ -268,7 +275,88 @@ COMMIT;
 전용 표식이나 필요한 테이블이 없다는 오류를 우회하려고 조건을 지우지 말고, [기존 DB 재사용 안내](#ch11-reuse-database)로 돌아갑니다.
 
 이 작업은 코드 초기화와 다릅니다. 키트의 `reset_practice_chapter.ps1`은 코드 복원 도구이며 DB 결과를 되돌리지 않습니다.
-`workspace/sql/99_reset_lab.sql`은 테이블·함수를 삭제하는 별도 도구로, 두 사례의 재준비나 중단 후 재개에 사용하지 않습니다.
-기존 SQL 적용 이력까지 되돌리는 도구도 아니므로, 재실습을 위해 임의 실행하지 않습니다.
+`workspace/sql/99_reset_lab.sql`은 테이블·함수·실습 표식·SQL 적용 이력을 제거하는 완전 초기화용입니다.
+A·B 재준비에는 사용하지 않으며, DB를 비우려면 아래 완전 초기화 절차를 따릅니다.
+
+<a id="ch11-clear-database"></a>
+
+## DB를 비우고 구현부터 다시 시작하기
+
+여기서 **빈 DB**란 Chapter 11에서 만든 실습 테이블·함수·표식·SQL 적용 이력이 없는 상태입니다.
+Supabase 프로젝트와 관리 스키마·확장 객체, 로컬 코드와 `.env`는 유지합니다.
+다음 대상의 데이터는 모두 사라지므로, 기존 결과를 남길 필요가 없는 전용 실습 DB에서만 진행하세요.
+
+| 삭제 대상 | 범위 |
+|---|---|
+| 업무 테이블 | `public.stock_ledger`, `public.orders`, `public.stock`과 그 안의 모든 행 |
+| 업무 함수 | `public.approve_order(UUID, VARCHAR, INTEGER)`, `public.change_order_quantity(UUID, INTEGER)` |
+| 준비 기록 | `public.foundation_lab_marker`, `public.ch11_sql_history` |
+| 소유 시퀀스 | 삭제하는 테이블의 자동 번호 시퀀스 |
+
+실습 표식만 남으면 최초 준비 판단이 꼬일 수 있고, SQL 이력만 남으면 삭제한 스키마를 이미 적용했다고 판단할 수 있습니다.
+완전 초기화에서는 이 둘도 함께 제거합니다.
+
+### AI에게 완전 초기화 요청하기
+
+1. 기존 실습을 실행하던 폴더에서 관리 서버를 종료합니다. 다른 프로그램의 서버를 임의 종료하지 않습니다.
+2. 완전 초기화 명령이 포함된 키트를 별도 폴더에 준비하고, 로컬 `.env`에 같은 Chapter 11 전용 프로젝트의 연결값을 설정합니다.
+3. 아래 프롬프트로 삭제할 의도와 범위를 명시합니다. 단순히 “초기화해 줘”라고만 하면 A·B 재준비와 구분하기 어렵습니다.
+
+```text
+이 프로젝트는 제가 Chapter 11 실습에만 사용하는 전용 DB에 연결돼 있습니다.
+기존 실습 결과를 모두 버리고 빈 실습 DB에서 구현부터 다시 시작하겠습니다.
+이번 요청은 A·B 데이터 재준비가 아니라 DB 완전 초기화이며, 지정 실습 객체와 모든 실습 결과의 삭제를 승인합니다.
+
+프로젝트 규칙과 연결 명세를 읽고 전용 연결 대상·실습 표식·현재 객체를 확인해 주세요.
+도구 실행에 필요한 환경이 없다면 기존 의존성 파일로 준비해 주세요.
+관리 서버를 종료한 뒤 제공된 완전 초기화 명령으로 실습 테이블·두 업무 함수·표식·SQL 적용 이력을 함께 제거해 주세요.
+Supabase 관리 스키마·확장 객체·로컬 코드·.env는 보존해 주세요.
+다른 용도의 객체·함수나 외부 의존성이 있으면 삭제 범위를 넓히지 말고 중단해 차이를 알려 주세요.
+지정 대상과 범위가 맞으면 위 삭제 승인을 적용해 진행해 주세요.
+완료 후 실제로 실습 객체가 없어졌는지 확인해 주세요. 아직 표식·테이블·데이터를 다시 만들거나 서버를 시작하지 마세요.
+연결값이나 비밀번호는 출력하지 마세요.
+```
+
+키트 지침은 이 명시적인 요청에 한해 지정 객체 삭제를 허용합니다. 보존 규칙을 이유로 일괄 거절하는 대신,
+대상 불일치나 예상 밖 객체처럼 실행을 막는 실제 조건을 보고하게 합니다.
+
+### 도구 또는 SQL Editor에서 직접 실행하기
+
+Python 가상환경과 의존성이 준비돼 있다면, 서버를 종료한 뒤 **백엔드 `workspace/erp-project/`**에서 실행합니다.
+`--confirm CHAPTER11`은 전체 실습 결과를 지우겠다는 명시적 확인값입니다.
+
+```powershell
+& .\venv\Scripts\python.exe lab.py clear-database --confirm CHAPTER11
+```
+
+`database: cleared` 결과는 삭제와 결과 확인 뒤 트랜잭션이 확정됐다는 뜻입니다.
+이 명령은 로컬 연결 대상과 표식을 확인하며, 예상 밖 객체·함수나 의존성이 있으면 삭제를 취소합니다.
+일반 SQL 적용 명령인 `lab.py apply`로 초기화 SQL을 실행하지 않습니다.
+
+SQL Editor를 사용하려면 프로젝트 이름과 전용 용도를 직접 확인하고, 관리 서버를 종료한 뒤
+[완전 초기화 SQL](../../practice-workspace/ch11/workspace/sql/99_reset_lab.sql) 파일 전체를 새 쿼리에 붙여 넣어 한 번 실행합니다.
+키트에서는 `workspace/sql/99_reset_lab.sql`입니다. 전용 명령도 이 파일을 사용합니다.
+파일의 단일 `DO` 블록은 삭제 전체가 성공하거나 함께 취소되도록 구성돼 있습니다.
+오류가 나면 조건을 지우거나 `CASCADE`를 추가하지 말고 원인을 확인합니다.
+
+### 빈 실습 DB 확인과 다음 실습
+
+SQL Editor에서는 다음 조회로 확인할 수 있습니다. 두 조회의 모든 칸이 `NULL`이어야 합니다.
+
+```sql
+SELECT to_regclass('public.stock_ledger') AS stock_ledger,
+       to_regclass('public.orders') AS orders,
+       to_regclass('public.stock') AS stock,
+       to_regclass('public.foundation_lab_marker') AS marker,
+       to_regclass('public.ch11_sql_history') AS sql_history;
+
+SELECT to_regprocedure('public.approve_order(uuid,character varying,integer)') AS approve_order,
+       to_regprocedure('public.change_order_quantity(uuid,integer)') AS change_order_quantity;
+```
+
+표식이 없어졌으므로 이 시점의 `lab.py inspect`나 `state`, `view_orders.sql`로는 기존 실습 결과를 조회할 수 없습니다.
+기존 개인 코드 폴더를 보존하고 새 키트의 미구현 시작 폴더에서 [환경 준비](../11_chapter11.md#ch11-environment)를 확인한 뒤
+[11.2의 생성 프롬프트](../11_chapter11.md#ch11-api-prepare)를 실행합니다.
+AI가 빈 실습 DB 조건을 확인해 최초 표식과 적용 이력을 준비하고, 새로 생성한 SQL·API·화면을 연결합니다.
 
 [본문으로 돌아가기](../11_chapter11.md#ch11-after-environment)

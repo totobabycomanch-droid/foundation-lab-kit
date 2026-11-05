@@ -47,6 +47,8 @@ def database_command(args):
             result = {key: db.prepare_case(cur, key, args.reset) for key in keys}
         elif args.command == 'state':
             result = {'orders': db.state(cur)}
+        elif args.command == 'clear-database':
+            result = db.clear_database(cur)
         else:
             result = db.inspect(cur)
     # commit 성공 후에만 적용 성공을 출력한다.
@@ -63,6 +65,8 @@ def parser():
     prepare = commands.add_parser('prepare', help='Create missing reader cases; preserve existing results')
     prepare.add_argument('--case', choices=('A', 'B', 'all'), default='all')
     prepare.add_argument('--reset', action='store_true', help='Explicitly reset only the selected reader case(s)')
+    clear = commands.add_parser('clear-database', help='Remove Chapter 11 tables, functions, marker and SQL history')
+    clear.add_argument('--confirm', required=True, choices=('CHAPTER11',), help='Explicit consent to discard all Chapter 11 DB results')
     server = commands.add_parser('servers')
     server.add_argument('action', choices=('status', 'start', 'stop', 'logs'))
     server.add_argument('--service', choices=('api', 'web', 'all'), default='all')

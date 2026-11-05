@@ -2,6 +2,9 @@
 !.env.example
 !**/.env.example
 
+# Never publish author-only review materials.
+checkpoints_internal/
+
 # Never package local secrets, dependencies, or generated databases.
 .env
 **/.env
