@@ -67,12 +67,36 @@ class CoreVerifierTests(unittest.TestCase):
             core.cleanup(cur, [core.fixture(10, 'test')])
         self.assertTrue(all(call.args[0].startswith('SELECT') for call in cur.execute.call_args_list))
 
-    def run_http_double(self, request, stored):
+    def run_http_double(self, request, stored, quantity=3):
         report = {}
+        approving = False
+        approved_ids = set()
+
+        def quantity_request(method, endpoint, payload=None):
+            nonlocal approving
+            approving = endpoint == '/orders/approve'
+            if endpoint == '/orders/quantity':
+                if payload['order_id'] in approved_ids:
+                    return 400, {'detail': 'already approved'}
+                valid = type(payload['qty']) is int and payload['qty'] > 0
+                return (200, {'status': 'success'}) if valid else (422, {'detail': 'invalid quantity'})
+            result = request(method, endpoint, payload)
+            if approving and result[0] == 200:
+                approved_ids.add(payload['order_id'])
+            return result
+
+        def current(item):
+            if not approving:
+                if item['id'] in approved_ids:
+                    return ('PAID', 7, 1, -3)
+                return ('CREATED', item['stock'], 0, None)
+            return stored(item)
+
         with patch.object(db, 'connection', fake_connection), patch.object(db, 'require_schema'), \
                 patch.object(core, 'reader_snapshot', return_value=readers()), \
                 patch.object(core.servers, 'start'), patch.object(core, 'seed'), \
-                patch.object(core, 'request', side_effect=request), patch.object(core, 'current', side_effect=stored), \
+                patch.object(core, 'request', side_effect=quantity_request), patch.object(core, 'current', side_effect=current), \
+                patch.object(core, 'quantity', return_value=quantity), \
                 patch.object(core, 'cleanup') as cleanup, patch.object(core, 'no_fixture_rows'):
             core.run_http(report)
             cleaned = cleanup.call_args.args[1]
@@ -109,6 +133,14 @@ class CoreVerifierTests(unittest.TestCase):
             raise TimeoutError()
         report = self.run_http_double(failing, lambda *args: None)
         self.assertEqual(report['http.normal']['result'], 'Fail')
+        self.assertEqual(report['http.test_rows_removed']['result'], 'Pass')
+
+    def test_quantity_200_without_saved_quantity_fails(self):
+        responses = iter([(200, self.query_response()), (200, {'status': 'success'}),
+                          (400, {'detail': 'shortage'}), (400, {'detail': 'already approved'})])
+        states = iter([('PAID', 7, 1, -3), ('CREATED', 2, 0, None), ('PAID', 7, 1, -3)])
+        report = self.run_http_double(lambda *args: next(responses), lambda *args: next(states), quantity=1)
+        self.assertEqual(report['http.quantity']['result'], 'Fail')
         self.assertEqual(report['http.test_rows_removed']['result'], 'Pass')
 
     def test_remaining_ledger_is_detected(self):

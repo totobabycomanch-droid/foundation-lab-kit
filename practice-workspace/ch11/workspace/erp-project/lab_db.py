@@ -215,7 +215,7 @@ def prepare_case(cur, key, reset=False):
     oid, pid, order_name, product_name, stock = CASES[key]
     cur.execute('SELECT product_id,quantity,order_name,corp_id FROM public.orders WHERE order_id=%s FOR UPDATE', (oid,))
     order = cur.fetchone()
-    if order and order != (pid, 3, order_name, 'HQ'):
+    if order and (order[0] != pid or order[2:] != (order_name, 'HQ')):
         raise LabError('case_identity_conflict')
     cur.execute('SELECT product_name,corp_id FROM public.stock WHERE product_id=%s FOR UPDATE', (pid,))
     product = cur.fetchone()
@@ -234,10 +234,10 @@ def prepare_case(cur, key, reset=False):
         cur.execute('INSERT INTO public.stock(product_id,product_name,quantity,corp_id) VALUES (%s,%s,%s,%s)',
                     (pid, product_name, stock, 'HQ'))
     if order:
-        cur.execute("UPDATE public.orders SET status='CREATED' WHERE order_id=%s", (oid,))
+        cur.execute("UPDATE public.orders SET quantity=1,status='CREATED' WHERE order_id=%s", (oid,))
     else:
         cur.execute('INSERT INTO public.orders(order_id,order_name,product_id,quantity,status,corp_id) '
-                    "VALUES (%s,%s,%s,3,'CREATED','HQ')", (oid, order_name, pid))
+                    "VALUES (%s,%s,%s,1,'CREATED','HQ')", (oid, order_name, pid))
     return 'reset' if reset else 'prepared'
 
 
@@ -254,9 +254,9 @@ def inspect(cur):
 def state(cur):
     require_schema(cur)
     ids = tuple(row[0] for row in CASES.values())
-    cur.execute('SELECT o.order_name,o.status,s.quantity,COUNT(l.ledger_id),SUM(l.qty_change) '
+    cur.execute('SELECT o.order_name,o.quantity,o.status,s.quantity,COUNT(l.ledger_id),SUM(l.qty_change) '
                 'FROM public.orders o JOIN public.stock s ON s.product_id=o.product_id '
                 'LEFT JOIN public.stock_ledger l ON l.order_id=o.order_id '
                 'WHERE o.order_id IN (%s,%s) GROUP BY o.order_id,o.order_name,o.status,s.quantity ORDER BY o.order_id', ids)
-    return [dict(zip(('order_name', 'status', 'current_stock', 'ledger_count', 'qty_change'), row))
+    return [dict(zip(('order_name', 'order_quantity', 'status', 'current_stock', 'ledger_count', 'qty_change'), row))
             for row in cur.fetchall()]

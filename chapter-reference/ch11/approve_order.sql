@@ -26,6 +26,29 @@ CREATE TABLE public.stock_ledger (
     corp_id VARCHAR(50) NOT NULL DEFAULT 'HQ'
 );
 
+-- 수량 저장은 재고·원장·승인 상태를 바꾸지 않습니다. 승인과 같은 주문 행을 잠급니다.
+CREATE OR REPLACE FUNCTION public.change_order_quantity(p_order_id UUID, p_qty INTEGER)
+RETURNS VOID
+LANGUAGE plpgsql
+SET search_path = public, pg_catalog
+AS $quantity$
+DECLARE
+    v_order public.orders%ROWTYPE;
+BEGIN
+    IF p_qty IS NULL OR p_qty <= 0 THEN
+        RAISE EXCEPTION USING ERRCODE = 'P1101', MESSAGE = '수량은 1 이상이어야 합니다.';
+    END IF;
+    SELECT * INTO v_order FROM public.orders WHERE order_id = p_order_id FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION USING ERRCODE = 'P1102', MESSAGE = '주문 정보가 존재하지 않습니다.';
+    END IF;
+    IF v_order.status <> 'CREATED' THEN
+        RAISE EXCEPTION USING ERRCODE = 'P1104', MESSAGE = '이미 승인된 주문입니다.';
+    END IF;
+    UPDATE public.orders SET quantity = p_qty WHERE order_id = p_order_id;
+END;
+$quantity$;
+
 -- 함수의 세 변경은 호출한 API 트랜잭션에서 함께 확정하거나 취소합니다.
 CREATE OR REPLACE FUNCTION public.approve_order(
     p_order_id UUID,

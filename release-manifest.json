@@ -1,14 +1,14 @@
 {
   "manifest_version": 1,
-  "release_id": "foundation-kit-v1.3.62",
+  "release_id": "foundation-kit-v1.3.63",
   "release_status": "release_payload",
-  "base_release": "foundation-kit-v1.3.61",
+  "base_release": "foundation-kit-v1.3.62",
   "source_repository": "https://github.com/totobabycomanch-droid/foundation-lab-kit",
   "inventory_excludes": [
     "release-manifest.json"
   ],
   "notes": [
-    "Chapter 11 AI implementation and two reader cases.",
-    "Actual credentials, generated learner implementation and runtime artifacts excluded."
+    "Chapter 11: save quantity 1 to 3 before approval; starter implementation remains unimplemented.",
+    "Credentials, generated learner code and runtime artifacts excluded."
   ]
 }

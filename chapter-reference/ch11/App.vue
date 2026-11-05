@@ -3,7 +3,7 @@
     <header>
       <p class="eyebrow">Chapter 11</p>
       <h1>주문 승인</h1>
-      <p>주문을 승인하고 저장된 주문 상태와 현재 재고를 확인합니다.</p>
+      <p>주문 수량을 입력·저장한 뒤 승인하고, 저장된 주문 상태와 현재 재고를 확인합니다.</p>
     </header>
     <ApproveOrder />
   </main>

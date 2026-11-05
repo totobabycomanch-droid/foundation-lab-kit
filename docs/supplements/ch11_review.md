@@ -1,6 +1,6 @@
 # Chapter 11 선택 복습
 
-Core는 화면에서 A 정상 승인과 B 재고 부족을 확인하면 끝납니다.
+Core는 A·B의 수량을 각각 1에서 3으로 입력·저장한 뒤, 화면에서 A 정상 승인과 B 재고 부족을 확인하면 끝납니다.
 이 문서에서는 궁금한 질문 하나만 고릅니다. 별도 실험을 모두 수행하거나 결과 보고서를 만들 필요는 없습니다.
 
 | 궁금한 질문 | 선택할 활동 |
@@ -37,7 +37,7 @@ Swagger는 API 입력과 응답을 시험하는 화면입니다.
 **`GET /orders → Try it out → Execute`**를 선택하면 승인 요청 없이 두 주문을 조회할 수 있습니다.
 
 `200` 응답의 `items`에서 A·B의 주문명, `qty`, `current_stock`, `status`를 화면과 대조합니다.
-`POST /orders/approve`는 실제 저장을 바꾸는 요청이므로 이 조회 활동에서는 실행하지 않습니다.
+`POST /orders/quantity`와 `POST /orders/approve`는 실제 저장을 바꾸는 요청이므로 이 조회 활동에서는 실행하지 않습니다.
 
 ### Network에서 화면의 조회 읽기
 
@@ -255,7 +255,7 @@ DB 전체를 지우는 SQL로 사례 재준비를 대신하지 않습니다.
 ## 참조 구현과 필요한 부분만 비교하기
 
 전체 코드는 로컬 키트의 `chapter-reference/ch11/`과
-[GitHub 참조 폴더](https://github.com/totobabycomanch-droid/foundation-lab-kit/tree/foundation-kit-v1.3.62/chapter-reference/ch11)에 있습니다.
+[GitHub 참조 폴더](https://github.com/totobabycomanch-droid/foundation-lab-kit/tree/foundation-kit-v1.3.63/chapter-reference/ch11)에 있습니다.
 기능 생성의 기본 경로는 시작 키트에서 AI에게 구현을 요청하는 것입니다. 참조 파일을 통째로 복사해 대신 완성하지 않습니다.
 
 | 파일 | 비교할 역할 |

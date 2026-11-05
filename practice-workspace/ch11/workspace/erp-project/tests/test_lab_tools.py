@@ -121,6 +121,14 @@ class DatabaseBoundaryTests(unittest.TestCase):
         self.assertEqual(len(writes), 3)
         self.assertTrue(all('WHERE' in call.args[0] for call in writes))
         self.assertNotIn('PROD-100', str(writes))
+        self.assertIn('quantity=1', writes[-1].args[0])
+
+    def test_edited_reader_quantity_is_preserved(self):
+        cur = Mock()
+        cur.fetchone.side_effect = [('PROD-100', 8, '정상 승인용 주문 A', 'HQ'), ('정상 확인용 상품', 'HQ'), None]
+        with patch.object(db, 'require_schema'):
+            self.assertEqual(db.prepare_case(cur, 'A'), 'preserved')
+        self.assertTrue(all(call.args[0].startswith('SELECT') for call in cur.execute.call_args_list))
 
     def test_shared_product_blocks_reset(self):
         cur = Mock()

@@ -11,9 +11,9 @@ from urllib.request import ProxyHandler, Request, build_opener
 import lab_db as db
 import lab_servers as servers
 
-DB_CHECKS = ('db.normal', 'db.shortage', 'db.reapproval', 'db.mid_failure',
+DB_CHECKS = ('db.normal', 'db.shortage', 'db.reapproval', 'db.mid_failure', 'db.quantity',
              'db.reader_preserved', 'db.test_rows_rolled_back')
-HTTP_CHECKS = ('http.query', 'http.normal', 'http.shortage', 'http.reapproval',
+HTTP_CHECKS = ('http.query', 'http.normal', 'http.shortage', 'http.reapproval', 'http.quantity',
                'http.test_rows_removed', 'http.reader_preserved')
 
 
@@ -32,7 +32,7 @@ def add(report, name, status, detail=None):
 
 
 def reader_snapshot(cur):
-    cur.execute('SELECT to_jsonb(o),to_jsonb(s),COALESCE('
+    cur.execute('SELECT to_jsonb(o) AS order_row,to_jsonb(s) AS stock_row,COALESCE('
                 '(SELECT jsonb_agg(to_jsonb(l) ORDER BY l.ledger_id) FROM public.stock_ledger l '
                 "WHERE l.order_id=o.order_id),'[]'::jsonb) FROM public.orders o "
                 'JOIN public.stock s ON s.product_id=o.product_id WHERE o.order_id IN (%s,%s) ORDER BY o.order_id',
@@ -46,11 +46,11 @@ def fixture(stock, name):
             'name': '자동 검사 ' + name, 'stock': stock}
 
 
-def seed(cur, item):
+def seed(cur, item, qty=3):
     cur.execute('INSERT INTO public.stock(product_id,product_name,quantity,corp_id) VALUES (%s,%s,%s,%s)',
                 (item['product'], item['name'], item['stock'], 'HQ'))
-    cur.execute('INSERT INTO public.orders(order_id,order_name,product_id,quantity,corp_id) VALUES (%s,%s,%s,3,%s)',
-                (item['id'], item['name'], item['product'], 'HQ'))
+    cur.execute('INSERT INTO public.orders(order_id,order_name,product_id,quantity,corp_id) VALUES (%s,%s,%s,%s,%s)',
+                (item['id'], item['name'], item['product'], qty, 'HQ'))
 
 
 def stored(cur, item):
@@ -64,6 +64,46 @@ def stored(cur, item):
 
 def approve(cur, item):
     cur.execute('SELECT public.approve_order(%s::uuid,%s::varchar,3)', (item['id'], item['product']))
+
+
+def quantity(cur, item):
+    cur.execute('SELECT quantity FROM public.orders WHERE order_id=%s', (item['id'],))
+    return cur.fetchone()[0]
+
+
+def quantity_case(cur, item):
+    seed(cur, item, qty=1)
+    before = stored(cur, item)
+    cur.execute('SELECT public.change_order_quantity(%s::uuid,3)', (item['id'],))
+    assert quantity(cur, item) == 3 and stored(cur, item) == before
+    for value in (0, -1, None):
+        cur.execute('SAVEPOINT quantity_invalid')
+        try:
+            cur.execute('SELECT public.change_order_quantity(%s::uuid,%s::integer)', (item['id'], value))
+        except Exception as error:
+            cur.execute('ROLLBACK TO SAVEPOINT quantity_invalid')
+            assert getattr(error, 'pgcode', None) == 'P1101'
+        else:
+            raise AssertionError('invalid_quantity_saved')
+        finally:
+            cur.execute('RELEASE SAVEPOINT quantity_invalid')
+        assert quantity(cur, item) == 3 and stored(cur, item) == before
+    # 재고 초과 수량은 저장하되 승인할 때 부족으로 거절한다.
+    rejected(cur, item, 'P1106')
+    assert quantity(cur, item) == 3 and stored(cur, item) == before
+    cur.execute('UPDATE public.stock SET quantity=10 WHERE product_id=%s', (item['product'],))
+    approve(cur, item)
+    cur.execute('SAVEPOINT quantity_paid')
+    try:
+        cur.execute('SELECT public.change_order_quantity(%s::uuid,4)', (item['id'],))
+    except Exception as error:
+        cur.execute('ROLLBACK TO SAVEPOINT quantity_paid')
+        assert getattr(error, 'pgcode', None) == 'P1104'
+    else:
+        raise AssertionError('paid_quantity_changed')
+    finally:
+        cur.execute('RELEASE SAVEPOINT quantity_paid')
+    assert quantity(cur, item) == 3 and stored(cur, item) == ('PAID', 7, 1, -3)
 
 
 def rejected(cur, item, code=None):
@@ -133,6 +173,16 @@ def run_database(report):
                         cur.execute('ROLLBACK TO SAVEPOINT ch11_case')
                         add(report, 'db.' + kind, 'Fail', reason(error))
                     cur.execute('RELEASE SAVEPOINT ch11_case')
+                item = fixture(2, 'quantity')
+                items.append(item)
+                cur.execute('SAVEPOINT ch11_quantity')
+                try:
+                    quantity_case(cur, item)
+                    add(report, 'db.quantity', 'Pass')
+                except Exception as error:
+                    cur.execute('ROLLBACK TO SAVEPOINT ch11_quantity')
+                    add(report, 'db.quantity', 'Fail', reason(error))
+                cur.execute('RELEASE SAVEPOINT ch11_quantity')
                 preserved_during = reader_snapshot(cur) == before
                 # 성공한 쓰기와 임시 제약까지 확정하지 않고 모두 취소한다.
                 raise RollbackOnly()
@@ -196,7 +246,7 @@ def run_http(report):
         assert len(before) == 2
         for row, case in zip(before, db.CASES.values()):
             assert (row[0]['order_id'], row[0]['product_id'], row[0]['order_name'],
-                    row[1]['product_name'], row[0]['quantity']) == (case[0], case[1], case[2], case[3], 3)
+                    row[1]['product_name']) == (case[0], case[1], case[2], case[3])
         expected = [dict(order_id=row[0]['order_id'], order_name=row[0]['order_name'],
                          product_id=row[0]['product_id'], product_name=row[1]['product_name'],
                          qty=row[0]['quantity'], current_stock=row[1]['quantity'], status=row[0]['status'])
@@ -207,7 +257,24 @@ def run_http(report):
         with db.connection() as cur:
             db.require_schema(cur)
             for item in items:
-                seed(cur, item)
+                seed(cur, item, qty=1)
+        try:
+            for item in items:
+                initial = current(item)
+                status, body = request('POST', '/orders/quantity', {'order_id': item['id'], 'qty': 3})
+                assert status == 200 and body.get('status') == 'success'
+                with db.connection() as cur:
+                    assert quantity(cur, item) == 3
+                assert current(item) == initial
+                for value in (0, -1, 1.5, '3', True, None):
+                    status, _ = request('POST', '/orders/quantity', {'order_id': item['id'], 'qty': value})
+                    assert status == 422
+                with db.connection() as cur:
+                    assert quantity(cur, item) == 3
+                assert current(item) == initial
+            add(report, 'http.quantity', 'Pass')
+        except Exception as error:
+            add(report, 'http.quantity', 'Fail', reason(error))
         for kind, item, expected_status, expected_state in (
             ('normal', items[0], 200, ('PAID', 7, 1, -3)),
             ('shortage', items[1], 400, ('CREATED', 2, 0, None)),
@@ -225,8 +292,16 @@ def run_http(report):
                 add(report, 'http.' + kind, 'Pass')
             except Exception as error:
                 add(report, 'http.' + kind, 'Fail', reason(error))
+        try:
+            status, body = request('POST', '/orders/quantity', {'order_id': items[0]['id'], 'qty': 4})
+            assert status == 400 and isinstance(body.get('detail'), str)
+            with db.connection() as cur:
+                assert quantity(cur, items[0]) == 3
+            assert current(items[0]) == ('PAID', 7, 1, -3)
+        except Exception as error:
+            add(report, 'http.quantity', 'Fail', reason(error))
     except Exception as error:
-        for name in HTTP_CHECKS[:4]:
+        for name in HTTP_CHECKS[:-2]:
             if name not in report:
                 add(report, name, 'Not Run' if before is None else 'Fail', reason(error))
     finally:

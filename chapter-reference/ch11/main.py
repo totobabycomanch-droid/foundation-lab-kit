@@ -13,7 +13,7 @@ from sqlalchemy.orm import sessionmaker
 from lab_db import CASES, settings
 
 BUSINESS_ERRORS = {
-    'P1101': '승인 수량은 1 이상이어야 합니다.',
+    'P1101': '수량은 1 이상이어야 합니다.',
     'P1102': '주문 정보가 존재하지 않습니다.',
     'P1103': '요청 상품 또는 수량이 저장된 주문과 다릅니다.',
     'P1104': '이미 승인된 주문입니다.',
@@ -25,7 +25,12 @@ BUSINESS_ERRORS = {
 class ApproveOrderRequest(BaseModel):
     order_id: UUID
     product_id: str
-    qty: int = Field(ge=1, strict=True)
+    qty: int = Field(ge=1, le=2147483647, strict=True)
+
+
+class ChangeQuantityRequest(BaseModel):
+    order_id: UUID
+    qty: int = Field(ge=1, le=2147483647, strict=True)
 
 
 @lru_cache(maxsize=1)
@@ -89,6 +94,23 @@ def create_app(session_factory=None):
         except SQLAlchemyError:
             rollback_quietly(db)
             raise HTTPException(status_code=503, detail='주문 상태를 읽지 못했습니다. 다시 조회해 주세요.') from None
+
+    @app.post('/orders/quantity')
+    def change_quantity(request: ChangeQuantityRequest, db=Depends(get_db)):
+        committing = False
+        try:
+            check_lab(db)
+            db.execute(text('SELECT public.change_order_quantity(:id,:qty)'),
+                       {'id': request.order_id, 'qty': request.qty})
+            committing = True
+            db.commit()
+            return {'status': 'success'}
+        except SQLAlchemyError as error:
+            rollback_quietly(db)
+            code = getattr(getattr(error, 'orig', None), 'pgcode', None)
+            if not committing and code in BUSINESS_ERRORS:
+                raise HTTPException(status_code=400, detail=BUSINESS_ERRORS[code]) from None
+            raise HTTPException(status_code=503, detail='수량 저장 결과를 확인하지 못했습니다. 현재 상태를 다시 조회해 주세요.') from None
 
     @app.post('/orders/approve')
     def approve_order(request: ApproveOrderRequest, db=Depends(get_db)):
