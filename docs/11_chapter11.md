@@ -49,6 +49,10 @@ Python 3.12와 Node.js·npm은 [6장의 개발 환경 준비](book_navigation.md
 
 <a id="ch11-supabase-project"></a>
 
+처음 실습한다면 아래 순서로 새 전용 DB를 준비합니다. 기존 Chapter 11 DB를 재사용한다면
+먼저 [새 키트에서 기존 DB 재사용하기](supplements/ch11_environment_setup.md#ch11-reuse-database)를 확인하세요.
+새 키트를 받는 것만으로 기존 DB의 구조나 실습 결과가 바뀌지는 않습니다.
+
 1. **새 전용 프로젝트를 만듭니다.**
 
    [Supabase 대시보드](https://supabase.com/dashboard)에서 개인 실습 조직을 선택하고,
@@ -272,7 +276,7 @@ AI의 수정 보고 뒤에는 문제가 있던 상황을 직접 다시 확인합
 
 주문·재고·원장 값을 바꾸지 않고 A·B를 한 표에 보여 주는 조회입니다. 다음 절에서도 같은 쿼리를 다시 실행합니다.
 
-전체 조회문은 [키트의 두 주문 조회 SQL](https://github.com/totobabycomanch-droid/foundation-lab-kit/blob/foundation-kit-v1.3.63/practice-workspace/ch11/workspace/erp-project/sql/view_orders.sql)에서도 확인할 수 있습니다.
+전체 조회문은 [키트의 두 주문 조회 SQL](https://github.com/totobabycomanch-droid/foundation-lab-kit/blob/foundation-kit-v1.3.64/practice-workspace/ch11/workspace/erp-project/sql/view_orders.sql)에서도 확인할 수 있습니다.
 
 | order_name | order_quantity | order_status | current_stock | ledger_count | qty_change |
 |---|---:|---|---:|---:|---:|
@@ -495,6 +499,30 @@ sequenceDiagram
   **“정상 승인용 주문 A만 시작 상태로 재준비해 주세요”**처럼 사례를 지정합니다.
   AI가 대상과 기존 결과를 확인해 해당 사례만 준비하게 합니다. A와 B 사이의 초기화는 필요하지 않습니다.
 
+- **A·B를 모두 처음부터 다시 실습할 때**
+
+  다음 요청은 두 주문의 기존 승인 결과와 원장을 지웁니다. 결과를 남기고 싶다면 먼저 기록하세요.
+  같은 버전의 기능 구현이 끝난 환경에서 아래처럼 요청합니다. 이전 버전 DB를 새 키트에서 재사용한다면
+  [기존 DB 재사용 안내](supplements/ch11_environment_setup.md#ch11-reuse-database)를 먼저 따릅니다.
+
+  ```text
+  프로젝트 규칙과 현재 DB·서버 상태를 조사하고 Chapter 11 전용 실습 대상인지 확인해 주세요.
+  주문 A와 B의 기존 실습 결과를 지우고 두 사례를 시작 상태로 재준비해 주세요.
+  두 주문의 수량은 1·승인 대기·원장 0건으로, 각 상품의 재고는 A가 10, B가 2로 복원해 주세요.
+  초기화는 두 주문과 해당 상품의 재고·관련 원장으로 제한하고 다른 데이터·테이블·함수·SQL 적용 이력은 보존해 주세요.
+  다른 주문과 상품을 공유하거나 명세와 다른 객체가 있으면 초기화하지 말고 차이를 알려 주세요.
+  제공된 재준비 도구를 사용하고, 완료 후 실제 DB 조회 결과와 화면 주소를 알려 주세요.
+  연결값이나 비밀번호는 출력하지 마세요.
+  ```
+
+  | 주문 | 저장 수량 | 상태 | 현재고 | 원장 건수 | 증감량 합계 |
+  |---|---:|---|---:|---:|---|
+  | A | 1 | CREATED | 10 | 0 | NULL |
+  | B | 1 | CREATED | 2 | 0 | NULL |
+
+  재준비가 끝나면 화면을 새로고침하고 [A의 수량 입력](#ch11-ui-check)부터 진행합니다.
+  AI 없이 직접 초기화하려면 [도구 실행 또는 SQL Editor에서 초기화하기](supplements/ch11_environment_setup.md#ch11-manual-reset)를 참고하세요.
+
 ### 더 알아보고 싶다면
 
 <a id="ch11-reference-section"></a>
@@ -524,7 +552,7 @@ Core를 마친 뒤 궁금한 주제를 골라 추가로 확인할 수 있습니�
 <a id="ch11-ui-basic-reference"></a>
 <a id="ch11-ui-state-reference"></a>
 
-긴 전체 코드가 필요하면 [키트의 ch11 참조 구현](https://github.com/totobabycomanch-droid/foundation-lab-kit/tree/foundation-kit-v1.3.63/chapter-reference/ch11)을 비교합니다.
+긴 전체 코드가 필요하면 [키트의 ch11 참조 구현](https://github.com/totobabycomanch-droid/foundation-lab-kit/tree/foundation-kit-v1.3.64/chapter-reference/ch11)을 비교합니다.
 로컬 키트의 `chapter-reference/ch11/`에도 있습니다. 개인 생성물을 보존하고 필요한 부분만 비교하며, 적용한 SQL과 참조 SQL을 중복 실행하지 않습니다.
 
 <a id="ch11-day-source-map"></a>
